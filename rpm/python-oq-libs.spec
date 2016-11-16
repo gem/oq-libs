@@ -41,8 +41,8 @@ Copyright (C) 2010-2016 GEM Foundation
 %endif
 
 %install
-mkdir -p %{buildroot}/opt/openquake/lib
-for w in py27/*.whl; do unzip $w -d %{buildroot}/opt/openquake/lib; done
+mkdir -p %{buildroot}/opt/openquake/lib/python2.7/site-packages
+for w in py27/*.whl; do unzip $w -d %{buildroot}/opt/openquake/lib/python2.7/site-packages; done
 #pip install --target %{buildroot}/opt/openquake/lib *.whl
 
 %clean
@@ -50,7 +50,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-/opt/openquake/lib/*
+/opt/openquake
 
 %changelog
 %if %{oqstable} == 1
