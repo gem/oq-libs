@@ -26,6 +26,10 @@ Url: http://github.com/gem/oq-libs
 Requires: python
 BuildRequires: unzip
 
+AutoReqProv: no
+AutoReq: no
+AutoProv: no
+
 %description
 
 OpenQuake is an open source application that allows users to
