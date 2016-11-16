@@ -42,7 +42,7 @@ Copyright (C) 2010-2016 GEM Foundation
 
 %install
 mkdir -p %{buildroot}/opt/openquake/lib
-for w in *.whl; do unzip $w -d %{buildroot}/opt/openquake/lib; done
+for w in py27/*.whl; do unzip $w -d %{buildroot}/opt/openquake/lib; done
 #pip install --target %{buildroot}/opt/openquake/lib *.whl
 
 %clean
