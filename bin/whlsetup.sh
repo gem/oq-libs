@@ -30,7 +30,7 @@ while (( "$#" )); do
         -2)
             py=2; shift;;
         -3)
-            py=3; shift;;
+            echo "Unsupported" 1>&2; exit 1;;
         -s|--source)
             checkpath $2
             SRC=$2; shift;;
@@ -43,12 +43,12 @@ while (( "$#" )); do
 done
 
 VENV=$(mktemp -d)
-virtualenv-${py} $VENV
+virtualenv $VENV
 
 source $VENV/bin/activate
-pip${py} install -U pip wheel
+pip install -U pip wheel
 
-pip${py} install --target=${DEST} $SRC/*.whl
+pip install --target=${DEST} $SRC/*.whl
 
 # Cleanup
 deactivate
