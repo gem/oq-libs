@@ -1,9 +1,10 @@
-%define oqstable 1
-%define oqrepo oq-libs
-%define oqversion 0.0.1
-%define oqrelease 1
+%define oqstable ##_stable_##
+%define oqrepo ##_repo_##
+%define oqversion ##_version_##
+%define oqrelease ##_release_##
 %define oqname python-%{oqrepo}
-%define oqtimestamp 1479326533
+%define oqtimestamp ##_timestamp_##
+%define oquser openquake
 
 Summary: Libraries for OpenQuake
 Name: %{oqname}
@@ -24,7 +25,7 @@ Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
 
 Requires: python
-BuildRequires: unzip
+BuildRequires: python-virtualenv
 
 AutoReqProv: no
 AutoReq: no
@@ -46,8 +47,7 @@ Copyright (C) 2010-2016 GEM Foundation
 
 %install
 mkdir -p %{buildroot}/opt/openquake/lib/python2.7/site-packages
-for w in py27/*.whl; do unzip $w -d %{buildroot}/opt/openquake/lib/python2.7/site-packages; done
-#pip install --target %{buildroot}/opt/openquake/lib *.whl
+bin/whlsetup.sh -2 -d %{buildroot}/opt/openquake/lib/python2.7/site-packages -s py27
 
 %clean
 rm -rf %{buildroot}
