@@ -42,14 +42,16 @@ while (( "$#" )); do
     esac
 done
 
-VENV=$(mktemp -d)
-virtualenv $VENV
+if [ "$VENV" == "true" ]; then
+    VENV=$(mktemp -d)
+    virtualenv $VENV
 
-source $VENV/bin/activate
-pip install -U pip wheel
+    source $VENV/bin/activate
+    pip install -U pip wheel
+fi
 
 pip install --target=${DEST} $SRC/*.whl
 
 # Cleanup
-deactivate
+deactivate || true
 rm -Rf $VENV
