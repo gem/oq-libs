@@ -42,16 +42,19 @@ while (( "$#" )); do
     esac
 done
 
+# FIXME: never happens
 if [ "$VENV" == "true" ]; then
     VENV=$(mktemp -d)
     virtualenv $VENV
 
     source $VENV/bin/activate
-    pip install -U pip wheel
+    pip install --target=${DEST} $SRC/*.whl
+
+    # Cleanup
+    deactivate
+    rm -Rf $VENV
+else
+    for w in $SRC/*.whl; do
+        unzip $w -d $DEST
+    done
 fi
-
-pip install --target=${DEST} $SRC/*.whl
-
-# Cleanup
-deactivate || true
-rm -Rf $VENV
