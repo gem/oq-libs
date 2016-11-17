@@ -1,2 +1,4 @@
+.gitignore export-ignore
+.gitattributes export-ignore
 # FIXME: do not export python3 stuff for now
 py35 export-ignore
