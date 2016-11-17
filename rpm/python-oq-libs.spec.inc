@@ -25,7 +25,9 @@ Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
 
 Requires: python
-BuildRequires: python python-pip>8.1 python-wheel
+BuildRequires: python 
+BuildRequires: python-pip >= 8.1
+BuildRequires: python-wheel
 
 AutoReqProv: no
 AutoReq: no
