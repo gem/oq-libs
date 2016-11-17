@@ -22,7 +22,7 @@ set -e
 CUR=$(pwd)
 BASE=$(cd $(dirname $0)/.. && /bin/pwd)
 
-REPO=oq-engine
+REPO=oq-libs
 BRANCH='HEAD'
 STABLE=0
 EXTRA=''
