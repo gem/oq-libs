@@ -25,7 +25,7 @@ Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
 
 Requires: python
-BuildRequires: python python-pip >= 8.1 python-virtualenv sed
+BuildRequires: python python-virtualenv >= 15 sed
 
 AutoReqProv: no
 AutoReq: no
@@ -49,6 +49,7 @@ Copyright (C) 2010-2016 GEM Foundation
 install -p -m 755 -d %{buildroot}/opt/openquake
 install -p -m 755 -d %{buildroot}/opt/openquake/bin
 bin/whlsetup.sh -2 -d %{buildroot}/opt/openquake -s py27
+install -p -m 755 -d %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake
 install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake
 
 %clean
@@ -56,9 +57,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-/opt/openquake
-/opt/openquake/bin
-/opt/openquake/lib/python2.7/site-packages/openquake/__init__.py
+/opt/openquake/*
 
 %changelog
 %if %{oqstable} == 1
