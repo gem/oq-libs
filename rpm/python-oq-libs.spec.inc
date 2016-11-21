@@ -46,6 +46,7 @@ Copyright (C) 2010-2016 GEM Foundation
 %endif
 
 %install
+install -p -m 755 -d %{buildroot}/opt/openquake/bin
 install -p -m 755 -d %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake
 bin/whlsetup.sh -2 -d %{buildroot}/opt/openquake/lib/python2.7/site-packages -s py27
 install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake
@@ -56,6 +57,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 /opt/openquake
+/opt/openquake/bin
 /opt/openquake/lib/python2.7/site-packages/openquake/__init__.py
 
 %changelog
