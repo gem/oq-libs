@@ -46,14 +46,24 @@ USE_PIP=true
 if [ "$USE_PIP" == "true" ]; then
     VENV=$(mktemp -d)
     virtualenv $VENV
-
     source $VENV/bin/activate
+
+    # lib64 is force to be a symlink to lib, like virtualenv does
+    # itself. This semplifies the use of PYTHONPATH since only one
+    # path (the one with 'lib') must be added instead of two
+    cd ${DEST}
+    mkdir lib
+    ln -s lib lib64
+    cd -
+
     pip install --prefix ${DEST} $SRC/*.whl
 
     # Cleanup
     deactivate
     rm -Rf $VENV
 
+    # replace scripts hashbang with the python executable provided
+    # by the system, instead of the one provided by virtualenv
     sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
 
 else
