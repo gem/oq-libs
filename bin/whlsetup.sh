@@ -42,18 +42,22 @@ while (( "$#" )); do
     esac
 done
 
-# FIXME: never happens
-if [ "$VENV" == "true" ]; then
+USE_PIP=true
+if [ "$USE_PIP" == "true" ]; then
     VENV=$(mktemp -d)
     virtualenv $VENV
 
     source $VENV/bin/activate
-    pip install --target=${DEST} $SRC/*.whl
+    pip install --prefix ${DEST} $SRC/*.whl
 
     # Cleanup
     deactivate
     rm -Rf $VENV
+
+    sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
+
 else
+    # FIXME: never happens
     for w in $SRC/*.whl; do
         unzip $w -d $DEST
     done
