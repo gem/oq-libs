@@ -51,10 +51,8 @@ if [ "$USE_PIP" == "true" ]; then
     # lib64 is force to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
-    cd ${DEST}
-    mkdir lib
-    ln -s lib lib64
-    cd -
+    mkdir /opt/openquake/lib
+    ln -rs /opt/openquake/lib /opt/openquake/lib64
 
     pip install --prefix ${DEST} $SRC/*.whl
 
