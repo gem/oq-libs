@@ -44,6 +44,15 @@ done
 
 USE_PIP=true
 if [ "$USE_PIP" == "true" ]; then
+    # To avoid issues when the builder is not an ephimeral environment,
+    # a virtualenv is used to avoid systemwide changes on it.
+    # Having a new version of pip, use of virtualenv can be skipped adding
+    # some extra pip flags:
+    # > pip install --force-reinstall --ignore-installed --upgrade --no-index \
+    # > --prefix ${DEST} $SRC/*.whl
+    #
+    # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
+
     VENV=$(mktemp -d)
     virtualenv $VENV
     source $VENV/bin/activate
@@ -54,7 +63,7 @@ if [ "$USE_PIP" == "true" ]; then
     mkdir /opt/openquake/lib
     ln -rs /opt/openquake/lib /opt/openquake/lib64
 
-    pip install --prefix ${DEST} $SRC/*.whl
+    pip install --no-index --prefix ${DEST} $SRC/*.whl
 
     # Cleanup
     deactivate
