@@ -9,10 +9,10 @@
 %define oquser openquake
 
 %if %{oqstable} == 1
-%define oqformat %{oqname}-%{oqversion}
+%define oqformat %{oqrepo}-%{oqversion}
 Release: %{oqrelease}
 %else
-%define oqformat %{oqname}-%{oqversion}-%{oqrelease}
+%define oqformat %{oqrepo}-%{oqversion}-%{oqrelease}
 Release: %{oqtimestamp}_%{oqrelease}
 %endif
 
@@ -23,7 +23,7 @@ License: AGPLv3
 Group: Applications/Engineering
 Source0: %{oqformat}.tar.gz
 Source1: %{oqrepo}-whl-%{oqversion}.tar.gz
-BuildRoot: %{_tmppath}/%{oqformat}-buildroot
+BuildRoot: %{_tmppath}/python-%{oqformat}-buildroot
 Prefix: %{_prefix}
 Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
