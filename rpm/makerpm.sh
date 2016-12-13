@@ -88,6 +88,8 @@ else
     OUT=python-${REPO}-${VER}-${TIME}_git${SHA}.src.rpm
 fi
 
+tar --exclude-vcs -czf  build-rpm/SOURCES/${REPO}-whl-${VER}.tar.gz py py27
+
 mock -r openquake --buildsrpm --spec build-rpm/SPECS/python-${REPO}.spec --source build-rpm/SOURCES --resultdir=build-rpm/SRPMS/
 if [ "$BUILD" == "1" ]; then
     mock -r openquake build-rpm/SRPMS/${OUT} --resultdir=build-rpm/RPMS $EXTRA

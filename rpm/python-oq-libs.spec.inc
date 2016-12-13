@@ -1,3 +1,5 @@
+%global _python_bytecompile_errors_terminate_build 0
+
 %define oqstable ##_stable_##
 %define oqrepo ##_repo_##
 %define oqversion ##_version_##
@@ -6,20 +8,22 @@
 %define oqtimestamp ##_timestamp_##
 %define oquser openquake
 
+%if %{oqstable} == 1
+%define oqformat %{oqname}-%{oqversion}
+Release: %{oqrelease}
+%else
+%define oqformat %{oqname}-%{oqversion}-%{oqrelease}
+Release: %{oqtimestamp}_%{oqrelease}
+%endif
+
 Summary: Libraries for OpenQuake
 Name: %{oqname}
 Version: %{oqversion}
 License: AGPLv3
 Group: Applications/Engineering
-%if %{oqstable} == 1
-Release: %{oqrelease}
-Source0: %{oqrepo}-%{oqversion}.tar.gz
-BuildRoot: %{_tmppath}/%{oqname}-%{oqversion}-buildroot
-%else
-Release: %{oqtimestamp}_%{oqrelease}
-Source0: %{oqrepo}-%{oqversion}-%{oqrelease}.tar.gz
-BuildRoot: %{_tmppath}/%{oqname}-%{oqversion}-%{oqrelease}-buildroot
-%endif
+Source0: %{oqformat}.tar.gz
+Source1: %{oqrepo}-whl-%{oqversion}.tar.gz
+BuildRoot: %{_tmppath}/%{oqformat}-buildroot
 Prefix: %{_prefix}
 Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
@@ -39,11 +43,8 @@ compute seismic hazard and seismic risk of earthquakes on a global scale.
 Copyright (C) 2010-2016 GEM Foundation
 
 %prep
-%if %{oqstable} == 1
-%setup -n %{oqrepo}-%{oqversion} -n %{oqrepo}-%{oqversion}
-%else
-%setup -n %{oqrepo}-%{oqversion}-%{oqrelease} -n %{oqrepo}-%{oqversion}-%{oqrelease}
-%endif
+%setup -n %{oqformat}
+%setup -n %{oqformat} -T -D -a 1
 
 %install
 install -p -m 755 -d %{buildroot}/opt/openquake
