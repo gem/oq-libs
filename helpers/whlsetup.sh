@@ -21,6 +21,10 @@ checkpath() {
     fi
 }
 
+checkcmd() {
+    command -v $1 >/dev/null 2>&1 || { echo >&2 "This script requires '$1' but it isn't available. Aborting."; exit 1; }
+}
+
 if [ $# -lt 5 -o "$1" == "-h" -o "$1" == "--help" ]; then
     help;
 fi
@@ -55,6 +59,8 @@ if [ "$USE_PIP" == "true" ]; then
     #
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
+    checkcmd virtualenv
+
     VENV=$(mktemp -d)
     virtualenv $VENV
     source $VENV/bin/activate
@@ -77,6 +83,7 @@ if [ "$USE_PIP" == "true" ]; then
 
 else
     # FIXME: never happens
+    checkcmd unzip
     for w in ${SRC[@]}; do
         unzip $w -d $DEST
     done
