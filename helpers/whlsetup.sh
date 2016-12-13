@@ -7,7 +7,7 @@ help() {
     cat <<HSD
 The command line arguments are as follows:
     -2, -3               Use Python 2 or Python 3
-    -s, --source         Location of wheels
+    -s, --source         Location of wheels (can be used multiple times)
     -d, --dest           Destination target where Python code wil be installed
     -h, --help           This help
 HSD
@@ -25,6 +25,8 @@ if [ $# -lt 5 -o "$1" == "-h" -o "$1" == "--help" ]; then
     help;
 fi
 
+declare -a SRC
+
 while (( "$#" )); do
     case "$1" in
         -2)
@@ -33,7 +35,7 @@ while (( "$#" )); do
             echo "Unsupported" 1>&2; exit 1;;
         -s|--source)
             checkpath $2
-            SRC=$2; shift;;
+            SRC+=("$2/*.whl"); shift;;
         -d|--dest)
             checkpath $2
             DEST=$2; shift;;
@@ -60,10 +62,10 @@ if [ "$USE_PIP" == "true" ]; then
     # lib64 is force to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
-    mkdir /opt/openquake/lib
-    ln -rs /opt/openquake/lib /opt/openquake/lib64
+    mkdir ${DEST}/lib
+    ln -rs ${DEST}/lib ${DEST}/lib64
 
-    pip install --no-index --prefix ${DEST} $SRC/*.whl
+    pip install --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     deactivate
@@ -75,7 +77,7 @@ if [ "$USE_PIP" == "true" ]; then
 
 else
     # FIXME: never happens
-    for w in $SRC/*.whl; do
+    for w in ${SRC[@]}; do
         unzip $w -d $DEST
     done
 fi
