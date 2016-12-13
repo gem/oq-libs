@@ -1,3 +1,6 @@
+# Because of gunicorn:
+# https://lists.fedoraproject.org/pipermail/devel/2010-April/135366.html
+# http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
 %global _python_bytecompile_errors_terminate_build 0
 
 %define oqstable ##_stable_##
