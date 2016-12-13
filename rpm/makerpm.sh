@@ -66,6 +66,9 @@ fi
 cd $BASE
 mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
 
+# Download any missing wheel dependency
+./helpers/whldownload.sh -w py -w py27
+
 LIB=$(cut -d "-" -f 2 <<< $REPO)
 SHA=$(git rev-parse --short $BRANCH)
 #FIXME
