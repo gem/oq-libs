@@ -70,9 +70,9 @@ done
 USE_PIP=true
 if [ "$USE_PIP" == "true" ]; then
     # To avoid issues when the builder is not an ephimeral environment,
-    # a virtualenv is used to avoid systemwide changes on it.
-    # Having a new version of pip, use of virtualenv can be skipped adding
-    # some extra pip flags:
+    # a virtualenv is used avoiding systemwide changes.
+    # Having a new version of pip, use of virtualenv isn't mandatory:
+    # pip can be used instead, adding some extra flags
     # > pip install --force-reinstall --ignore-installed --upgrade --no-index \
     # > --prefix ${DEST} $SRC/*.whl
     #
@@ -84,7 +84,7 @@ if [ "$USE_PIP" == "true" ]; then
     virtualenv $VENV
     source $VENV/bin/activate
 
-    # lib64 is force to be a symlink to lib, like virtualenv does
+    # lib64 is forced to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
     mkdir ${DEST}/lib
