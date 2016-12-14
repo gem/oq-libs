@@ -26,7 +26,7 @@ checkcmd() {
 }
 
 if [ $# -lt 5 -o "$1" == "-h" -o "$1" == "--help" ]; then
-    help;
+    help
 fi
 
 declare -a SRC

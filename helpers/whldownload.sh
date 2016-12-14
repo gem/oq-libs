@@ -13,14 +13,13 @@ HSD
     exit 0
 }
 
-
 checkpath() {
     if [ ! -d $1 ]; then
         echo "ERROR: $1 path does not exist" 1>&2
         exit 1
     fi
-    if [ ! -f $1/requirements.txt ]; then
-        echo "ERROR: requirements.txt missing in $1" 1>&2
+    if [ ! -f $1/requirements-bin.txt ]; then
+        echo "ERROR: requirements-bin.txt missing in $1" 1>&2
         exit 1
     fi
 }
@@ -30,7 +29,7 @@ checkcmd() {
 }
 
 if [ $# -lt 2 -o "$1" == "-h" -o "$1" == "--help" ]; then
-    help;
+    help
 fi
 
 MIRROR='http://ftp.openquake.org/wheelhouse/linux'
@@ -57,7 +56,6 @@ for d in "${WH[@]}"; do
         url=${MIRROR}/${d}/${l}
         echo "Downloading $url"
         curl -LOsz $l $url || echo >&2 "Download of $url failed"
-    done < requirements.txt
+    done < requirements-bin.txt
     cd ..
 done
-
