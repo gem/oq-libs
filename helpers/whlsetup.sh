@@ -30,7 +30,6 @@ The command line arguments are as follows:
     -d, --dest           Destination target where Python code wil be installed
     -h, --help           This help
 HSD
-    exit 0
 }
 
 checkpath() {
@@ -44,13 +43,17 @@ checkcmd() {
     command -v $1 >/dev/null 2>&1 || { echo >&2 "This script requires '$1' but it isn't available. Aborting."; exit 1; }
 }
 
-if [ $# -lt 5 -o "$1" == "-h" -o "$1" == "--help" ]; then
+if [ "$1" == "-h" -o "$1" == "--help" ]; then
     help
+    exit 0
+elif [ $# -lt 5 ]; then
+    help
+    exit 1
 fi
 
 declare -a SRC
 
-while (( "$#" )); do
+while [ $# -gt 0 ]; do
     case "$1" in
         -2)
             py=2; shift;;

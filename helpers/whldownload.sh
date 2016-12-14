@@ -29,7 +29,6 @@ The command line arguments are as follows:
     -m, --mirror         Mirror to use
     -h, --help           This help
 HSD
-    exit 0
 }
 
 checkpath() {
@@ -47,14 +46,18 @@ checkcmd() {
     command -v $1 >/dev/null 2>&1 || { echo >&2 "This script requires '$1' but it isn't available. Aborting."; exit 1; }
 }
 
-if [ $# -lt 2 -o "$1" == "-h" -o "$1" == "--help" ]; then
+if [ "$1" == "-h" -o "$1" == "--help" ]; then
     help
+    exit 0
+elif [ $# -lt 2 ]; then
+    help
+    exit 1
 fi
 
 MIRROR='http://ftp.openquake.org/wheelhouse/linux'
 declare -a WH
 
-while (( "$#" )); do
+while [ $# -gt 0 ]; do
     case "$1" in
         -w|--wheelhouse)
             checkpath $2
