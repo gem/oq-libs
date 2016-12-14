@@ -66,6 +66,9 @@ fi
 cd $BASE
 mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
 
+# Download any missing wheel dependency
+./helpers/whldownload.sh -w py -w py27
+
 LIB=$(cut -d "-" -f 2 <<< $REPO)
 SHA=$(git rev-parse --short $BRANCH)
 #FIXME
@@ -84,6 +87,8 @@ else
     sed -i "s/##_release_##/git${SHA}/g" build-rpm/SPECS/python-${REPO}.spec
     OUT=python-${REPO}-${VER}-${TIME}_git${SHA}.src.rpm
 fi
+
+tar --exclude-vcs -czf  build-rpm/SOURCES/${REPO}-whl-${VER}.tar.gz py py27
 
 mock -r openquake --buildsrpm --spec build-rpm/SPECS/python-${REPO}.spec --source build-rpm/SOURCES --resultdir=build-rpm/SRPMS/
 if [ "$BUILD" == "1" ]; then
