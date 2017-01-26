@@ -24,6 +24,9 @@ set -e
 
 help() {
     cat <<HSD
+$0 [-m <mirror-url>] -w <dir1> [-w <dir2> []]
+$0 -h
+
 The command line arguments are as follows:
     -w, --wheelhouse     Destination target where Python code wil be installed
     -m, --mirror         Mirror to use
