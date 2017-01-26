@@ -69,5 +69,5 @@ Xenial ships 1.8.7, but we'll use the latest release in 1.8 tree
 
 ### Basemap ###
 Basemap stable is 1.0.7 but it's incompatible with wheels; we are using 1.0.8 from github.
-Currently it is not included in `oq-libs` because of it's size. The plan is to move it
+Currently it is not included in `oq-libs` because of its size. The plan is to move it
 in an 'extra' package.
