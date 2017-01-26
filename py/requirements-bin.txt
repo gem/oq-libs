@@ -1,16 +1,16 @@
-# MN FOR TEST - amqp-1.4.9-py2.py3-none-any.whl
+amqp-1.4.9-py2.py3-none-any.whl
 celery-3.1.20-py2.py3-none-any.whl
 # MN FOR TEST - cycler-0.10.0-py2.py3-none-any.whl
 decorator-4.0.10-py2.py3-none-any.whl
 # MN FOR TEST - Django-1.8.17-py2.py3-none-any.whl
 # MN FOR TEST - funcsigs-1.0.2-py2.py3-none-any.whl
 # MN FOR TEST - gunicorn-19.6.0-py2.py3-none-any.whl
-# MN FOR TEST - kombu-3.0.33-py2.py3-none-any.whl
+kombu-3.0.33-py2.py3-none-any.whl
 # MN FOR TEST - mock-1.3.0-py2.py3-none-any.whl
 # MN FOR TEST - pbr-1.8.0-py2.py3-none-any.whl
 # MN FOR TEST - pyparsing-2.1.10-py2.py3-none-any.whl
 # MN FOR TEST - python_dateutil-2.6.0-py2.py3-none-any.whl
-# MN FOR TEST - pytz-2016.7-py2.py3-none-any.whl
+pytz-2016.7-py2.py3-none-any.whl
 # MN FOR TEST - requests-2.9.1-py2.py3-none-any.whl
 # MN FOR TEST - setuptools-28.8.0-py2.py3-none-any.whl
 # MN FOR TEST - six-1.10.0-py2.py3-none-any.whl
