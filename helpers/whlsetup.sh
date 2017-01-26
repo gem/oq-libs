@@ -81,7 +81,8 @@ if [ "$USE_PIP" == "true" ]; then
     #
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
-    checkcmd virtualenv find
+    # checkcmd virtualenv find
+    checkcmd find
 
     VENV=$(mktemp -d)
     virtualenv $VENV
