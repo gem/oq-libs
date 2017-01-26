@@ -81,7 +81,7 @@ if [ "$USE_PIP" == "true" ]; then
     #
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
-    checkcmd virtualenv
+    checkcmd virtualenv find
 
     VENV=$(mktemp -d)
     virtualenv $VENV
@@ -102,7 +102,7 @@ if [ "$USE_PIP" == "true" ]; then
     # replace scripts hashbang with the python executable provided
     # by the system, instead of the one provided by virtualenv
     sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
-
+    find ${DEST} -name '*.pyc' -delete
 else
     # FIXME: never happens
     checkcmd unzip
