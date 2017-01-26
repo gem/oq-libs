@@ -5,11 +5,15 @@
 
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
-
+export DH_ALWAYS_EXCLUDE=CVS:.git
 
 override_dh_testdir:
 	./helpers/whldownload.sh -w py -w py27
+	ls py/*.whl py27/*.whl > debian/source/binaries
 	dh_testdir
+
+#override_dh_auto_build:
+#       dh_auto_build
 
 %:
 	dh  $@
