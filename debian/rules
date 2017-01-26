@@ -9,7 +9,7 @@ export DH_ALWAYS_EXCLUDE=CVS:.git
 
 override_dh_testdir:
 	./helpers/whldownload.sh -w py -w py27
-	ls py/*.whl py27/*.whl > debian/source/binaries-files
+#	ls py/*.whl py27/*.whl > debian/source/binaries-files
 	dh_testdir
 
 #override_dh_auto_build:
