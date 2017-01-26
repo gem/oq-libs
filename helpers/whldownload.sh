@@ -74,11 +74,12 @@ checkcmd curl
 for d in "${WH[@]}"; do
     cd $d
     cat requirements-bin.txt | while read l; do
-        if [ ${l:0:1} != "#" ]; then
-            url=${MIRROR}/${d}/${l}
-            echo "Downloading $url"
-            curl -LOsz $l $url || echo >&2 "Download of $url failed"
+        if [ ${l:0:1} == "#" ]; then
+            continue
         fi
+        url=${MIRROR}/${d}/${l}
+        echo "Downloading $url"
+        curl -LOsz $l $url || echo >&2 "Download of $url failed"
     done
     cd ..
 done
