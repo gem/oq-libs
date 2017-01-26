@@ -1,4 +1,10 @@
-python-oq-libs (1.0) trusty; urgency=low
+python-oq-libs (1.0.1) xenial; urgency=low
+
+  * fix build dependencies
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 26 Jan 2017 09:57:49 +0100
+
+python-oq-libs (1.0) xenial; urgency=low
 
   * first release
 
