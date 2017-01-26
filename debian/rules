@@ -9,11 +9,15 @@ export DH_ALWAYS_EXCLUDE=CVS:.git
 
 override_dh_testdir:
 	./helpers/whldownload.sh -w py -w py27
-#	ls py/*.whl py27/*.whl > debian/source/binaries-files
 	dh_testdir
 
-#override_dh_auto_build:
-#       dh_auto_build
+override_dh_auto_install:
+	install -p -m 755 -d /opt/openquake
+	install -p -m 755 -d /opt/openquake/bin
+	helpers/whlsetup.sh -2 -d /opt/openquake -s py -s py27
+	install -p -m 755 -d /opt/openquake/lib/python2.7/site-packages/openquake
+	install -p -m 644 openquake/__init__.py /opt/openquake/lib/python2.7/site-packages/openquake
+	dh_auto_install
 
 %:
 	dh  $@
