@@ -10,7 +10,7 @@
 - psutil==3.4.2
 - shapely==1.5.13
 - docutils==0.12
-- decorator==4.0.10
+- decorator==4.0.11
 - funcsigs==1.0.2
 - pbr==1.8.0
 - six==1.10.0
@@ -71,3 +71,6 @@ Xenial ships 1.8.7, but we'll use the latest release in 1.8 tree
 Basemap stable is 1.0.7 but it's incompatible with wheels; we are using 1.0.8 from github.
 Currently it is not included in `oq-libs` because of its size. The plan is to move it
 in an 'extra' package.
+
+### Decorator ###
+Xenial ships 4.0.10, but it has a small issue with packaging. Using 4.0.11 instead.
