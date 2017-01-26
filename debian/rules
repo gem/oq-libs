@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+
+override_dh_testdir:
+	./helpers/whldownload.sh -w py -w py27
+	dh_testdir
+
+%:
+	dh  $@

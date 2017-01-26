@@ -1,0 +1,15 @@
+Source: python-oq-libs
+Section: python
+Priority: extra
+Maintainer: Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>
+Build-Depends: debhelper (>= 7.0.50~), lsb-release, quilt, python (>=2.7), python-setuptools, python-coverage, python-sphinx
+Standards-Version: 3.9.3
+Homepage: http://www.globalquakemodel.org/openquake/
+
+Package: python-oq-libs
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Recommends: ${dist:Recommends}
+Description: computes seismic hazard and physical risk
+ based on the hazard and risk libraries developed by the GEM foundation
+ (http://www.globalquakemodel.org/)
