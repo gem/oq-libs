@@ -11,13 +11,13 @@ override_dh_testdir:
 	./helpers/whldownload.sh -w py -w py27
 	dh_testdir
 
-override_dh_auto_install:
-	install -p -m 755 -d /opt/openquake
-	install -p -m 755 -d /opt/openquake/bin
-	helpers/whlsetup.sh -2 -d /opt/openquake -s py -s py27
-	install -p -m 755 -d /opt/openquake/lib/python2.7/site-packages/openquake
-	install -p -m 644 openquake/__init__.py /opt/openquake/lib/python2.7/site-packages/openquake
-	dh_auto_install
+override_dh_install:
+	dh_install
+	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake
+	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake/bin
+	helpers/whlsetup.sh -2 -d $(CURDIR)/debian/python-oq-libs/opt/openquake -s py -s py27
+#	install -p -m 755 -d /opt/openquake/lib/python2.7/site-packages/openquake
+#	install -p -m 644 openquake/__init__.py /opt/openquake/lib/python2.7/site-packages/openquake
 
 %:
 	dh  $@
