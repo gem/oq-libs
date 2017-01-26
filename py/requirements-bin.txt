@@ -1,5 +1,5 @@
 # MN FOR TEST - amqp-1.4.9-py2.py3-none-any.whl
-# MN FOR TEST - celery-3.1.20-py2.py3-none-any.whl
+celery-3.1.20-py2.py3-none-any.whl
 # MN FOR TEST - cycler-0.10.0-py2.py3-none-any.whl
 decorator-4.0.10-py2.py3-none-any.whl
 # MN FOR TEST - Django-1.8.17-py2.py3-none-any.whl
