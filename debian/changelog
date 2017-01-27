@@ -1,3 +1,9 @@
+python-oq-libs (1.0.13) xenial; urgency=low
+
+  * typo fixed
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 14:30:49 +0100
+
 python-oq-libs (1.0.12) xenial; urgency=low
 
   * more robust whlsetup to manage 'no wheels in folder' case

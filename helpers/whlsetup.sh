@@ -24,6 +24,9 @@ set -e
 
 help() {
     cat <<HSD
+$0 -h
+$0 -s <src_folder> [-s <src_folder2> [..]] -d <dest_folder>
+
 The command line arguments are as follows:
     -2, -3               Use Python 2 or Python 3
     -s, --source         Location of wheels (can be used multiple times)
@@ -56,19 +59,28 @@ declare -a SRC
 while [ $# -gt 0 ]; do
     case "$1" in
         -2)
-            py=2; shift;;
+            py=2
+            shift
+            ;;
         -3)
-            echo "Unsupported" 1>&2; exit 1;;
+            echo "Unsupported" 1>&2
+            exit 1
+            ;;
         -s|--source)
             checkpath $2
             if ls "$2/*.whl" >/dev/null 2>&1 ; then
-                SRC+=("$2/*.whl"); shift;;
+                SRC+=("$2/*.whl")
             fi
+            shift
+            ;;
         -d|--dest)
             checkpath $2
-            DEST=$2; shift;;
+            DEST=$2
+            shift
+            ;;
         *)
-            shift;;
+            shift
+            ;;
     esac
 done
 
