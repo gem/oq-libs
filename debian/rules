@@ -16,5 +16,8 @@ override_dh_install:
 	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake
 	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake
 
+override_dh_shlibdeps:
+	echo "skip dh_shlibdeps"
+
 %:
 	dh  $@
