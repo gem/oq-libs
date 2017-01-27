@@ -61,7 +61,9 @@ while [ $# -gt 0 ]; do
             echo "Unsupported" 1>&2; exit 1;;
         -s|--source)
             checkpath $2
-            SRC+=("$2/*.whl"); shift;;
+            if ls "$2/*.whl" >/dev/null 2>&1 ; then
+                SRC+=("$2/*.whl"); shift;;
+            fi
         -d|--dest)
             checkpath $2
             DEST=$2; shift;;
