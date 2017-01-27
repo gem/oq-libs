@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 GEM_GIT_PACKAGE="oq-libs"
 GEM_DEB_PACKAGE="python-${GEM_GIT_PACKAGE}"
 rm -rf build-deb

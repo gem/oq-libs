@@ -24,6 +24,8 @@ set -e
 
 help() {
     cat <<HSD
+USAGE:
+
 $0 [-m <mirror-url>] -w <dir1> [-w <dir2> []]
 $0 -h
 
@@ -64,11 +66,17 @@ while [ $# -gt 0 ]; do
     case "$1" in
         -w|--wheelhouse)
             checkpath $2
-            WH+=("$2"); shift;;
+            WH+=("$2")
+            shift 2
+            ;;
         -m|--mirror)
-            MIRROR="$2"; shift;;
+            MIRROR="$2"
+            shift 2
+            ;;
         *)
-            shift;;
+            help
+            exit 1
+            ;;
     esac
 done
 
@@ -82,7 +90,7 @@ for d in "${WH[@]}"; do
         fi
         url=${MIRROR}/${d}/${l}
         echo "Downloading $url"
-        curl -LOsz $l $url || echo >&2 "Download of $url failed"
+        curl -LOsz $l $url || { echo >&2 "Download of $url failed" ; exit 1; }
     done
     cd ..
 done

@@ -24,6 +24,8 @@ set -e
 
 help() {
     cat <<HSD
+USAGE:
+
 $0 -h
 $0 -s <src_folder> [-s <src_folder2> [..]] -d <dest_folder>
 
@@ -37,7 +39,7 @@ HSD
 
 checkpath() {
     if [ ! -d $1 ]; then
-        echo "ERROR: $1 path does not exist" 1>&2
+        echo "ERROR: $1 path does not exist" >&2
         exit 1
     fi
 }
@@ -63,7 +65,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         -3)
-            echo "Unsupported" 1>&2
+            echo "Not yet supported" >&2
             exit 1
             ;;
         -s|--source)
@@ -71,15 +73,16 @@ while [ $# -gt 0 ]; do
             if ls "$2/*.whl" >/dev/null 2>&1 ; then
                 SRC+=("$2/*.whl")
             fi
-            shift
+            shift 2
             ;;
         -d|--dest)
             checkpath $2
             DEST=$2
-            shift
+            shift 2
             ;;
         *)
-            shift
+            help
+            exit 1
             ;;
     esac
 done
@@ -115,7 +118,9 @@ if [ "$USE_PIP" == "true" ]; then
 
     # replace scripts hashbang with the python executable provided
     # by the system, instead of the one provided by virtualenv
-    sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
+    if ls ${DEST}/bin/* >/dev/null 2>&1 ; then
+        sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
+    fi
     find ${DEST} -name '*.pyc' -delete
 else
     # FIXME: never happens
