@@ -1,10 +1,10 @@
-# Do not try to strip symbols from .so
-# even if does not fails the build
-%global __os_install_post %{nil}
 # Because of gunicorn:
 # https://lists.fedoraproject.org/pipermail/devel/2010-April/135366.html
 # http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
 %global _python_bytecompile_errors_terminate_build 0
+# Do not try to strip symbols from .so
+# even if does not fail the build, mask it
+%define __strip /bin/true
 
 %define oqstable ##_stable_##
 %define oqrepo ##_repo_##
