@@ -1,3 +1,6 @@
+# Do not try to strip symbols from .so
+# even if does not fails the build
+%global __os_install_post %{nil}
 # Because of gunicorn:
 # https://lists.fedoraproject.org/pipermail/devel/2010-April/135366.html
 # http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
