@@ -9,7 +9,6 @@ export DH_ALWAYS_EXCLUDE=CVS:.git
 
 override_dh_install:
 	dh_install
-	echo xx $(CURDIR)/debian/python-oq-libs/opt/openquake
 	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake
 	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake/bin
 	helpers/whlsetup.sh -2 -d $(CURDIR)/debian/python-oq-libs/opt/openquake -s py -s py27
