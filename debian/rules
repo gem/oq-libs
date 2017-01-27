@@ -7,10 +7,6 @@
 export DH_VERBOSE=1
 export DH_ALWAYS_EXCLUDE=CVS:.git
 
-override_dh_auto_build:
-	./helpers/whldownload.sh -w py -w py27
-	dh_auto_build
-
 override_dh_install:
 	dh_install
 	echo xx $(CURDIR)/debian/python-oq-libs/opt/openquake
