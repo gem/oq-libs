@@ -1,3 +1,9 @@
+python-oq-libs (1.0.5) xenial; urgency=low
+
+  * fix rules target
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 09:58:49 +0100
+
 python-oq-libs (1.0.4) xenial; urgency=low
 
   * fix rules target
