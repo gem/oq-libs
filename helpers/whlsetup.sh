@@ -70,7 +70,7 @@ while [ $# -gt 0 ]; do
             ;;
         -s|--source)
             checkpath $2
-            if ls "$2/*.whl" >/dev/null 2>&1 ; then
+            if ls $2/*.whl >/dev/null 2>&1 ; then
                 SRC+=("$2/*.whl")
             fi
             shift 2
