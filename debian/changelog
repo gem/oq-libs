@@ -1,3 +1,9 @@
+python-oq-libs (1.0.18) xenial; urgency=low
+
+  * reintroduced all wheels
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 15:30:49 +0100
+
 python-oq-libs (1.0.17) xenial; urgency=low
 
   * skip dh_strip target
