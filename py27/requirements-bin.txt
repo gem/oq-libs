@@ -12,7 +12,7 @@
 # psutil-3.4.2-cp27-cp27mu-manylinux1_x86_64.whl
 # pyproj-1.9.5.1-cp27-cp27mu-manylinux1_x86_64.whl
 # pyshp-1.2.3-cp27-none-any.whl
-PyYAML-3.12-cp27-cp27mu-linux_x86_64.whl
+PyYAML-3.12-cp27-cp27mu-manylinux1_x86_64.whl
 # Rtree-0.8.2-cp27-cp27mu-manylinux1_x86_64.whl
 # scipy-0.17.1-cp27-cp27mu-manylinux1_x86_64.whl
 # Shapely-1.5.13-cp27-cp27mu-manylinux1_x86_64.whl

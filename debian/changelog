@@ -1,3 +1,9 @@
+python-oq-libs (1.0.15) xenial; urgency=low
+
+  * wheels list aligned with latest master
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 14:40:49 +0100
+
 python-oq-libs (1.0.14) xenial; urgency=low
 
   * more robust whlsetup to manage 'no wheels in folder' case [2]
