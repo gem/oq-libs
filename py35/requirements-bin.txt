@@ -1,7 +1,9 @@
 anyjson-0.3.3-py3-none-any.whl
-basemap-1.0.8-cp35-cp35m-manylinux1_x86_64.whl
+# BASEMAP WILL BE PART OF AN EXTRA PACKAGE
+# basemap-1.0.8-cp35-cp35m-manylinux1_x86_64.whl
 billiard-3.3.0.22-py3-none-any.whl
-Cython-0.23.4-cp35-cp35m-manylinux1_x86_64.whl
+# CYTHON CURRENTLY NOT USED
+# Cython-0.23.4-cp35-cp35m-manylinux1_x86_64.whl
 docutils-0.12-py3-none-any.whl
 h5py-2.6.0-1-cp35-cp35m-manylinux1_x86_64.whl
 matplotlib-1.5.3-cp35-cp35m-manylinux1_x86_64.whl
