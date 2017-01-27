@@ -1,3 +1,9 @@
+python-oq-libs (1.0.11) xenial; urgency=low
+
+  * just pyyaml enabled to check proble
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 12:50:49 +0100
+
 python-oq-libs (1.0.10) xenial; urgency=low
 
   * pyyaml fixed
