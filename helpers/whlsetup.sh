@@ -81,11 +81,10 @@ if [ "$USE_PIP" == "true" ]; then
     #
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
-    # checkcmd virtualenv find
-    checkcmd find
+    checkcmd virtualenv find
 
     VENV=$(mktemp -d)
-    virtualenv $VENV
+    virtualenv --no-download $VENV
     source $VENV/bin/activate
 
     # lib64 is forced to be a symlink to lib, like virtualenv does

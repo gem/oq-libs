@@ -1,3 +1,9 @@
+python-oq-libs (1.0.7) xenial; urgency=low
+
+  * add flag to avoid remote downloads with virtualenv
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 10:00:49 +0100
+
 python-oq-libs (1.0.6) xenial; urgency=low
 
   * add wheel build-deps
