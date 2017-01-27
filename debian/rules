@@ -19,5 +19,8 @@ override_dh_install:
 override_dh_shlibdeps:
 	echo "skip dh_shlibdeps"
 
+override_dh_strip:
+	echo "skip dh_strip"
+
 %:
 	dh  $@
