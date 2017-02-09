@@ -71,8 +71,8 @@ mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
 
 LIB=$(cut -d "-" -f 2 <<< $REPO)
 SHA=$(git rev-parse --short $BRANCH)
-#FIXME
-VER=0.0.1
+#FIXME: version will be taken from openquake/libs/__init__.py
+VER=1.0.19
 TIME=$(date +"%s")
 echo "$LIB - $BRANCH - $SHA - $VER"
 
