@@ -191,7 +191,7 @@ _pkgbuild_innervm_run () {
     ssh $lxc_ip "sudo mk-build-deps --install --tool 'apt-get -y' build-deb/debian/control"
 
     #    ssh $lxc_ip "cd build-deb && dpkg-buildpackage $DPBP_FLAG"
-    ssh $lxc_ip "helpers/makedeb.sh"
+    ssh $lxc_ip "cd build-deb && helpers/makedeb.sh"
     ssh $lxc_ip "cd build-deb && dpkg-buildpackage $DPBP_FLAG"
     scp $lxc_ip:*.{tar.gz,changes,dsc} ../
     if echo "$DPBP_FLAG" | grep -q -v -- '-S'; then
