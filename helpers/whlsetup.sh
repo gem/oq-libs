@@ -24,6 +24,11 @@ set -e
 
 help() {
     cat <<HSD
+USAGE:
+
+$0 -h
+$0 -s <src_folder> [-s <src_folder2> [..]] -d <dest_folder>
+
 The command line arguments are as follows:
     -2, -3               Use Python 2 or Python 3
     -s, --source         Location of wheels (can be used multiple times)
@@ -34,7 +39,7 @@ HSD
 
 checkpath() {
     if [ ! -d $1 ]; then
-        echo "ERROR: $1 path does not exist" 1>&2
+        echo "ERROR: $1 path does not exist" >&2
         exit 1
     fi
 }
@@ -56,17 +61,29 @@ declare -a SRC
 while [ $# -gt 0 ]; do
     case "$1" in
         -2)
-            py=2; shift;;
+            py=2
+            shift
+            ;;
         -3)
-            echo "Unsupported" 1>&2; exit 1;;
+            echo "Not yet supported" >&2
+            exit 1
+            ;;
         -s|--source)
             checkpath $2
-            SRC+=("$2/*.whl"); shift;;
+            if ls $2/*.whl >/dev/null 2>&1 ; then
+                SRC+=("$2/*.whl")
+            fi
+            shift 2
+            ;;
         -d|--dest)
             checkpath $2
-            DEST=$2; shift;;
+            DEST=$2
+            shift 2
+            ;;
         *)
-            shift;;
+            help
+            exit 1
+            ;;
     esac
 done
 
@@ -81,10 +98,16 @@ if [ "$USE_PIP" == "true" ]; then
     #
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
-    checkcmd virtualenv
+    checkcmd virtualenv find
 
     VENV=$(mktemp -d)
-    virtualenv $VENV
+    if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
+        no_download="--no-download"
+    else
+        no_download="--never-download"
+    fi
+
+    virtualenv $no_download $VENV
     source $VENV/bin/activate
 
     # lib64 is forced to be a symlink to lib, like virtualenv does
@@ -101,8 +124,10 @@ if [ "$USE_PIP" == "true" ]; then
 
     # replace scripts hashbang with the python executable provided
     # by the system, instead of the one provided by virtualenv
-    sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
-
+    if ls ${DEST}/bin/* >/dev/null 2>&1 ; then
+        sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
+    fi
+    find ${DEST} -name '*.pyc' -delete
 else
     # FIXME: never happens
     checkcmd unzip

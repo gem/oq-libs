@@ -19,6 +19,7 @@
 - requests==2.9.1
 - pyshp==1.2.3
 - Rtree==0.8.2
+- python-prctl==1.6.1 (linux only)
 
 ### Celery support ###
 - pytz
@@ -40,7 +41,7 @@
 - pyparsing==2.1.10
 - cycler==0.10.0
 - python_dateutil==2.6.0
-- basemap==1.0.8
+- _basemap==1.0.8_
 - pyproj==1.9.5.1
 
 ## GMPE-SMTK ##
@@ -54,6 +55,8 @@
 - django==1.8.7
 
 ## Notes ##
+
+Libraries in _italic_ are currently not packaged in rpm and deb packages.
 
 ### PyYAML ###
 Xenial ships 3.11, but to be able to make a wheel 3.12 is needed and will be used
