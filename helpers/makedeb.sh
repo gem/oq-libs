@@ -21,5 +21,6 @@ git archive --prefix ${GEM_GIT_PACKAGE}/ HEAD | (cd build-deb ; tar xv)
 cd build-deb/${GEM_GIT_PACKAGE}
 ./helpers/whldownload.sh -w py -w py27
 # use this line to build binaries
+# delegate to packager.sh
 # debuild -b -i # -us -uc
-debuild -S -i
+# debuild -S -i
