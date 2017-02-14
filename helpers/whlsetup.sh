@@ -101,7 +101,13 @@ if [ "$USE_PIP" == "true" ]; then
     checkcmd virtualenv find
 
     VENV=$(mktemp -d)
-    virtualenv --no-download $VENV
+    if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
+        no_download="--no-download"
+    else
+        no_download="--never-download"
+    fi
+
+    virtualenv $no_download $VENV
     source $VENV/bin/activate
 
     # lib64 is forced to be a symlink to lib, like virtualenv does
