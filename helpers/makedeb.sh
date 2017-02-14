@@ -15,12 +15,8 @@ if [ "$1" = "check_versions" ]; then
     exit 0
 fi
 
-rm -rf build-deb
-mkdir build-deb
-git archive --prefix ${GEM_GIT_PACKAGE}/ HEAD | (cd build-deb ; tar xv)
-cd build-deb/${GEM_GIT_PACKAGE}
+# rm -rf build-deb
+# mkdir build-deb
+# git archive --prefix ${GEM_GIT_PACKAGE}/ HEAD | (cd build-deb ; tar xv)
+# cd build-deb/${GEM_GIT_PACKAGE}
 ./helpers/whldownload.sh -w py -w py27
-# use this line to build binaries
-# delegate to packager.sh
-# debuild -b -i # -us -uc
-# debuild -S -i
