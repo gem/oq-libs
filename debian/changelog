@@ -1,3 +1,9 @@
+python-oq-libs (1.0.22) xenial; urgency=low
+
+  * missing build deps added again
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 15 Feb 2017 10:20:00 +0100
+
 python-oq-libs (1.0.21) xenial; urgency=low
 
   * support for packager.sh
