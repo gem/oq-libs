@@ -1,4 +1,0 @@
-.gitignore export-ignore
-.gitattributes export-ignore
-# Do not export python stuff, it must be done manually
-py* export-ignore

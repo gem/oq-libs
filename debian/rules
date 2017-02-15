@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+export DH_ALWAYS_EXCLUDE=CVS:.git
+
+override_dh_testdir:
+	helpers/makedeb.sh check_versions
+	dh_testdir
+
+override_dh_install:
+	dh_install
+	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake
+	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake/bin
+	helpers/whlsetup.sh -2 -d $(CURDIR)/debian/python-oq-libs/opt/openquake -s py -s py27
+	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake
+	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake
+	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake/libs
+	install -p -m 644 openquake/libs/__init__.py $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake/libs
+	python2 -m compileall $(CURDIR)/debian/python-oq-libs/opt/openquake || true
+
+override_dh_shlibdeps:
+	echo "skip dh_shlibdeps"
+
+override_dh_strip:
+	echo "skip dh_strip"
+
+%:
+	dh  $@
