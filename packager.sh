@@ -529,9 +529,11 @@ while [ $# -gt 0 ]; do
             ;;
         -s|--serie)
             BUILD_UBUVER="$2"
-            if [ "$BUILD_UBUVER" != "precise" -a "$BUILD_UBUVER" != "trusty" -a "$BUILD_UBUVER" != "xenial" ]; then
+            # if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
+            # for this package we must compile just for xenial
+            if [ "$BUILD_UBUVER" != "xenial" ]; then
                 echo
-                echo "ERROR: ubuntu version '$BUILD_UBUVER' not supported"
+                echo "ERROR: oq-libs can be compiled just with 'xenial' serie"
                 echo
                 exit 1
             fi
