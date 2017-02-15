@@ -63,6 +63,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
+SUPPORTED_SERIES="xenial trusty precise"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
@@ -143,14 +144,15 @@ mksafedir () {
 }
 
 usage () {
-    local ret
+    local ret series
 
     ret=$1
-
+    series="$(echo "$SUPPORTED_SERIES" | tr ' ' '|')"
+    series_or="$(echo "$SUPPORTED_SERIES" | sed 's/ /, /g;s/, \([^,]*\)$/ or \1/g)"
     echo
     echo "USAGE:"
-    echo "    $0 [<-s|--serie> <precise|trusty|xenial>] [-D|--development] [-S--sources_copy] [-B|--binaries] [-U|--unsigned] [-R|--repository]    build debian source package."
-    echo "       if -s is present try to produce sources for a specific ubuntu version (precise, trusty or xenial),"
+    echo "    $0 [<-s|--serie> <${series}>] [-D|--development] [-S--sources_copy] [-B|--binaries] [-U|--unsigned] [-R|--repository]    build debian source package."
+    echo "       if -s is present try to produce sources for a specific ubuntu version (${series_or}),"
     echo "           (default precise)"
     echo "       if -S is present try to copy sources to <GEM_DEB_MONOTONE>/<BUILD_UBUVER>/source directory"
     echo "       if -B is present binary package is build too."
