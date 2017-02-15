@@ -680,23 +680,6 @@ if [  "$ini_maj" != "$pkg_maj" -o \
     read a
 fi
 
-# the following unexecuted block of code is a flag to identify where and how modifications can
-# be performed from sources to package
-if [ 0 -eq 1 ]; then
-    sed -i "s/^\([ 	]*\)[^)]*\()  # release date .*\)/\1${dt}\2/g" openquake/__init__.py
-
-    # mods pre-packaging
-    mv LICENSE         openquake
-    mv README.md       openquake/README
-    mv celeryconfig.py openquake
-    mv openquake.cfg   openquake
-
-    mv bin/openquake   bin/oqscript.py
-    mv bin             openquake/bin
-
-    rm -rf $(find demos -mindepth 1 -maxdepth 1 | egrep -v 'demos/simple_fault_demo_hazard|demos/event_based_hazard|demos/_site_model')
-fi
-
 if [ $BUILD_ON_LXC -eq 1 ]; then
     sudo ${GEM_EPHEM_EXE} 2>&1 | tee /tmp/packager.eph.$$.log &
     _lxc_name_and_ip_get /tmp/packager.eph.$$.log
@@ -714,6 +697,9 @@ if [ $BUILD_ON_LXC -eq 1 ]; then
         exit 1
     fi
 else
+    if [ $BUILD_BINARIES -eq 0 ]; then
+        helpers/makedeb.sh
+    fi
     dpkg-buildpackage $DPBP_FLAG
 fi
 cd -
