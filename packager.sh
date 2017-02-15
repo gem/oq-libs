@@ -148,7 +148,7 @@ usage () {
 
     ret=$1
     series="$(echo "$SUPPORTED_SERIES" | tr ' ' '|')"
-    series_or="$(echo "$SUPPORTED_SERIES" | sed 's/ /, /g;s/, \([^,]*\)$/ or \1/g)"
+    series_or="$(echo "$SUPPORTED_SERIES" | sed 's/ /, /g;s/, \([^,]*\)$/ or \1/g')"
     echo
     echo "USAGE:"
     echo "    $0 [<-s|--serie> <${series}>] [-D|--development] [-S--sources_copy] [-B|--binaries] [-U|--unsigned] [-R|--repository]    build debian source package."
