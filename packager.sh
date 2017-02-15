@@ -438,35 +438,37 @@ EOF
     fi
 
     if [ $BUILD_REPOSITORY -eq 1 -a -d "${GEM_DEB_REPO}" ]; then
-        if [ "$branch_id" != "" ]; then
-            repo_id="$(repo_id_get)"
-            if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "master" ]; then
-                CUSTOM_SERIE="devel/$(echo "$repo_id" | sed "s@/@__@g;s/\./-/g")__${branch_id}"
-                if [ "$CUSTOM_SERIE" != "" ]; then
-                    GEM_DEB_SERIE="$CUSTOM_SERIE"
+        for ubu_serie in $SUPPORTED_SERIES; do
+            if [ "$branch_id" != "" ]; then
+                repo_id="$(repo_id_get)"
+                if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "master" ]; then
+                    CUSTOM_SERIE="devel/$(echo "$repo_id" | sed "s@/@__@g;s/\./-/g")__${branch_id}"
+                    if [ "$CUSTOM_SERIE" != "" ]; then
+                        GEM_DEB_SERIE="$CUSTOM_SERIE"
+                    fi
                 fi
             fi
-        fi
-        mkdir -p "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}"
-        repo_tmpdir="$(mktemp -d "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}.XXXXXX")"
+            mkdir -p "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}"
+            repo_tmpdir="$(mktemp -d "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}.XXXXXX")"
 
-        # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
-        if [ -d "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/binary" ]; then
-            if [ "git://$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "master" ]; then
-                cp build-deb/${GEM_DEB_PACKAGE}_*.deb build-deb/${GEM_DEB_PACKAGE}_*.changes \
-                    build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
-                    "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/binary"
+            # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
+            if [ -d "${GEM_DEB_MONOTONE}/${ubu_serie}/binary" ]; then
+                if [ "git://$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "master" ]; then
+                    cp build-deb/${GEM_DEB_PACKAGE}_*.deb build-deb/${GEM_DEB_PACKAGE}_*.changes \
+                       build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
+                       "${GEM_DEB_MONOTONE}/${ubu_serie}/binary"
+                fi
             fi
-        fi
 
-        cp build-deb/${GEM_DEB_PACKAGE}_*.deb build-deb/${GEM_DEB_PACKAGE}_*.changes \
-            build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
-            build-deb/Packages* build-deb/Sources* build-deb/Release* "${repo_tmpdir}"
-        if [ "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}" ]; then
-            rm -rf "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
-        fi
-        mv "${repo_tmpdir}" "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
-        echo "The package is saved here: ${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
+            cp build-deb/${GEM_DEB_PACKAGE}_*.deb build-deb/${GEM_DEB_PACKAGE}_*.changes \
+               build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
+               build-deb/Packages* build-deb/Sources* build-deb/Release* "${repo_tmpdir}"
+            if [ "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}" ]; then
+                rm -rf "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
+            fi
+            mv "${repo_tmpdir}" "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
+            echo "The package is saved here: ${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
+        done
     fi
 
     # TODO
