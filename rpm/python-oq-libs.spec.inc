@@ -65,6 +65,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
+/opt/openquake
 /opt/openquake/*
 
 %changelog
