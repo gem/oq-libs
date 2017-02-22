@@ -1,136 +1,142 @@
-python-oq-libs (0.9.22) xenial; urgency=low
+python-oq-libs (0.9.23) stable; urgency=low
 
   * missing build deps added again
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 15 Feb 2017 10:20:00 +0100
 
-python-oq-libs (0.9.21) xenial; urgency=low
+python-oq-libs (0.9.22) stable; urgency=low
+
+  * missing build deps added again
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 15 Feb 2017 10:20:00 +0100
+
+python-oq-libs (0.9.21) stable; urgency=low
 
   * support for packager.sh
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 15 Feb 2017 10:10:00 +0100
 
-python-oq-libs (0.9.20) xenial; urgency=low
+python-oq-libs (0.9.20) stable; urgency=low
 
   * add version consistency check
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 18:10:49 +0100
 
-python-oq-libs (0.9.19) xenial; urgency=low
+python-oq-libs (0.9.19) stable; urgency=low
 
   * typo fixed
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 15:50:49 +0100
 
-python-oq-libs (0.9.18) xenial; urgency=low
+python-oq-libs (0.9.18) stable; urgency=low
 
   * reintroduced all wheels
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 15:30:49 +0100
 
-python-oq-libs (0.9.17) xenial; urgency=low
+python-oq-libs (0.9.17) stable; urgency=low
 
   * skip dh_strip target
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 15:20:49 +0100
 
-python-oq-libs (0.9.16) xenial; urgency=low
+python-oq-libs (0.9.16) stable; urgency=low
 
   * typo fixed
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 15:00:49 +0100
 
-python-oq-libs (0.9.15) xenial; urgency=low
+python-oq-libs (0.9.15) stable; urgency=low
 
   * wheels list aligned with latest master
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 14:40:49 +0100
 
-python-oq-libs (0.9.14) xenial; urgency=low
+python-oq-libs (0.9.14) stable; urgency=low
 
   * more robust whlsetup to manage 'no wheels in folder' case [2]
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 14:35:49 +0100
 
-python-oq-libs (0.9.13) xenial; urgency=low
+python-oq-libs (0.9.13) stable; urgency=low
 
   * typo fixed
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 14:30:49 +0100
 
-python-oq-libs (0.9.12) xenial; urgency=low
+python-oq-libs (0.9.12) stable; urgency=low
 
   * more robust whlsetup to manage 'no wheels in folder' case
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 12:55:49 +0100
 
-python-oq-libs (0.9.11) xenial; urgency=low
+python-oq-libs (0.9.11) stable; urgency=low
 
   * just pyyaml enabled to check proble
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 12:50:49 +0100
 
-python-oq-libs (0.9.10) xenial; urgency=low
+python-oq-libs (0.9.10) stable; urgency=low
 
   * pyyaml fixed
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 11:50:49 +0100
 
-python-oq-libs (0.9.9) xenial; urgency=low
+python-oq-libs (0.9.9) stable; urgency=low
 
   * re-enabled all wheels
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 11:20:49 +0100
 
-python-oq-libs (0.9.8) xenial; urgency=low
+python-oq-libs (0.9.8) stable; urgency=low
 
   * skip dh_shlibdeps
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 11:00:49 +0100
 
-python-oq-libs (0.9.7) xenial; urgency=low
+python-oq-libs (0.9.7) stable; urgency=low
 
   * add flag to avoid remote downloads with virtualenv
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 10:00:49 +0100
 
-python-oq-libs (0.9.6) xenial; urgency=low
+python-oq-libs (0.9.6) stable; urgency=low
 
   * add wheel build-deps
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 09:59:49 +0100
 
-python-oq-libs (0.9.5) xenial; urgency=low
+python-oq-libs (0.9.5) stable; urgency=low
 
   * fix rules target
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 09:58:49 +0100
 
-python-oq-libs (0.9.4) xenial; urgency=low
+python-oq-libs (0.9.4) stable; urgency=low
 
   * fix rules target
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 09:57:49 +0100
 
-python-oq-libs (0.9.3) xenial; urgency=low
+python-oq-libs (0.9.3) stable; urgency=low
 
   * skip virtualenv check
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 27 Jan 2017 08:57:49 +0100
 
-python-oq-libs (0.9.2) xenial; urgency=low
+python-oq-libs (0.9.2) stable; urgency=low
 
   * skip virtualenv check
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 26 Jan 2017 16:57:49 +0100
 
-python-oq-libs (0.9.1) xenial; urgency=low
+python-oq-libs (0.9.1) stable; urgency=low
 
   * fix build dependencies
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 26 Jan 2017 09:57:49 +0100
 
-python-oq-libs (0.9) xenial; urgency=low
+python-oq-libs (0.9) stable; urgency=low
 
   * first release
 

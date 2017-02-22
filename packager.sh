@@ -63,7 +63,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
-SUPPORTED_SERIES="xenial trusty precise"
+SUPPORTED_SERIES="xenial trusty precise stable"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
@@ -531,7 +531,7 @@ while [ $# -gt 0 ]; do
             BUILD_UBUVER="$2"
             # if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
             # for this package we must compile just for xenial
-            if [ "$BUILD_UBUVER" != "xenial" ]; then
+            if [ "$BUILD_UBUVER" != "xenial" -a "$BUILD_UBUVER" != "stable" ]; then
                 echo
                 echo "ERROR: oq-libs can be compiled just with 'xenial' serie"
                 echo
