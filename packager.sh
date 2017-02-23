@@ -63,7 +63,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
-SUPPORTED_SERIES="xenial trusty precise"
+SUPPORTED_SERIES="xenial trusty precise stable"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
@@ -225,7 +225,6 @@ _pkgtest_innervm_run () {
     # add custom packages
     scp -r ${GEM_DEB_REPO}/custom_pkgs $lxc_ip:repo/custom_pkgs
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/custom_pkgs ${BUILD_UBUVER} main\""
-    ssh $lxc_ip "sudo apt-add-repository ppa:nastasi-oq/test"
 
     ssh $lxc_ip "sudo apt-get update"
     ssh $lxc_ip "sudo apt-get upgrade -y"
@@ -531,7 +530,7 @@ while [ $# -gt 0 ]; do
             BUILD_UBUVER="$2"
             # if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
             # for this package we must compile just for xenial
-            if [ "$BUILD_UBUVER" != "xenial" ]; then
+            if [ "$BUILD_UBUVER" != "xenial" -a "$BUILD_UBUVER" != "stable" ]; then
                 echo
                 echo "ERROR: oq-libs can be compiled just with 'xenial' serie"
                 echo
@@ -657,7 +656,7 @@ if [ $BUILD_DEVEL -eq 1 ]; then
     fi
 
     (
-      echo "$pkg_name (${pkg_maj}.${pkg_min}.${pkg_bfx}${pkg_deb}~${BUILD_UBUVER}01~dev${dt}+${commit}) ${BUILD_UBUVER}; urgency=low"
+      echo "$pkg_name (${pkg_maj}.${pkg_min}.${pkg_bfx}${pkg_deb}~dev${dt}+${commit}) stable; urgency=low"
       echo
       echo "  [Automatic Script]"
       echo "  * Development version from $commit commit"
