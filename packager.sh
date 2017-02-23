@@ -438,6 +438,9 @@ EOF
 
     if [ $BUILD_REPOSITORY -eq 1 -a -d "${GEM_DEB_REPO}" ]; then
         for ubu_serie in $SUPPORTED_SERIES; do
+            if [ "$ubu_serie" = "stable" ]; then
+                continue
+            fi
             if [ "$branch_id" != "" ]; then
                 repo_id="$(repo_id_get)"
                 if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "master" ]; then
