@@ -1,14 +1,20 @@
+python-oq-libs (1.0.0) stable; urgency=low
+
+  * first public release
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 23 Feb 2017 09:25:46 +0100
+
 python-oq-libs (0.9.23) stable; urgency=low
 
   * missing build deps added again
 
- -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 15 Feb 2017 10:20:00 +0100
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 17 Feb 2017 14:23:00 +0100
 
 python-oq-libs (0.9.22) stable; urgency=low
 
   * missing build deps added again
 
- -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 15 Feb 2017 10:20:00 +0100
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 16 Feb 2017 11:20:00 +0100
 
 python-oq-libs (0.9.21) stable; urgency=low
 
