@@ -41,7 +41,7 @@
 - pyparsing==2.1.10
 - cycler==0.10.0
 - python_dateutil==2.6.0
-- _basemap==1.1.0
+- basemap==1.1.0
 - pyproj==1.9.5.1
 
 ## GMPE-SMTK ##
