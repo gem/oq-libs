@@ -41,7 +41,7 @@
 - pyparsing==2.1.10
 - cycler==0.10.0
 - python_dateutil==2.6.0
-- _basemap==1.0.8_
+- basemap==1.1.0
 - pyproj==1.9.5.1
 
 ## GMPE-SMTK ##
@@ -71,7 +71,7 @@ Xenial ships 1.8.9, but pyproj 1.8.9 sources disappeared from upstream. We use 1
 Xenial ships 1.8.7, but we'll use the latest release in 1.8 tree
 
 ### Basemap ###
-Basemap stable is 1.0.7 but it's incompatible with wheels; we are using 1.0.8 from github.
+Basemap stable is 1.0.7 but it's incompatible with wheels; we are using 1.1.0 from github.
 Currently it is not included in `oq-libs` because of its size. The plan is to move it
 in an 'extra' package.
 
