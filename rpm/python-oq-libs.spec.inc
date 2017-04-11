@@ -43,6 +43,23 @@ AutoProv: no
 
 %description
 
+Libraries for OpenQuake
+
+OpenQuake is an open source application that allows users to
+compute seismic hazard and seismic risk of earthquakes on a global scale.
+
+Copyright (C) 2010-2017 GEM Foundation
+
+
+%package extra
+Summary:        Extra libraries for OpenQuake
+Group:          Applications/Engineering
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description extra
+
+Extra libraries for OpenQuake
+
 OpenQuake is an open source application that allows users to
 compute seismic hazard and seismic risk of earthquakes on a global scale.
 
@@ -67,6 +84,13 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 /opt/openquake
 /opt/openquake/*
+%exclude /opt/openquake/lib/python2.7/site-packages/basemap*
+%exclude /opt/openquake/lib/python2.7/site-packages/mpl_toolkits*
+
+%files extra
+/opt/openquake/lib/python2.7/site-packages/basemap*
+/opt/openquake/lib/python2.7/site-packages/mpl_toolkits*
+
 
 %changelog
 %if %{oqstable} == 1
