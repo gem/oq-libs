@@ -76,6 +76,7 @@ helpers/whlsetup.sh -2 -d %{buildroot}/opt/openquake -s py -s py27
 install -p -m 755 -d %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake/libs
 install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake
 install -p -m 644 openquake/libs/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake/libs
+install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/mpl_toolkits
 
 %clean
 rm -rf %{buildroot}
