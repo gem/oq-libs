@@ -18,6 +18,7 @@ override_dh_install:
 	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake
 	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake/libs
 	install -p -m 644 openquake/libs/__init__.py $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/openquake/libs
+	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python-oq-libs/opt/openquake/lib/python2.7/site-packages/mpl_toolkits
 	python2 -m compileall $(CURDIR)/debian/python-oq-libs/opt/openquake || true
 
 override_dh_shlibdeps:
