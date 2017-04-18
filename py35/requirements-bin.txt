@@ -1,5 +1,4 @@
 anyjson-0.3.3-py3-none-any.whl
-basemap-1.1.0-cp35-cp35m-manylinux1_x86_64.whl
 billiard-3.3.0.22-py3-none-any.whl
 docutils-0.12-py3-none-any.whl
 h5py-2.7.0-cp35-cp35m-manylinux1_x86_64.whl

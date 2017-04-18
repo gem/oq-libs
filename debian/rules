@@ -21,7 +21,7 @@ override_dh_install:
 	python2 -m compileall $(CURDIR)/debian/python-oq-libs/opt/openquake || true
 	# Extra
 	install -p -m 755 -d $(CURDIR)/debian/python-oq-libs-extra/opt/openquake
-	helpers/whlsetup.sh -2 -d $(CURDIR)/debian/python-oq-libs-extra/opt/openquake -s py27-extra
+	helpers/whlsetup.sh -2 -n -d $(CURDIR)/debian/python-oq-libs-extra/opt/openquake -s py27-extra
 	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python-oq-libs-extra/opt/openquake/lib/python2.7/site-packages/mpl_toolkits
 	python2 -m compileall $(CURDIR)/debian/python-oq-libs-extra/opt/openquake || true
 

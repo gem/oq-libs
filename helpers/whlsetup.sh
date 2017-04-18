@@ -80,6 +80,10 @@ while [ $# -gt 0 ]; do
             DEST=$2
             shift 2
             ;;
+        -n|--no-deps)
+            nodeps="--no-deps"
+            shift
+            ;;
         *)
             help
             exit 1
@@ -116,7 +120,7 @@ if [ "$USE_PIP" == "true" ]; then
     mkdir ${DEST}/lib
     ln -rs ${DEST}/lib ${DEST}/lib64
 
-    pip install --no-index --prefix ${DEST} ${SRC[@]}
+    pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     deactivate
