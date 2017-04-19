@@ -217,8 +217,8 @@ _pkgtest_innervm_run () {
 
     # create a remote "local repo" where place $GEM_DEB_PACKAGE package
     ssh $lxc_ip mkdir -p repo/${GEM_DEB_PACKAGE}
-    scp build-deb/${GEM_DEB_PACKAGE}_*.deb build-deb/${GEM_DEB_PACKAGE}_*.changes \
-        build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
+    scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
+        build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
 
@@ -379,7 +379,7 @@ pkgtest_run () {
     #
     #  run build of package
     if [ -d build-deb ]; then
-        if [ ! -f build-deb/${GEM_DEB_PACKAGE}_*.deb ]; then
+        if [ ! -f build-deb/${GEM_DEB_PACKAGE}*.deb ]; then
             echo "'build-deb' directory already exists but .deb file package was not found"
             return 1
 
@@ -456,14 +456,14 @@ EOF
             # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
             if [ -d "${GEM_DEB_MONOTONE}/${ubu_serie}/binary" ]; then
                 if [ "git://$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "master" ]; then
-                    cp build-deb/${GEM_DEB_PACKAGE}_*.deb build-deb/${GEM_DEB_PACKAGE}_*.changes \
-                       build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
+                    cp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
+                       build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
                        "${GEM_DEB_MONOTONE}/${ubu_serie}/binary"
                 fi
             fi
 
-            cp build-deb/${GEM_DEB_PACKAGE}_*.deb build-deb/${GEM_DEB_PACKAGE}_*.changes \
-               build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
+            cp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
+               build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
                build-deb/Packages* build-deb/Sources* build-deb/Release* "${repo_tmpdir}"
             if [ "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}" ]; then
                 rm -rf "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
@@ -733,7 +733,7 @@ GEM_BUILD_PKG="${GEM_SRC_PKG}/pkg"
 mksafedir "$GEM_BUILD_PKG"
 GEM_BUILD_EXTR="${GEM_SRC_PKG}/extr"
 mksafedir "$GEM_BUILD_EXTR"
-cp  ${GEM_BUILD_ROOT}/${GEM_DEB_PACKAGE}_*.deb  $GEM_BUILD_PKG
+cp  ${GEM_BUILD_ROOT}/${GEM_DEB_PACKAGE}*.deb  $GEM_BUILD_PKG
 cd "$GEM_BUILD_EXTR"
-dpkg -x $GEM_BUILD_PKG/${GEM_DEB_PACKAGE}_*.deb .
-dpkg -e $GEM_BUILD_PKG/${GEM_DEB_PACKAGE}_*.deb
+dpkg -x $GEM_BUILD_PKG/${GEM_DEB_PACKAGE}*.deb .
+dpkg -e $GEM_BUILD_PKG/${GEM_DEB_PACKAGE}*.deb
