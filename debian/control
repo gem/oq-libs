@@ -13,3 +13,11 @@ Recommends: ${dist:Recommends}
 Description: computes seismic hazard and physical risk
  based on the hazard and risk libraries developed by the GEM foundation
  (http://www.globalquakemodel.org/)
+
+Package: python-oq-libs-extra
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python-oq-libs
+Recommends: ${dist:Recommends}
+Description: computes seismic hazard and physical risk
+ based on the hazard and risk libraries developed by the GEM foundation
+ (http://www.globalquakemodel.org/)

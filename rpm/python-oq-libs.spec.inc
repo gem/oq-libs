@@ -43,6 +43,23 @@ AutoProv: no
 
 %description
 
+Libraries for OpenQuake
+
+OpenQuake is an open source application that allows users to
+compute seismic hazard and seismic risk of earthquakes on a global scale.
+
+Copyright (C) 2010-2017 GEM Foundation
+
+
+%package extra
+Summary:        Extra libraries for OpenQuake
+Group:          Applications/Engineering
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description extra
+
+Extra libraries for OpenQuake
+
 OpenQuake is an open source application that allows users to
 compute seismic hazard and seismic risk of earthquakes on a global scale.
 
@@ -55,10 +72,11 @@ Copyright (C) 2010-2017 GEM Foundation
 %install
 install -p -m 755 -d %{buildroot}/opt/openquake
 install -p -m 755 -d %{buildroot}/opt/openquake/bin
-helpers/whlsetup.sh -2 -d %{buildroot}/opt/openquake -s py -s py27
+helpers/whlsetup.sh -2 -d %{buildroot}/opt/openquake -s py -s py27 -s py27-extra
 install -p -m 755 -d %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake/libs
 install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake
 install -p -m 644 openquake/libs/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake/libs
+install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/mpl_toolkits
 
 %clean
 rm -rf %{buildroot}
@@ -67,6 +85,13 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 /opt/openquake
 /opt/openquake/*
+%exclude /opt/openquake/lib/python2.7/site-packages/basemap*
+%exclude /opt/openquake/lib/python2.7/site-packages/mpl_toolkits*
+
+%files extra
+/opt/openquake/lib/python2.7/site-packages/basemap*
+/opt/openquake/lib/python2.7/site-packages/mpl_toolkits*
+
 
 %changelog
 %if %{oqstable} == 1

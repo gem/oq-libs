@@ -88,7 +88,7 @@ for d in "${WH[@]}"; do
         if [ ${l:0:1} == "#" ]; then
             continue
         fi
-        url=${MIRROR}/${d}/${l}
+        url=${MIRROR}/${d%-*}/${l}
         echo "Downloading $url"
         curl -LOsz $l $url || { echo >&2 "Download of $url failed" ; exit 1; }
     done
