@@ -1,4 +1,6 @@
-# Wheel licenses
+# Third party licenses
+
+This table includes the license of each package included in the `python-oq-libs` binary package, the `macOS` and `Windows` installers.
 
 | Wheel           | License                                 | License URL                                                                     |
 | --------------- | --------------------------------------- | ------------------------------------------------------------------------------- |
