@@ -1,0 +1,10 @@
+language: python
+python:
+    - 2.7
+
+install:
+    - bash helpers/whldownload.sh -m http://cdn.ftp.openquake.org/wheelhouse/linux -w py -w py27 -w py27-extra
+
+script:
+    - bash helpers/whlsetup.sh -2 -s py -s py27 -s py27-extra -d /tmp/opt/openquake
+
