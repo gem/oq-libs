@@ -10,5 +10,5 @@ This repo includes code to assemble the `python-oq-libs` packages (`deb` and `rp
 
 ## License
 
-The OpenQuake code is released under the **[GNU Affero Public License 3](https://github.com/gem/oq-engine/blob/master/LICENSE)**.
+The OpenQuake code is released under the **[GNU Affero Public License 3](https://github.com/gem/oq-libs/blob/master/LICENSE)**.
 Binary packages include third-parties code: a list of licenses for each library is provided under [doc/licenses](doc/licenses). 
