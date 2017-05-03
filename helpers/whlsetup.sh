@@ -142,7 +142,7 @@ if [ "$USE_PIP" == "true" ]; then
     find ${DEST} -name '*.pyc' -delete
 
     if [ ! -z $compile ]; then
-        /usr/bin/env $python -m compileall /opt/openquake
+        /usr/bin/env $python -m compileall $DEST
     fi
 else
     # FIXME: never happens
