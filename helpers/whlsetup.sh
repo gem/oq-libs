@@ -33,6 +33,8 @@ The command line arguments are as follows:
     -2, -3               Use Python 2 or Python 3
     -s, --source         Location of wheels (can be used multiple times)
     -d, --dest           Destination target where Python code wil be installed
+    -n, --no-deps        Skip pip dependecy resolution
+    -c, --compile        Compile pyc files
     -h, --help           This help
 HSD
 }
@@ -61,12 +63,14 @@ declare -a SRC
 while [ $# -gt 0 ]; do
     case "$1" in
         -2)
-            py=2
+            python="python2.7"
+            virtualenv="virtualenv"
             shift
             ;;
         -3)
-            echo "Not yet supported" >&2
-            exit 1
+            python="python3.5"
+            virtualenv="venv"
+            shift
             ;;
         -s|--source)
             checkpath $2
@@ -82,6 +86,10 @@ while [ $# -gt 0 ]; do
             ;;
         -n|--no-deps)
             nodeps="--no-deps"
+            shift
+            ;;
+        -c|--compile)
+            compile=y
             shift
             ;;
         *)
@@ -102,16 +110,18 @@ if [ "$USE_PIP" == "true" ]; then
     #
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
-    checkcmd virtualenv find
+    checkcmd $python find
 
     VENV=$(mktemp -d)
-    if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
-        no_download="--no-download"
-    else
-        no_download="--never-download"
+    if [ "$virtualenv" == "virtualenv" ]; then
+        if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
+            no_download="--no-download"
+        else
+            no_download="--never-download"
+        fi
     fi
 
-    virtualenv $no_download $VENV
+    $python -m $virtualenv $no_download $VENV
     source $VENV/bin/activate
 
     # lib64 is forced to be a symlink to lib, like virtualenv does
@@ -128,10 +138,12 @@ if [ "$USE_PIP" == "true" ]; then
 
     # replace scripts hashbang with the python executable provided
     # by the system, instead of the one provided by virtualenv
-    if ls ${DEST}/bin/* >/dev/null 2>&1 ; then
-        sed -i "s|${VENV}/bin/python.*|/usr/bin/env python|g" ${DEST}/bin/*
-    fi
+    find ${DEST}/bin -type f -print | xargs sed -i "s|${VENV}/bin/python.*|/usr/bin/env $python|g"
     find ${DEST} -name '*.pyc' -delete
+
+    if [ ! -z $compile ]; then
+        /usr/bin/env $python -m compileall /opt/openquake
+    fi
 else
     # FIXME: never happens
     checkcmd unzip
