@@ -138,8 +138,8 @@ if [ "$USE_PIP" == "true" ]; then
 
     # replace scripts hashbang with the python executable provided
     # by the system, instead of the one provided by virtualenv
-    find ${DEST}/bin -type f -print | xargs sed -i "s|${VENV}/bin/python.*|/usr/bin/env $python|g"
-    find ${DEST} -name '*.pyc' -delete
+    find ${DEST}/bin -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|/usr/bin/env $python|g"
+    find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
 
     if [ ! -z $compile ]; then
         # Python 2.7 is a bit fussy, compileall returns error even
