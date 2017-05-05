@@ -80,8 +80,11 @@ while [ $# -gt 0 ]; do
             shift 2
             ;;
         -d|--dest)
-            checkpath $2
             DEST=$2
+            shift 2
+            ;;
+        -b|--build-dir)
+            BUILDDIR=$2
             shift 2
             ;;
         -n|--no-deps)
@@ -99,57 +102,44 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-USE_PIP=true
-if [ "$USE_PIP" == "true" ]; then
-    # To avoid issues when the builder is not an ephimeral environment,
-    # a virtualenv is used avoiding systemwide changes.
-    # Having a new version of pip, use of virtualenv isn't mandatory:
-    # pip can be used instead, adding some extra flags
-    # > pip install --force-reinstall --ignore-installed --upgrade --no-index \
-    # > --prefix ${DEST} $SRC/*.whl
-    #
-    # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
+# If $BUILDDIR is set, we need to prepend it to $DEST.
+# $BUILDDIR should be used only for generating binary packages
+if [ $BUILDDIR ]; then
+    DEST=${BUILDDIR}${DEST}
+fi
 
-    checkcmd $python find
+checkpath $DEST
 
-    VENV=$(mktemp -d)
-    if [ "$virtualenv" == "virtualenv" ]; then
-        if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
-            no_download="--no-download"
-        else
-            no_download="--never-download"
-        fi
+# Manual extraction of wheels can be performed, on newer pip, running:
+# > pip install --force-reinstall --ignore-installed --upgrade --no-index \
+# > --prefix ${DEST} $SRC/*.whl
+#
+# See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
+
+checkcmd $python find
+
+if [ "$virtualenv" == "virtualenv" ]; then
+    if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
+        no_download="--no-download"
+    else
+        no_download="--never-download"
     fi
+fi
 
-    $python -m $virtualenv $no_download $VENV
-    source $VENV/bin/activate
+$python -m $virtualenv $no_download $DEST
 
-    # lib64 is forced to be a symlink to lib, like virtualenv does
-    # itself. This semplifies the use of PYTHONPATH since only one
-    # path (the one with 'lib') must be added instead of two
-    mkdir ${DEST}/lib
-    ln -rs ${DEST}/lib ${DEST}/lib64
+# We don't call ${DEST}/bin/pip directly because Travis don't like it
+# when running in a python3.5 venv (pip is installed, but the bin isn't)
+${DEST}/bin/${python} -m pip install ${nodeps} --no-index ${SRC[@]}
 
-    pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+# Cleanup
+find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
+if [ $BUILDDIR ]; then
+    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${BUILDDIR}||g"
+fi
 
-    # Cleanup
-    deactivate
-    rm -Rf $VENV
-
-    # replace scripts hashbang with the python executable provided
-    # by the system, instead of the one provided by virtualenv
-    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|/usr/bin/env $python|g"
-    find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
-
-    if [ ! -z $compile ]; then
-        # Python 2.7 is a bit fussy, compileall returns error even
-        # because of warnings we then force exit code 0 to make Travis happy
-        /usr/bin/env $python -m compileall $DEST || true
-    fi
-else
-    # FIXME: never happens
-    checkcmd unzip
-    for w in ${SRC[@]}; do
-        unzip $w -d $DEST
-    done
+if [ ! -z $compile ]; then
+    # Python 2.7 is a bit fussy, compileall returns error even
+    # because of warnings we then force exit code 0 to make Travis happy
+    ${DEST}/bin/${python} -m compileall $DEST || true
 fi

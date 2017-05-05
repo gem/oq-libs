@@ -13,4 +13,4 @@ install:
 
 script:
     - bash helpers/whlsetup.sh -${TRAVIS_PYTHON_VERSION%.*} -c -s py -s py${TRAVIS_PYTHON_VERSION//./} -s py${TRAVIS_PYTHON_VERSION//./}-extra -d /tmp/opt/openquake
-    - python${TRAVIS_PYTHON_VERSION} -c 'from openquake.libs import __version__; print(__version__)'
+    - /tmp/opt/openquake/bin/python -c 'from openquake.libs import __version__; print(__version__)'
