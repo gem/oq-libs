@@ -110,7 +110,7 @@ fi
 
 checkpath $DEST
 
-# Manual extraction of wheels can be performed, on newer pip, runnung:
+# Manual extraction of wheels can be performed, on newer pip, running:
 # > pip install --force-reinstall --ignore-installed --upgrade --no-index \
 # > --prefix ${DEST} $SRC/*.whl
 #
@@ -128,7 +128,7 @@ fi
 
 $python -m $virtualenv $no_download $DEST
 
-# We don't call ${DEST}/bin/directly because Travis don't like it
+# We don't call ${DEST}/bin/pip directly because Travis don't like it
 # when running in a python3.5 venv (pip is installed, but the bin isn't)
 ${DEST}/bin/${python} -m pip install ${nodeps} --no-index ${SRC[@]}
 
