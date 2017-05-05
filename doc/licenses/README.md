@@ -12,6 +12,7 @@ This table includes the license of each package included in the `python-oq-libs`
 | cycler          | BSD 3-clause                            | https://raw.githubusercontent.com/matplotlib/cycler/master/LICENSE              |
 | decorator       | BSD 2-clause                            | https://github.com/micheles/decorator/blob/master/LICENSE.txt                   |
 | Django          | BSD 3-clause                            | https://github.com/django/django/blob/master/LICENSE                            |
+| django-pam      | MIT                                     | https://github.com/cnobile2012/django-pam/blob/master/LICENSE.txt               |
 | docutils        | Public Domain, PSF, BSD 2-clause, GPLv3 | https://sourceforge.net/p/docutils/code/HEAD/tree/trunk/docutils/COPYING.txt |
 | funcsigs        | Apache License 2.0                      | https://github.com/aliles/funcsigs/blob/master/LICENSE                          |
 | futures         | PSFv2                                   | https://github.com/agronholm/pythonfutures/blob/master/LICENSE                  |
@@ -30,6 +31,7 @@ This table includes the license of each package included in the `python-oq-libs`
 | pyshp           | MIT                                     | https://github.com/GeospatialPython/pyshp/blob/master/LICENSE.TXT               |
 | python_dateutil | BSD 3-clause                            | https://github.com/dateutil/dateutil/blob/master/LICENSE                        |
 | python_prctl    | GPLv3                                   | https://github.com/seveas/python-prctl/blob/master/COPYING                      |
+| python-pam      | MIT                                     | https://github.com/FirefighterBlu3/python-pam/blob/master/LICENSE               |
 | pytz            | MIT                                     | https://github.com/stub42/pytz/blob/master/src/LICENSE.txt                      |
 | PyYAML          | MIT                                     | http://pyyaml.org/browser/pyyaml/trunk/LICENSE                                  |
 | requests        | Apache License 2.0                      | https://github.com/kennethreitz/requests/blob/master/LICENSE                    |
