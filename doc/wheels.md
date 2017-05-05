@@ -3,6 +3,7 @@
 - pkgconfig
 - Cython==0.23.4
 - mock==1.3.0
+- coverage==3.7.1 (linux only)
 - h5py==2.6.0
 - nose==1.3.7
 - numpy==1.11.1
@@ -18,7 +19,7 @@
 - django==1.8.17
 - requests==2.9.1
 - pyshp==1.2.3
-- Rtree==0.8.2
+- Rtree==0.8.2 (linux only)
 - python-prctl==1.6.1 (linux only)
 
 ### Celery support ###
@@ -31,8 +32,8 @@
 
 ### WebUI ###
 - gunicorn
-- python-pam
-- django-pam
+- python-pam (linux only)
+- django-pam (linux only)
 
 ## HMTK ##
 - Hazardlib
