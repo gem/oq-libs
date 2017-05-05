@@ -141,5 +141,5 @@ fi
 if [ ! -z $compile ]; then
     # Python 2.7 is a bit fussy, compileall returns error even
     # because of warnings we then force exit code 0 to make Travis happy
-    ${DEST}/bin/python -m compileall $DEST || true
+    ${DEST}/bin/${python} -m compileall $DEST || true
 fi
