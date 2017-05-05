@@ -31,6 +31,8 @@
 
 ### WebUI ###
 - gunicorn
+- python-pam
+- django-pam
 
 ## HMTK ##
 - Hazardlib
