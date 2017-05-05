@@ -80,7 +80,6 @@ while [ $# -gt 0 ]; do
             shift 2
             ;;
         -d|--dest)
-            checkpath $2
             DEST=$2
             shift 2
             ;;
@@ -108,6 +107,8 @@ done
 if [ $BUILDDIR ]; then
     DEST=${BUILDDIR}${DEST}
 fi
+
+checkpath $DEST
 
 # Manual extraction of wheels can be performed, on newer pip, runnung:
 # > pip install --force-reinstall --ignore-installed --upgrade --no-index \
