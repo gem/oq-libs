@@ -128,7 +128,9 @@ fi
 
 $python -m $virtualenv $no_download $DEST
 
-${DEST}/bin/pip install ${nodeps} --no-index ${SRC[@]}
+# We don't call ${DEST}/bin/directly because Travis don't like it
+# when running in a python3.5 venv (pip is installed, but the bin isn't)
+${DEST}/bin/${python} -m pip install ${nodeps} --no-index ${SRC[@]}
 
 # Cleanup
 find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
