@@ -84,6 +84,10 @@ while [ $# -gt 0 ]; do
             DEST=$2
             shift 2
             ;;
+        -b|--build-dir)
+            BUILDDIR=$2
+            shift 2
+            ;;
         -n|--no-deps)
             nodeps="--no-deps"
             shift
@@ -98,6 +102,12 @@ while [ $# -gt 0 ]; do
             ;;
     esac
 done
+
+# If $BUILDDIR is set, we need to prepend it to $DEST.
+# $BUILDDIR should be used only for generating binary packages
+if [ $BUILDDIR ]; then
+    DEST=${BUILDDIR}${DEST}
+fi
 
 # Manual extraction of wheels can be performed, on newer pip, runnung:
 # > pip install --force-reinstall --ignore-installed --upgrade --no-index \
@@ -121,6 +131,9 @@ ${DEST}/bin/pip install ${nodeps} --no-index ${SRC[@]}
 
 # Cleanup
 find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
+if [ $BUILDDIR ]; then
+    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${BUILDDIR}||g"
+fi
 
 if [ ! -z $compile ]; then
     # Python 2.7 is a bit fussy, compileall returns error even
