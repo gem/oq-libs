@@ -127,4 +127,3 @@ if [ ! -z $compile ]; then
     # because of warnings we then force exit code 0 to make Travis happy
     ${DEST}/bin/python -m compileall $DEST || true
 fi
-deactivate
