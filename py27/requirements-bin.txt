@@ -1,5 +1,4 @@
-anyjson-0.3.3-cp27-none-any.whl
-billiard-3.3.0.22-cp27-cp27mu-linux_x86_64.whl
+billiard-3.5.0.2-cp27-cp27mu-linux_x86_64.whl
 docutils-0.12-cp27-none-any.whl
 futures-3.0.5-py2-none-any.whl
 h5py-2.7.0-cp27-cp27mu-manylinux1_x86_64.whl
