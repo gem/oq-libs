@@ -1,3 +1,15 @@
+python-oq-libs (1.2.1) stable; urgency=low
+
+  [Daniele Viganò]
+  * Add new package oq-libs-extra
+  * Update basemap to version 1.1.0
+  * Update h5py to version  2.7.0
+  * Collect wheels licences in a specific folder
+  * Add support for Python 3.5
+  * Add python-pam and django-pam
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Tue, 23 May 2017 10:46:56 +0200
+
 python-oq-libs (1.0.0) stable; urgency=low
 
   * first public release
