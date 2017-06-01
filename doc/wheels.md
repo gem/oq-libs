@@ -3,7 +3,7 @@
 - pkgconfig
 - Cython==0.23.4
 - mock==1.3.0
-- h5py==2.6.0
+- h5py==2.7.0
 - nose==1.3.7
 - numpy==1.11.1
 - scipy==0.17.1
