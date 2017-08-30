@@ -29,6 +29,9 @@
 - billiard==3.3.0.22
 - celery==3.1.20
 
+### ZeroMQ support ###
+- pyzmq==16.0.2
+
 ### WebUI ###
 - gunicorn
 - python-pam

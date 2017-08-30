@@ -17,3 +17,4 @@ scipy-0.17.1-cp27-cp27mu-manylinux1_x86_64.whl
 Shapely-1.5.13-cp27-cp27mu-manylinux1_x86_64.whl
 python_pam-1.8.2-py2-none-any.whl
 django_pam-1.2.0-py2-none-any.whl
+pyzmq-16.0.2-cp27-cp27mu-manylinux1_x86_64.whl
