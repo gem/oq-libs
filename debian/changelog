@@ -1,3 +1,10 @@
+python-oq-libs (1.3.1) stable; urgency=low
+
+  [Daniele Viganò]
+  * Add pyzmq 16.0.2
+
+ -- Daniele Viganò (GEM Foundation) <daniele@openquake.org>  Wed, 30 Aug 2017 16:32:00 +0200
+
 python-oq-libs (1.3.0) stable; urgency=low
 
   [Daniele Viganò]
