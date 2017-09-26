@@ -20,6 +20,7 @@
 - pyshp==1.2.3
 - Rtree==0.8.2
 - python-prctl==1.6.1 (linux only)
+- setproctitle==1.1.10
 
 ### Celery support ###
 - pytz

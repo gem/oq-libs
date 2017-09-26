@@ -1,3 +1,6 @@
+  [Daniele Viganò]
+  * Add setproctitle 1.1.10
+
 python-oq-libs (1.4.0) stable; urgency=low
 
   [Daniele Viganò]
