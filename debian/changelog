@@ -1,5 +1,9 @@
+python-oq-libs (1.5.0) stable; urgency=low
+
   [Daniele Viganò]
   * Add setproctitle 1.1.10
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 19 Oct 2017 13:53:08 +0200
 
 python-oq-libs (1.4.0) stable; urgency=low
 
