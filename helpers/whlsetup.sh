@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # vim: tabstop=4 shiftwidth=4 softtabstop=4
 #
-# Copyright (C) 2016 GEM Foundation
+# Copyright (C) 2016-2018 GEM Foundation
 #
 # OpenQuake is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Affero General Public License as published
@@ -68,7 +68,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         -3)
-            python="python3.5"
+            python="/opt/openquake/bin/python3.5"
             virtualenv="venv"
             shift
             ;;
@@ -127,7 +127,8 @@ if [ "$USE_PIP" == "true" ]; then
     # lib64 is forced to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
-    if [ ! -d ${DEST}/lib64 -a ! -d ${DEST}/lib ]; then	
+	# Remove after python3 switch
+    if [ ! -d ${DEST}/lib64 -a ! -d ${DEST}/lib ]; then
         mkdir ${DEST}/lib
         ln -rs ${DEST}/lib ${DEST}/lib64
     fi
