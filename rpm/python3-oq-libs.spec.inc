@@ -86,7 +86,6 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 /opt/openquake
-/opt/openquake/*
 %exclude /opt/openquake/lib64/python3.5/site-packages/basemap*
 %exclude /opt/openquake/lib64/python3.5/site-packages/mpl_toolkits*
 
