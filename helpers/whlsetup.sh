@@ -127,8 +127,8 @@ if [ "$USE_PIP" == "true" ]; then
     # lib64 is forced to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
-	# Remove after python3 switch
-    if [ ! -d ${DEST}/lib64 -a ! -d ${DEST}/lib ]; then
+	# For python3 this is not required
+    if echo $python | grep -q 'python2'; then
         mkdir ${DEST}/lib
         ln -rs ${DEST}/lib ${DEST}/lib64
     fi
