@@ -22,8 +22,6 @@ if [ $GEM_SET_DEBUG ]; then
 fi
 set -e
 
-export PATH=/opt/openquake/bin:$PATH
-
 help() {
     cat <<HSD
 USAGE:
@@ -65,7 +63,7 @@ declare -a SRC
 while [ $# -gt 0 ]; do
     case "$1" in
         -2)
-            python="python2.7"
+            python="/usr/bin/python2.7"
             virtualenv="virtualenv"
             shift
             ;;
@@ -129,8 +127,10 @@ if [ "$USE_PIP" == "true" ]; then
     # lib64 is forced to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
-    mkdir ${DEST}/lib
-    ln -rs ${DEST}/lib ${DEST}/lib64
+    if [ ! -d ${DEST}/lib64 -a ! -d ${DEST}/lib ]; then	
+        mkdir ${DEST}/lib
+        ln -rs ${DEST}/lib ${DEST}/lib64
+    fi
 
     pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
@@ -140,13 +140,13 @@ if [ "$USE_PIP" == "true" ]; then
 
     # replace scripts hashbang with the python executable provided
     # by the system, instead of the one provided by virtualenv
-    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|/usr/bin/env $python|g"
+    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|$python|g"
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
 
     if [ ! -z $compile ]; then
         # Python 2.7 is a bit fussy, compileall returns error even
         # because of warnings we then force exit code 0 to make Travis happy
-        /usr/bin/env $python -m compileall $DEST || true
+        $python -m compileall $DEST || true
     fi
 else
     # FIXME: never happens
