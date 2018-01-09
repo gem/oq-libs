@@ -22,6 +22,8 @@ if [ $GEM_SET_DEBUG ]; then
 fi
 set -e
 
+export PATH=/opt/openquake/bin:$PATH
+
 help() {
     cat <<HSD
 USAGE:
