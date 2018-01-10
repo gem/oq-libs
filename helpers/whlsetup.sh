@@ -31,7 +31,7 @@ $0 -s <src_folder> [-s <src_folder2> [..]] -d <dest_folder>
 
 The command line arguments are as follows:
     -2, -3               Use Python 2.7 or Python 3.5
-    -b, --bindir         Use a bin dir different from /usr/bin
+    -b, --bin            Use a custom python binary, different from the one in \$PATH
     -s, --source         Location of wheels (can be used multiple times)
     -d, --dest           Destination target where Python code wil be installed
     -n, --no-deps        Skip pip dependecy resolution
@@ -60,7 +60,6 @@ elif [ $# -lt 5 ]; then
 fi
 
 declare -a SRC
-bindir="/usr/bin"
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -105,7 +104,7 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-# Get python absolute path of python
+# Get absolute path of python
 if [ "$bin" != "" ]; then
     python="${bin}"
 else
