@@ -30,7 +30,8 @@ $0 -h
 $0 -s <src_folder> [-s <src_folder2> [..]] -d <dest_folder>
 
 The command line arguments are as follows:
-    -2, -3               Use Python 2 or Python 3
+    -2, -3               Use Python 2.7 or Python 3.5
+    -b, --bindir         Use a bin dir different from /usr/bin
     -s, --source         Location of wheels (can be used multiple times)
     -d, --dest           Destination target where Python code wil be installed
     -n, --no-deps        Skip pip dependecy resolution
@@ -59,18 +60,23 @@ elif [ $# -lt 5 ]; then
 fi
 
 declare -a SRC
+bindir="/usr/bin"
 
 while [ $# -gt 0 ]; do
     case "$1" in
         -2)
-            python="/usr/bin/python2.7"
+            python="python2.7"
             virtualenv="virtualenv"
             shift
             ;;
         -3)
-            python="/opt/openquake/bin/python3.5"
+            python="python3.5"
             virtualenv="venv"
             shift
+            ;;
+        -b|--bin)
+            bin=$2
+            shift 2
             ;;
         -s|--source)
             checkpath $2
@@ -98,6 +104,13 @@ while [ $# -gt 0 ]; do
             ;;
     esac
 done
+
+# Get python absolute path of python
+if [ "$bin" != "" ]; then
+    python="${bin}"
+else
+    python=$(command -v $python)
+fi
 
 USE_PIP=true
 if [ "$USE_PIP" == "true" ]; then
@@ -127,7 +140,7 @@ if [ "$USE_PIP" == "true" ]; then
     # lib64 is forced to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
-	# For python3 this is not required
+    # For python3 this is not required
     if echo $python | grep -q 'python2'; then
         mkdir ${DEST}/lib
         ln -rs ${DEST}/lib ${DEST}/lib64
