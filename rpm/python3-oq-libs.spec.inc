@@ -92,7 +92,7 @@ Copyright (C) 2010-2018 GEM Foundation
 %install
 install -p -m 755 -d %{buildroot}/opt/openquake
 install -p -m 755 -d %{buildroot}/opt/openquake/bin
-helpers/whlsetup.sh -3 -b /opt/openqauke/bin/python3.5 -d %{buildroot}/opt/openquake -s py -s py35 -s py35-extra
+helpers/whlsetup.sh -3 -b /opt/openquake/bin/python3.5 -d %{buildroot}/opt/openquake -s py -s py35 -s py35-extra
 install -p -m 755 -d %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
 install -p -m 644 openquake/libs/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
 # These aren't required anymore, but leaving them in case of PYTHONPATH is used
