@@ -145,7 +145,8 @@ if [ "$USE_PIP" == "true" ]; then
         ln -rs ${DEST}/lib ${DEST}/lib64
     fi
 
-    pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    # --ignore-installed is needed by setuptools
+    pip install ${nodeps} --ignore-installed --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     deactivate
