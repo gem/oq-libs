@@ -1,3 +1,21 @@
+# -*- coding: utf-8 -*-
+# vim: syntax=spec
+#
+# Copyright (C) 2015-2018 GEM Foundation
+#
+# OpenQuake is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# OpenQuake is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with OpenQuake. If not, see <http://www.gnu.org/licenses/>.
+
 # Because of gunicorn:
 # https://lists.fedoraproject.org/pipermail/devel/2010-April/135366.html
 # http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
@@ -76,8 +94,9 @@ install -p -m 755 -d %{buildroot}/opt/openquake
 install -p -m 755 -d %{buildroot}/opt/openquake/bin
 helpers/whlsetup.sh -3 -b /opt/openqauke/bin/python3.5 -d %{buildroot}/opt/openquake -s py -s py35 -s py35-extra
 install -p -m 755 -d %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
-install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake
 install -p -m 644 openquake/libs/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
+# These aren't required anymore, but leaving them in case of PYTHONPATH is used
+install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake
 install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib64/python3.5/site-packages/mpl_toolkits
 
 %clean
