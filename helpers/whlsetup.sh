@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # vim: tabstop=4 shiftwidth=4 softtabstop=4
 #
-# Copyright (C) 2016 GEM Foundation
+# Copyright (C) 2016-2018 GEM Foundation
 #
 # OpenQuake is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Affero General Public License as published
@@ -30,7 +30,8 @@ $0 -h
 $0 -s <src_folder> [-s <src_folder2> [..]] -d <dest_folder>
 
 The command line arguments are as follows:
-    -2, -3               Use Python 2 or Python 3
+    -2, -3               Use Python 2.7 or Python 3.5
+    -b, --bin            Use a custom python binary, different from the one in \$PATH
     -s, --source         Location of wheels (can be used multiple times)
     -d, --dest           Destination target where Python code wil be installed
     -n, --no-deps        Skip pip dependecy resolution
@@ -72,6 +73,10 @@ while [ $# -gt 0 ]; do
             virtualenv="venv"
             shift
             ;;
+        -b|--bin)
+            bin=$2
+            shift 2
+            ;;
         -s|--source)
             checkpath $2
             if ls $2/*.whl >/dev/null 2>&1 ; then
@@ -98,6 +103,13 @@ while [ $# -gt 0 ]; do
             ;;
     esac
 done
+
+# Get absolute path of python
+if [ "$bin" != "" ]; then
+    python="${bin}"
+else
+    python=$(command -v $python)
+fi
 
 USE_PIP=true
 if [ "$USE_PIP" == "true" ]; then
@@ -127,8 +139,11 @@ if [ "$USE_PIP" == "true" ]; then
     # lib64 is forced to be a symlink to lib, like virtualenv does
     # itself. This semplifies the use of PYTHONPATH since only one
     # path (the one with 'lib') must be added instead of two
-    mkdir ${DEST}/lib
-    ln -rs ${DEST}/lib ${DEST}/lib64
+    # For python3 this is not required
+    if echo $python | grep -q 'python2'; then
+        mkdir ${DEST}/lib
+        ln -rs ${DEST}/lib ${DEST}/lib64
+    fi
 
     pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
@@ -138,13 +153,13 @@ if [ "$USE_PIP" == "true" ]; then
 
     # replace scripts hashbang with the python executable provided
     # by the system, instead of the one provided by virtualenv
-    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|/usr/bin/env $python|g"
+    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|$python|g"
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
 
     if [ ! -z $compile ]; then
         # Python 2.7 is a bit fussy, compileall returns error even
         # because of warnings we then force exit code 0 to make Travis happy
-        /usr/bin/env $python -m compileall $DEST || true
+        $python -m compileall $DEST || true
     fi
 else
     # FIXME: never happens

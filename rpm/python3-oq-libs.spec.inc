@@ -1,3 +1,21 @@
+# -*- coding: utf-8 -*-
+# vim: syntax=spec
+#
+# Copyright (C) 2015-2018 GEM Foundation
+#
+# OpenQuake is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# OpenQuake is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with OpenQuake. If not, see <http://www.gnu.org/licenses/>.
+
 # Because of gunicorn:
 # https://lists.fedoraproject.org/pipermail/devel/2010-April/135366.html
 # http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
@@ -10,7 +28,7 @@
 %define oqrepo ##_repo_##
 %define oqversion ##_version_##
 %define oqrelease ##_release_##
-%define oqname python-%{oqrepo}
+%define oqname python3-%{oqrepo}
 %define oqtimestamp ##_timestamp_##
 %define oquser openquake
 
@@ -34,8 +52,10 @@ Prefix: %{_prefix}
 Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
 
-Requires: python
-BuildRequires: python python-virtualenv >= 15 sed
+Requires: oq-python35
+BuildRequires: oq-python35 sed
+
+Provides: python-oq-libs
 
 AutoReqProv: no
 AutoReq: no
@@ -48,7 +68,7 @@ Libraries for OpenQuake
 OpenQuake is an open source application that allows users to
 compute seismic hazard and seismic risk of earthquakes on a global scale.
 
-Copyright (C) 2010-2017 GEM Foundation
+Copyright (C) 2010-2018 GEM Foundation
 
 
 %package extra
@@ -63,7 +83,7 @@ Extra libraries for OpenQuake
 OpenQuake is an open source application that allows users to
 compute seismic hazard and seismic risk of earthquakes on a global scale.
 
-Copyright (C) 2010-2017 GEM Foundation
+Copyright (C) 2010-2018 GEM Foundation
 
 %prep
 %setup -n %{oqformat}
@@ -72,11 +92,12 @@ Copyright (C) 2010-2017 GEM Foundation
 %install
 install -p -m 755 -d %{buildroot}/opt/openquake
 install -p -m 755 -d %{buildroot}/opt/openquake/bin
-helpers/whlsetup.sh -2 -d %{buildroot}/opt/openquake -s py -s py27 -s py27-extra
-install -p -m 755 -d %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake/libs
-install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake
-install -p -m 644 openquake/libs/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/openquake/libs
-install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python2.7/site-packages/mpl_toolkits
+helpers/whlsetup.sh -3 -b /opt/openquake/bin/python3.5 -d %{buildroot}/opt/openquake -s py -s py35 -s py35-extra
+install -p -m 755 -d %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
+install -p -m 644 openquake/libs/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
+# These aren't required anymore, but leaving them in case of PYTHONPATH is used
+install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake
+install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib64/python3.5/site-packages/mpl_toolkits
 
 %clean
 rm -rf %{buildroot}
@@ -84,13 +105,12 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 /opt/openquake
-/opt/openquake/*
-%exclude /opt/openquake/lib/python2.7/site-packages/basemap*
-%exclude /opt/openquake/lib/python2.7/site-packages/mpl_toolkits*
+%exclude /opt/openquake/lib64/python3.5/site-packages/basemap*
+%exclude /opt/openquake/lib64/python3.5/site-packages/mpl_toolkits*
 
 %files extra
-/opt/openquake/lib/python2.7/site-packages/basemap*
-/opt/openquake/lib/python2.7/site-packages/mpl_toolkits*
+/opt/openquake/lib64/python3.5/site-packages/basemap*
+/opt/openquake/lib64/python3.5/site-packages/mpl_toolkits*
 
 
 %changelog
