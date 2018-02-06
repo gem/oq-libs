@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
-
+export PATH="/opt/openquake/bin:$PATH"
 GEM_GIT_PACKAGE="oq-libs"
-GEM_DEB_PACKAGE="python-${GEM_GIT_PACKAGE}"
+GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
+
+export PATH="/opt/openquake/bin:$PATH"
 
 if [ "$1" = "check_versions" ]; then
     vers_python="$(python -c "from openquake.libs import __version__ ; print __version__")"
@@ -19,4 +21,4 @@ fi
 # mkdir build-deb
 # git archive --prefix ${GEM_GIT_PACKAGE}/ HEAD | (cd build-deb ; tar xv)
 # cd build-deb/${GEM_GIT_PACKAGE}
-./helpers/whldownload.sh -w py -w py27 -w py27-extra
+./helpers/whldownload.sh -w py -w py35 -w py35-extra

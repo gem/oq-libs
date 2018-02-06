@@ -39,7 +39,7 @@ fi
 set -e
 GEM_GIT_REPO="git://github.com/gem"
 GEM_GIT_PACKAGE="oq-libs"
-GEM_DEB_PACKAGE="python-${GEM_GIT_PACKAGE}"
+GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
 GEM_DEB_SERIE="master"
 if [ -z "$GEM_DEB_REPO" ]; then
     GEM_DEB_REPO="$HOME/gem_ubuntu_repo"
@@ -63,7 +63,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
-SUPPORTED_SERIES="xenial trusty precise stable"
+SUPPORTED_SERIES="xenial trusty stable"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
@@ -314,7 +314,7 @@ deps_list() {
         fi
         skip=0
         for d in $(echo "$GEM_GIT_DEPS" | sed 's/ /,/g'); do
-            if [ "$pkg_name" = "python-${d}" ]; then
+            if [ "$pkg_name" = "python3-${d}" ]; then
                 skip=1
                 break
             fi
@@ -643,8 +643,9 @@ if [ $BUILD_DEVEL -eq 1 ]; then
     commit="$(git log --pretty='format:%h' -1)"
     mv debian/changelog debian/changelog.orig
 
+    echo "    if [ \"$pkg_maj\" = \"$ini_maj\" -a \"$pkg_min\" = \"$ini_min\" -a \"$pkg_bfx\" = \"$ini_bfx\" ]; then"
     if [ "$pkg_maj" = "$ini_maj" -a "$pkg_min" = "$ini_min" -a \
-         "$pkg_bfx" = "$ini_bfx" -a "$pkg_deb" != "" ]; then
+         "$pkg_bfx" = "$ini_bfx" ]; then
         deb_ct="$(echo "$pkg_deb" | sed 's/^-//g;s/~.*//g')"
         if [ $h_is_first -eq 1 ]; then
             pkg_deb="-$(( deb_ct ))"

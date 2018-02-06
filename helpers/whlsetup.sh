@@ -68,6 +68,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         -3)
+            PATH="/opt/openquake/bin:$PATH"
             python="python3.5"
             virtualenv="venv"
             shift
@@ -130,6 +131,7 @@ if [ "$USE_PIP" == "true" ]; then
     mkdir ${DEST}/lib
     ln -rs ${DEST}/lib ${DEST}/lib64
 
+    echo pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
     pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
