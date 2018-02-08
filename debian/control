@@ -8,7 +8,7 @@ Homepage: http://www.globalquakemodel.org/openquake/
 
 Package: python3-oq-libs
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, oq-python3.5
 Recommends: ${dist:Recommends}
 Description: computes seismic hazard and physical risk
  based on the hazard and risk libraries developed by the GEM foundation
@@ -16,7 +16,7 @@ Description: computes seismic hazard and physical risk
 
 Package: python3-oq-libs-extra
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python-oq-libs
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python-oq-libs, oq-python3.5
 Recommends: ${dist:Recommends}
 Description: computes seismic hazard and physical risk
  based on the hazard and risk libraries developed by the GEM foundation
