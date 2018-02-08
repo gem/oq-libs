@@ -124,37 +124,39 @@ if [ "$USE_PIP" == "true" ]; then
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
     checkcmd $python find
-
-    VENV=$(mktemp -d)
-    if [ "$virtualenv" == "virtualenv" ]; then
-        if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
-            no_download="--no-download"
-        else
-            no_download="--never-download"
+    if [ 0 -eq 1 ]; then
+        VENV=$(mktemp -d)
+        if [ "$virtualenv" == "virtualenv" ]; then
+            if [ $(virtualenv --version | cut -d '.' -f 1) -ge 11 ]; then
+                no_download="--no-download"
+            else
+                no_download="--never-download"
+            fi
         fi
-    fi
-
-    $python -m $virtualenv $no_download $VENV
-    source $VENV/bin/activate
-
-    # lib64 is forced to be a symlink to lib, like virtualenv does
-    # itself. This semplifies the use of PYTHONPATH since only one
-    # path (the one with 'lib') must be added instead of two
-    # For python3 this is not required
-    if echo $python | grep -q 'python2'; then
-        mkdir ${DEST}/lib
-        ln -rs ${DEST}/lib ${DEST}/lib64
+        
+        $python -m $virtualenv $no_download $VENV
+        source $VENV/bin/activate
+        # lib64 is forced to be a symlink to lib, like virtualenv does
+        # itself. This semplifies the use of PYTHONPATH since only one
+        # path (the one with 'lib') must be added instead of two
+        # For python3 this is not required
+        if echo $python | grep -q 'python2'; then
+            mkdir ${DEST}/lib
+            ln -rs ${DEST}/lib ${DEST}/lib64
+        fi
     fi
 
     pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
-    deactivate
-    rm -Rf $VENV
+    if [ 0 -eq 1 ]; then
+        deactivate
+        rm -Rf $VENV
 
-    # replace scripts hashbang with the python executable provided
-    # by the system, instead of the one provided by virtualenv
-    find ${DEST} -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|$python|g"
+        # replace scripts hashbang with the python executable provided
+        # by the system, instead of the one provided by virtualenv
+        find ${DEST} -type f -print0 | xargs -0 sed -i "s|${VENV}/bin/python.*|$python|g"
+    fi
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
 
     if [ ! -z $compile ]; then
