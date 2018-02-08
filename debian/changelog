@@ -1,7 +1,10 @@
   [Matteo Nastasi]
-  * Support for openquake python 3.5
+  * Support for openquake Python 3.5
 
-python3-oq-libs (1.5.0) stable; urgency=low
+  [Daniele Viganò]
+  * RPM package moved to Python 3.5
+
+python-oq-libs (1.5.0) stable; urgency=low
 
   [Daniele Viganò]
   * Add setproctitle 1.1.10
