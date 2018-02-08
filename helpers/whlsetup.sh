@@ -146,7 +146,6 @@ if [ "$USE_PIP" == "true" ]; then
         ln -rs ${DEST}/lib ${DEST}/lib64
     fi
 
-    echo pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
     pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup

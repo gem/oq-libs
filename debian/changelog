@@ -4,7 +4,7 @@
   [Daniele Viganò]
   * RPM package moved to Python 3.5
 
-python-oq-libs (1.5.0) stable; urgency=low
+python3-oq-libs (1.5.0) stable; urgency=low
 
   [Daniele Viganò]
   * Add setproctitle 1.1.10
