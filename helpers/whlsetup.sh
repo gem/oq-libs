@@ -146,7 +146,7 @@ if [ "$USE_PIP" == "true" ]; then
         fi
     fi
 
-    pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    pip install ${nodeps} --no-index --install-option="--install-layout=deb" --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     if [ 0 -eq 1 ]; then
