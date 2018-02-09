@@ -2,7 +2,7 @@ Source: python3-oq-libs
 Section: python
 Priority: extra
 Maintainer: Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>
-Build-Depends: debhelper (>= 7.0.50~), lsb-release, curl, python (>=2.7), virtualenv, python-virtualenv, python-wheel, oq-python3.5, oq-python3.5-venv
+Build-Depends: debhelper (>= 7.0.50~), lsb-release, curl, python-wheel, oq-python3.5
 Standards-Version: 3.9.3
 Homepage: http://www.globalquakemodel.org/openquake/
 
