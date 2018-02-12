@@ -56,6 +56,7 @@ Requires: oq-python35
 BuildRequires: oq-python35 sed
 
 Provides: python-oq-libs
+Obsoletes: python-oq-libs python2-oq-libs
 
 AutoReqProv: no
 AutoReq: no
