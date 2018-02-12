@@ -146,7 +146,7 @@ if [ "$USE_PIP" == "true" ]; then
         fi
     fi
 
-    pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     if [ 0 -eq 1 ]; then
