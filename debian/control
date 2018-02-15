@@ -16,7 +16,7 @@ Description: computes seismic hazard and physical risk
 
 Package: python3-oq-libs-extra
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python-oq-libs, oq-python3.5
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python3-oq-libs, oq-python3.5
 Recommends: ${dist:Recommends}
 Description: computes seismic hazard and physical risk
  based on the hazard and risk libraries developed by the GEM foundation
