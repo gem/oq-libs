@@ -105,6 +105,15 @@ install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib64/python3
 %clean
 rm -rf %{buildroot}
 
+# Convert lib64 symlink into a real dir to avoid transaction conflicts during upgrades.
+# See: https://fedoraproject.org/wiki/Packaging:Directory_Replacement#Scriptlet_to_replace_a_symlink_to_a_directory_with_a_directory
+%pretrans -p <lua>
+path = "%{_lib}"
+st = posix.stat(path)
+if st and st.type == "link" then
+  os.remove(path)
+end
+
 %files
 %defattr(-,root,root)
 /opt/openquake
