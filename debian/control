@@ -21,3 +21,19 @@ Recommends: ${dist:Recommends}
 Description: computes seismic hazard and physical risk
  based on the hazard and risk libraries developed by the GEM foundation
  (http://www.globalquakemodel.org/)
+
+Package: python-oq-libs
+Depends: python3-oq-libs, ${misc:Depends}
+Architecture: all
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
+Package: python-oq-libs-extra
+Depends: python3-oq-libs-extra, ${misc:Depends}
+Architecture: all
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.
