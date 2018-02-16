@@ -1,5 +1,5 @@
   [Matteo Nastasi]
-  * Support for openquake Python 3.5
+  * Debian package moved to Python 3.5
 
   [Daniele Viganò]
   * RPM package moved to Python 3.5

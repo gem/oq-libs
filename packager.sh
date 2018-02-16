@@ -643,9 +643,8 @@ if [ $BUILD_DEVEL -eq 1 ]; then
     commit="$(git log --pretty='format:%h' -1)"
     mv debian/changelog debian/changelog.orig
 
-    echo "    if [ \"$pkg_maj\" = \"$ini_maj\" -a \"$pkg_min\" = \"$ini_min\" -a \"$pkg_bfx\" = \"$ini_bfx\" ]; then"
     if [ "$pkg_maj" = "$ini_maj" -a "$pkg_min" = "$ini_min" -a \
-         "$pkg_bfx" = "$ini_bfx" ]; then
+         "$pkg_bfx" = "$ini_bfx" -a "$pkg_deb" != "" ]; then
         deb_ct="$(echo "$pkg_deb" | sed 's/^-//g;s/~.*//g')"
         if [ $h_is_first -eq 1 ]; then
             pkg_deb="-$(( deb_ct ))"

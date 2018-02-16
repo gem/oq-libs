@@ -4,8 +4,6 @@ export PATH="/opt/openquake/bin:$PATH"
 GEM_GIT_PACKAGE="oq-libs"
 GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
 
-export PATH="/opt/openquake/bin:$PATH"
-
 if [ "$1" = "check_versions" ]; then
     vers_python="$(python -c "from openquake.libs import __version__ ; print __version__")"
     vers_debian="$(head -n 1 debian/changelog  | sed 's/^.*(//g;s/).*//g;s/[-~].*//g')"
