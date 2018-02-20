@@ -178,6 +178,19 @@ _wait_ssh () {
     fi
 }
 
+add_custom_pkg_repo () {
+    # install package to manage repository properly
+    ssh $lxc_ip "sudo apt-get install -y python-software-properties"
+
+    # add custom packages
+    if ! ssh $lxc_ip ls repo/custom_pkgs >/dev/null ; then
+        ssh $lxc_ip mkdir "repo"
+        scp -r ${GEM_DEB_REPO}/custom_pkgs $lxc_ip:repo/custom_pkgs
+    fi
+    ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/custom_pkgs ${BUILD_UBUVER} main\""
+    ssh $lxc_ip "sudo apt-get update"
+}
+
 _pkgbuild_innervm_run () {
     local lxc_ip="$1"
     local DPBP_FLAG="$2"
@@ -187,6 +200,9 @@ _pkgbuild_innervm_run () {
     ssh $lxc_ip mkdir build-deb
     scp -r * $lxc_ip:build-deb
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
+
+    add_custom_pkg_repo
+
     ssh $lxc_ip sudo apt-get update
     ssh $lxc_ip sudo apt-get -y upgrade
     ssh $lxc_ip sudo apt-get -y install build-essential dpatch fakeroot devscripts equivs lintian quilt
@@ -223,8 +239,7 @@ _pkgtest_innervm_run () {
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
 
     # # add custom packages
-    # scp -r ${GEM_DEB_REPO}/custom_pkgs $lxc_ip:repo/custom_pkgs
-    # ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/custom_pkgs ${BUILD_UBUVER} main\""
+    add_custom_pkg_repo
 
     ssh $lxc_ip "sudo apt-get update"
     ssh $lxc_ip "sudo apt-get upgrade -y"
