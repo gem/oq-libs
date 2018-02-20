@@ -30,7 +30,7 @@ $0 -h
 $0 -s <src_folder> [-s <src_folder2> [..]] -d <dest_folder>
 
 The command line arguments are as follows:
-    -2, -3               Use Python 2.7 or Python 3.5
+    -3                   Use Python 3.5
     -b, --bin            Use a custom python binary, different from the one in \$PATH
     -s, --source         Location of wheels (can be used multiple times)
     -d, --dest           Destination target where Python code wil be installed
@@ -61,13 +61,12 @@ fi
 
 declare -a SRC
 
+PATH="/opt/openquake/bin:$PATH"
+python="python3.5"
+virtualenv="venv"
+
 while [ $# -gt 0 ]; do
     case "$1" in
-        -2)
-            python="python2.7"
-            virtualenv="virtualenv"
-            shift
-            ;;
         -3)
             PATH="/opt/openquake/bin:$PATH"
             python="python3.5"
