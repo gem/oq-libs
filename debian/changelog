@@ -1,8 +1,12 @@
+python3-oq-libs (1.5.0) stable; urgency=low
+
   [Matteo Nastasi]
   * Debian package moved to Python 3.5
 
   [Daniele Viganò]
   * RPM package moved to Python 3.5
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Tue, 20 Feb 2018 11:47:38 +0100
 
 python3-oq-libs (1.5.0) stable; urgency=low
 
