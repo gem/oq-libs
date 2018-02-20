@@ -16,10 +16,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with OpenQuake. If not, see <http://www.gnu.org/licenses/>.
 
+# Override default installation
+%define _prefix /opt/openquake
+
+# Make sure that the proper installation of python is used by macros
+%define __python3 %{_bindir}/python3.5
+%define __python %{__python3}
+
 # Because of gunicorn:
 # https://lists.fedoraproject.org/pipermail/devel/2010-April/135366.html
 # http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
 %global _python_bytecompile_errors_terminate_build 0
+
 # Do not try to strip symbols from .so
 # even if does not fail the build, mask it
 %define __strip /bin/true
@@ -56,6 +64,7 @@ Requires: oq-python35
 BuildRequires: oq-python35 sed
 
 Provides: python-oq-libs
+Obsoletes: python-oq-libs python2-oq-libs
 
 AutoReqProv: no
 AutoReq: no
@@ -90,27 +99,36 @@ Copyright (C) 2010-2018 GEM Foundation
 %setup -n %{oqformat} -T -D -a 1
 
 %install
-install -p -m 755 -d %{buildroot}/opt/openquake
-install -p -m 755 -d %{buildroot}/opt/openquake/bin
-helpers/whlsetup.sh -3 -b /opt/openquake/bin/python3.5 -d %{buildroot}/opt/openquake -s py -s py35 -s py35-extra
-install -p -m 755 -d %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
-install -p -m 644 openquake/libs/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake/libs
+install -p -m 755 -d %{buildroot}%{_prefix}
+install -p -m 755 -d %{buildroot}%{_bindir}
+helpers/whlsetup.sh -3 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py35 -s py35-extra
+install -p -m 755 -d %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake/libs
+install -p -m 644 openquake/libs/__init__.py %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake/libs
 # These aren't required anymore, but leaving them in case of PYTHONPATH is used
-install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib/python3.5/site-packages/openquake
-install -p -m 644 openquake/__init__.py %{buildroot}/opt/openquake/lib64/python3.5/site-packages/mpl_toolkits
+install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake
+install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib64/python3.5/site-packages/mpl_toolkits
 
 %clean
 rm -rf %{buildroot}
 
+# Convert lib64 symlink into a real dir to avoid transaction conflicts during upgrades.
+# See: https://fedoraproject.org/wiki/Packaging:Directory_Replacement#Scriptlet_to_replace_a_symlink_to_a_directory_with_a_directory
+%pretrans -p <lua>
+path = "%{_libdir}"
+st = posix.stat(path)
+if st and st.type == "link" then
+  os.remove(path)
+end
+
 %files
 %defattr(-,root,root)
-/opt/openquake
-%exclude /opt/openquake/lib64/python3.5/site-packages/basemap*
-%exclude /opt/openquake/lib64/python3.5/site-packages/mpl_toolkits*
+%{_prefix}
+%exclude %{_libdir}/python3.5/site-packages/basemap*
+%exclude %{_libdir}/python3.5/site-packages/mpl_toolkits*
 
 %files extra
-/opt/openquake/lib64/python3.5/site-packages/basemap*
-/opt/openquake/lib64/python3.5/site-packages/mpl_toolkits*
+%{_libdir}/python3.5/site-packages/basemap*
+%{_libdir}/python3.5/site-packages/mpl_toolkits*
 
 
 %changelog
