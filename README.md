@@ -6,7 +6,7 @@ The **OpenQuake Engine** is an open source application that allows users to comp
 
 ## Libraries
 
-This repo includes code to assemble the `python-oq-libs` packages (`deb` and `rpm`) and the index of libraries used by other installers (`macOS` and `Windows`). The `python-oq-libs` package provides the python code and binary libraries needed to run the OpenQuake software.
+This repo includes code to assemble the `python3-oq-libs` packages (`deb` and `rpm`) and the index of libraries used by other installers (`macOS` and `Windows`). The `python3-oq-libs` package provides the python code and binary libraries needed to run the OpenQuake software.
 
 ## License
 
