@@ -1,85 +1,47 @@
-## Engine + Hazardlib ##
-- setuptools
-- pkgconfig
-- Cython==0.23.4
-- mock==1.3.0
-- h5py==2.7.0
+## Main distribution
+
+- billiard==3.5.0.3
+- certifi==2018.1.18
+- chardet==3.0.4
+- decorator==4.2.1
+- Django==2.0.4
+- docutils==0.14
+- h5py==2.8.0rc1
+- idna==2.6
+- mock==2.0.0
 - nose==1.3.7
-- numpy==1.11.1
-- scipy==0.17.1
-- psutil==3.4.2
-- shapely==1.5.13
-- docutils==0.12
-- decorator==4.0.11
-- funcsigs==1.0.2
-- pbr==1.8.0
-- six==1.10.0
-- futures==3.0.5
-- django==1.8.17
-- requests==2.9.1
+- numpy==1.14.2
+- pbr==4.0.0
+- psutil==5.4.3
 - pyshp==1.2.3
+- python-prctl==1.6.1 (Linux only)
+- pytz==2018.3
+- PyYAML==3.12
+- pyzmq==16.0.4
+- requests==2.18.4
 - Rtree==0.8.2
-- python-prctl==1.6.1 (linux only)
+- scipy==1.0.1
 - setproctitle==1.1.10
+- Shapely==1.6.4.post1
+- six==1.11.0
+- urllib3==1.22
 
-### Celery support ###
-- pytz
-- anyjson==0.3.3
-- amqp==1.4.9
-- kombu==3.0.33
-- billiard==3.3.0.22
-- celery==3.1.20
+### Celery support
 
-### ZeroMQ support ###
-- pyzmq==16.0.2
+- vine==1.1.4
+- amqp==2.2.2
+- kombu==4.1.0
+- celery==4.1.0
 
-### WebUI ###
+- python-dateutil==2.7.2
+- pyparsing==2.2.0
+- cycler==0.10.0
+- matplotlib==2.1.2
+- pyproj==1.9.5.1
+- basemap==1.1.0
+
+### WebUI
+
 - gunicorn
 - python-pam
 - django-pam
-
-## HMTK ##
-- Hazardlib
-- PyYAML==3.12
-
-### Plotting ###
-- matplotlib==1.5.3
-- pyparsing==2.1.10
-- cycler==0.10.0
-- python_dateutil==2.6.0
-- basemap==1.1.0
-- pyproj==1.9.5.1
-
-## GMPE-SMTK ##
-- Hazardlib
-- PyYAML==3.12
-
-## Platform Standalone ##
-
-- Engine
-- Hazardlib
-- django==1.8.7
-
-## Notes ##
-
-Libraries in _italic_ are currently not packaged in rpm and deb packages.
-
-### PyYAML ###
-Xenial ships 3.11, but to be able to make a wheel 3.12 is needed and will be used
-
-### Matplotlib ###
-Xenial ships 1.5.1, but an official wheel exists for 1.5.3
-
-### PyPROJ ###
-Xenial ships 1.8.9, but pyproj 1.8.9 sources disappeared from upstream. We use 1.9.5.1
-
-### Django ###
-Xenial ships 1.8.7, but we'll use the latest release in 1.8 tree
-
-### Basemap ###
-Basemap stable is 1.0.7 but it's incompatible with wheels; we are using 1.1.0 from github.
-Currently it is not included in `oq-libs` because of its size. The plan is to move it
-in an 'extra' package.
-
-### Decorator ###
-Xenial ships 4.0.10, but it has a small issue with packaging. Using 4.0.11 instead.
