@@ -548,9 +548,9 @@ while [ $# -gt 0 ]; do
             BUILD_UBUVER="$2"
             # if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
             # for this package we must compile just for xenial
-            if [ "$BUILD_UBUVER" != "xenial" -a "$BUILD_UBUVER" != "stable" ]; then
+            if [ "$BUILD_UBUVER" != "bionic" -a "$BUILD_UBUVER" != "stable" ]; then
                 echo
-                echo "ERROR: oq-libs can be compiled just with 'xenial' serie"
+                echo "ERROR: oq-libs can be compiled just with 'bionic' serie"
                 echo
                 exit 1
             fi
