@@ -1,3 +1,10 @@
+python3-oq-libs (2.0.0) stable; urgency=low
+
+  [Daniele Viganò]
+  * New Python libraries stack
+
+ -- Daniele Viganò (GEM Foundation) <daniele@openquake.org>  Fri, 13 Apr 2018 11:22:12 +0100
+
 python3-oq-libs (1.6.0) stable; urgency=low
 
   [Matteo Nastasi]
