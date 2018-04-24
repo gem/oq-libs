@@ -200,6 +200,56 @@ add_custom_pkg_repo () {
     ssh $lxc_ip "sudo apt-get update"
 }
 
+add_local_pkg_repo () {
+    local dep="$1" dep_pkg="$2"
+
+    var_pfx="$(dep2var "$dep")"
+    var_repo="${var_pfx}_REPO"
+    var_branch="${var_pfx}_BRANCH"
+    var_commit="${var_pfx}_COMMIT"
+    if [ "${!var_repo}" != "" ]; then
+        dep_repo="${!var_repo}"
+    else
+        dep_repo="$GEM_GIT_REPO"
+    fi
+    if [ "${!var_branch}" != "" ]; then
+        dep_branch="${!var_branch}"
+    else
+        dep_branch="master"
+    fi
+
+    if [ "$dep_repo" = "$GEM_GIT_REPO" -a "$dep_branch" = "master" ]; then
+        GEM_DEB_SERIE="master"
+    else
+        GEM_DEB_SERIE="devel/$(echo "$dep_repo" | sed 's@^.*://@@g;s@/@__@g;s/\./-/g')__${dep_branch}"
+    fi
+    from_dir="${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}.${!var_commit:0:7}"
+    time_start="$(date +%s)"
+    while true; do
+        if scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"; then
+            break
+        fi
+        if [ "$dep_branch" = "$branch" ]; then
+            # NOTE: currently we retry for 1 hour to get the correct dep version
+            # if there is concordance between package and dependency branches
+            time_cur="$(date +%s)"
+            if [ "$time_cur" -gt $((time_start + 3600)) ]; then
+                return 1
+            fi
+            sleep 10
+        else
+            # NOTE: in the other case dep branch is 'master' and package branch isn't
+            #       so we try to get the correct commit package and if it isn't yet built
+            #       it fallback to the latest builded
+            from_dir="$(ls -drt "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}"* | tail -n 1)"
+            scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"
+            break
+        fi
+    done
+    ssh "$lxc_ip" sudo apt-add-repository \"deb file:/home/ubuntu/repo/${dep_pkg} ./\"
+    ssh "$lxc_ip" sudo apt-get update
+}
+
 _depends_resolver () {
     local deps_action="$1" je_deps_base="$2"
     local old_ifs dep_item dep dep_pkg dep_type
