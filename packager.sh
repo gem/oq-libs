@@ -302,6 +302,29 @@ _pkgtest_innervm_run () {
     return
 }
 
+deps_check_or_clone () {
+    local dep="$1" repo="$2" branch="$3"
+    local local_repo local_branch
+
+    if [ -d "_jenkins_deps/$dep" ]; then
+        pushd "_jenkins_deps/$dep"
+        local_repo="$(git remote -v | head -n 1 | sed 's/origin[ 	]\+//;s/ .*//g')"
+        if [ "$local_repo" != "$repo" ]; then
+            echo "Dependency $dep: cached repository version differs from required ('$local_repo' != '$repo')."
+            exit 1
+        fi
+        local_branch="$(git branch 2>/dev/null | sed -e '/^[^*]/d' | sed -e 's/* \(.*\)/\1/')"
+        if [ "$local_branch" != "$branch" ]; then
+            echo "Dependency $dep: cached branch version differs from required ('$local_branch' != '$branch')."
+            exit 1
+        fi
+        git clean -dfx
+        popd
+    else
+        git clone --depth=1 -b "$branch" "$repo" "_jenkins_deps/$dep"
+    fi
+}
+
 _builddoc_innervm_run () {
     local i lxc_ip="$1"
 
