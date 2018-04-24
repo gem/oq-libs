@@ -323,7 +323,7 @@ _pkgbuild_innervm_run () {
 }
 
 _pkgtest_innervm_run () {
-    local lxc_ip="$1"
+    local lxc_ip="$1" old_ifs dep_item dep dep_pkg dep_type
 
     trap 'local LASTERR="$?" ; trap ERR ; (exit $LASTERR) ; return' ERR
 
@@ -340,12 +340,33 @@ _pkgtest_innervm_run () {
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
 
+    if [ -f _jenkins_deps_info ]; then
+        source _jenkins_deps_info
+    fi
+
+    ssh "$lxc_ip" mkdir -p "repo"
+
+    old_ifs="$IFS"
+    IFS=" $NL"
+    for dep_item in $GEM_DEPENDS; do
+        dep="$(echo "$dep_item" | cut -d '|' -f 1)"
+        dep_pkg="$(echo "$dep_item" | cut -d '|' -f 2)"
+        dep_type="$(echo "$dep_item" | cut -d '|' -f 3)"
+        # if the deb is a subpackage we skip source check
+        if [ "$dep_type" == "cust" -o "$dep_type" == "sub" ]; then
+            continue
+        else
+            add_local_pkg_repo "$dep" "$dep_pkg"
+        fi
+    done
+    IFS="$old_ifs"
+    
     # # add custom packages
     add_custom_pkg_repo
 
     ssh $lxc_ip "sudo apt-get update"
     ssh $lxc_ip "sudo apt-get upgrade -y"
-
+    
     # packaging related tests (install, remove, purge, install, reinstall)
     ssh $lxc_ip "sudo apt-get install -y ${GEM_DEB_PACKAGE}"
     ssh $lxc_ip "sudo apt-get remove -y ${GEM_DEB_PACKAGE}"
