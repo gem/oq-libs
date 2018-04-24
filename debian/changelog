@@ -1,3 +1,6 @@
+  [Matteo Nastasi]
+  * Update packaging system to support python3.5 building on CI
+
 python3-oq-libs (2.0.0) stable; urgency=low
 
   [Daniele Viganò]
