@@ -705,7 +705,7 @@ while [ $# -gt 0 ]; do
                 echo
                 exit 1
             fi
-            BUILD_FLAGS="$BUILD_FLAGS $1 $2"
+            BUILD_FLAGS="$BUILD_FLAGS $1"
             shift
             ;;
         -S|--sources_copy)
