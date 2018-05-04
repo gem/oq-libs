@@ -40,6 +40,7 @@ set -e
 GEM_GIT_REPO="git://github.com/gem"
 GEM_GIT_PACKAGE="oq-libs"
 GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
+GEM_DEPENDS="oq-python-deb|oq-python3.5|deb"
 GEM_DEB_SERIE="master"
 if [ -z "$GEM_DEB_REPO" ]; then
     GEM_DEB_REPO="$HOME/gem_ubuntu_repo"
@@ -98,6 +99,14 @@ sig_hand () {
         rm /tmp/packager.eph.$$.log
     fi
     exit 1
+}
+
+#
+#  dep2var <dep> - converts in a proper way the name of a dependency to a variable name
+#      <dep>    the name of the dependency
+#
+dep2var () {
+    echo "$1" | sed 's/[-.]/_/g;s/\(.*\)/\U\1/g'
 }
 
 #
@@ -191,6 +200,97 @@ add_custom_pkg_repo () {
     ssh $lxc_ip "sudo apt-get update"
 }
 
+add_local_pkg_repo () {
+    local dep="$1" dep_pkg="$2"
+
+    var_pfx="$(dep2var "$dep")"
+    var_repo="${var_pfx}_REPO"
+    var_branch="${var_pfx}_BRANCH"
+    var_commit="${var_pfx}_COMMIT"
+    if [ "${!var_repo}" != "" ]; then
+        dep_repo="${!var_repo}"
+    else
+        dep_repo="$GEM_GIT_REPO"
+    fi
+    if [ "${!var_branch}" != "" ]; then
+        dep_branch="${!var_branch}"
+    else
+        dep_branch="master"
+    fi
+
+    if [ "$dep_repo" = "$GEM_GIT_REPO" -a "$dep_branch" = "master" ]; then
+        GEM_DEB_SERIE="master"
+    else
+        GEM_DEB_SERIE="devel/$(echo "$dep_repo" | sed 's@^.*://@@g;s@/@__@g;s/\./-/g')__${dep_branch}"
+    fi
+    from_dir="${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}.${!var_commit:0:7}"
+    time_start="$(date +%s)"
+    while true; do
+        if scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"; then
+            break
+        fi
+        if [ "$dep_branch" = "$branch" ]; then
+            # NOTE: currently we retry for 1 hour to get the correct dep version
+            # if there is concordance between package and dependency branches
+            time_cur="$(date +%s)"
+            if [ "$time_cur" -gt $((time_start + 3600)) ]; then
+                return 1
+            fi
+            sleep 10
+        else
+            # NOTE: in the other case dep branch is 'master' and package branch isn't
+            #       so we try to get the correct commit package and if it isn't yet built
+            #       it fallback to the latest builded
+            from_dir="$(ls -drt "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}"* | tail -n 1)"
+            scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"
+            break
+        fi
+    done
+    ssh "$lxc_ip" sudo apt-add-repository \"deb file:/home/ubuntu/repo/${dep_pkg} ./\"
+    ssh "$lxc_ip" sudo apt-get update
+}
+
+_depends_resolver () {
+    local deps_action="$1" je_deps_base="$2"
+    local old_ifs dep_item dep dep_pkg dep_type
+
+    if [ -f "${je_deps_base}_jenkins_deps_info" ]; then
+        source "${je_deps_base}_jenkins_deps_info"
+    fi
+
+    old_ifs="$IFS"
+    IFS=" "
+    for dep_item in $GEM_DEPENDS; do
+        dep="$(echo "$dep_item" | cut -d '|' -f 1)"
+        dep_pkg="$(echo "$dep_item" | cut -d '|' -f 2)"
+        dep_type="$(echo "$dep_item" | cut -d '|' -f 3)"
+
+        if [ "$dep_type" = "src" ]; then
+            # extract dependencies for source dependencies
+            pkgs_list="$(deps_list "$deps_action" "${je_deps_base}_jenkins_deps/$dep/debian")"
+            ssh "$lxc_ip" sudo apt-get install -y ${pkgs_list}
+
+            # install source dependencies
+            pushd "${je_deps_base}_jenkins_deps/$dep"
+            git archive --prefix "${dep}/" HEAD | ssh "$lxc_ip" "tar xv"
+            popd
+        elif [ "$dep_type" = "deb" ]; then
+            add_local_pkg_repo "$dep" "$dep_pkg"
+            ssh "$lxc_ip" sudo apt-cache policy "${dep_pkg}"
+            ssh "$lxc_ip" sudo apt-get install "$APT_FORCE_YES" -y "${dep_pkg}"
+        elif [ "$dep_type" = "cust" ]; then
+            add_custom_pkg_repo
+            ssh "$lxc_ip" sudo apt-get install "$APT_FORCE_YES" -y "${dep_pkg}"
+        elif [ "$dep_type" = "sub" ]; then
+            ssh "$lxc_ip" sudo apt-get install "$APT_FORCE_YES" -y "${dep_pkg}"
+        else
+            echo "Dep type $dep_type not supported"
+            exit 1
+        fi
+    done
+    IFS="$old_ifs"
+}
+
 _pkgbuild_innervm_run () {
     local lxc_ip="$1"
     local DPBP_FLAG="$2"
@@ -203,8 +303,10 @@ _pkgbuild_innervm_run () {
 
     add_custom_pkg_repo
 
-    ssh $lxc_ip sudo apt-get update
     ssh $lxc_ip sudo apt-get -y upgrade
+
+    _depends_resolver build "../../"
+
     ssh $lxc_ip sudo apt-get -y install build-essential dpatch fakeroot devscripts equivs lintian quilt
     ssh $lxc_ip "sudo mk-build-deps --install --tool 'apt-get -y' build-deb/debian/control"
 
@@ -221,7 +323,7 @@ _pkgbuild_innervm_run () {
 }
 
 _pkgtest_innervm_run () {
-    local lxc_ip="$1"
+    local lxc_ip="$1" old_ifs dep_item dep dep_pkg dep_type
 
     trap 'local LASTERR="$?" ; trap ERR ; (exit $LASTERR) ; return' ERR
 
@@ -238,12 +340,33 @@ _pkgtest_innervm_run () {
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
 
+    if [ -f _jenkins_deps_info ]; then
+        source _jenkins_deps_info
+    fi
+
+    ssh "$lxc_ip" mkdir -p "repo"
+
+    old_ifs="$IFS"
+    IFS=" $NL"
+    for dep_item in $GEM_DEPENDS; do
+        dep="$(echo "$dep_item" | cut -d '|' -f 1)"
+        dep_pkg="$(echo "$dep_item" | cut -d '|' -f 2)"
+        dep_type="$(echo "$dep_item" | cut -d '|' -f 3)"
+        # if the deb is a subpackage we skip source check
+        if [ "$dep_type" == "cust" -o "$dep_type" == "sub" ]; then
+            continue
+        else
+            add_local_pkg_repo "$dep" "$dep_pkg"
+        fi
+    done
+    IFS="$old_ifs"
+    
     # # add custom packages
     add_custom_pkg_repo
 
     ssh $lxc_ip "sudo apt-get update"
     ssh $lxc_ip "sudo apt-get upgrade -y"
-
+    
     # packaging related tests (install, remove, purge, install, reinstall)
     ssh $lxc_ip "sudo apt-get install -y ${GEM_DEB_PACKAGE}"
     ssh $lxc_ip "sudo apt-get remove -y ${GEM_DEB_PACKAGE}"
@@ -256,6 +379,29 @@ _pkgtest_innervm_run () {
     trap ERR
 
     return
+}
+
+deps_check_or_clone () {
+    local dep="$1" repo="$2" branch="$3"
+    local local_repo local_branch
+
+    if [ -d "_jenkins_deps/$dep" ]; then
+        pushd "_jenkins_deps/$dep"
+        local_repo="$(git remote -v | head -n 1 | sed 's/origin[ 	]\+//;s/ .*//g')"
+        if [ "$local_repo" != "$repo" ]; then
+            echo "Dependency $dep: cached repository version differs from required ('$local_repo' != '$repo')."
+            exit 1
+        fi
+        local_branch="$(git branch 2>/dev/null | sed -e '/^[^*]/d' | sed -e 's/* \(.*\)/\1/')"
+        if [ "$local_branch" != "$branch" ]; then
+            echo "Dependency $dep: cached branch version differs from required ('$local_branch' != '$branch')."
+            exit 1
+        fi
+        git clean -dfx
+        popd
+    else
+        git clone --depth=1 -b "$branch" "$repo" "_jenkins_deps/$dep"
+    fi
 }
 
 _builddoc_innervm_run () {
@@ -391,6 +537,82 @@ pkgtest_run () {
 
     commit="$(git log --pretty='format:%h' -1)"
 
+    if [ ! -d _jenkins_deps ]; then
+        mkdir _jenkins_deps
+    fi
+
+    #
+    #  dependencies repos
+    #
+    # in test sources different repositories and branches can be tested
+    # consistently: for each openquake dependency it try to use
+    # the same repository and the same branch OR the gem repository
+    # and the same branch OR the gem repository and the "master" branch
+    #
+    repo_id="$(repo_id_get)"
+    if [ "$repo_id" != "$GEM_GIT_REPO" ]; then
+        repos="git://${repo_id} ${GEM_GIT_REPO}"
+    else
+        repos="${GEM_GIT_REPO}"
+    fi
+    old_ifs="$IFS"
+    IFS=" "
+    for dep_item in $GEM_DEPENDS; do
+        dep="$(echo "$dep_item" | cut -d '|' -f 1)"
+        dep_pkg="$(echo "$dep_item" | cut -d '|' -f 2)"
+        dep_type="$(echo "$dep_item" | cut -d '|' -f 3)"
+        # if the deb is a subpackage we skip source check
+        if [ "$dep_type" == "sub" ]; then
+            continue
+        fi
+        found=0
+        branch_cur="$branch_id"
+        for repo in $repos; do
+            # search of same branch in same repo or in GEM_GIT_REPO repo
+            if git ls-remote --heads "$repo/${dep}.git" | grep -q "refs/heads/$branch_cur" ; then
+                deps_check_or_clone "$dep" "$repo/${dep}.git" "$branch_cur"
+                found=1
+                break
+            fi
+        done
+        # if not found it fallback in master branch of GEM_GIT_REPO repo
+        if [ $found -eq 0 ]; then
+            branch_cur="master"
+            deps_check_or_clone "$dep" "$repo/${dep}.git" "$branch_cur"
+        fi
+        pushd "_jenkins_deps/$dep"
+        dep_commit="$(git log -1 | grep '^commit' | sed 's/^commit //g')"
+        popd
+        echo "dependency: $dep"
+        echo "repo:       $repo"
+        echo "branch:     $branch_cur"
+        echo "commit:     $dep_commit"
+        echo
+        var_pfx="$(dep2var "$dep")"
+        if [ ! -f _jenkins_deps_info ]; then
+            touch _jenkins_deps_info
+        fi
+        if grep -q "^${var_pfx}_COMMIT=" _jenkins_deps_info; then
+            if ! grep -q "^${var_pfx}_COMMIT=$dep_commit" _jenkins_deps_info; then
+                echo "ERROR: $repo -> $branch_cur changed during test:"
+                echo "before:"
+                grep "^${var_pfx}_COMMIT=" _jenkins_deps_info
+                echo "after:"
+                echo "${var_pfx}_COMMIT=$dep_commit"
+                exit 1
+            fi
+        else
+            ( echo "${var_pfx}_COMMIT=$dep_commit"
+              echo "${var_pfx}_REPO=$repo"
+              echo "${var_pfx}_BRANCH=$branch_cur"
+              echo "${var_pfx}_TYPE=$dep_type" ) >> _jenkins_deps_info
+        fi
+    done
+    IFS="$old_ifs"
+
+
+
+    
     #
     #  run build of package
     if [ -d build-deb ]; then
