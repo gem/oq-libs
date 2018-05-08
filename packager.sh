@@ -64,7 +64,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
-SUPPORTED_SERIES="xenial trusty stable"
+SUPPORTED_SERIES="xenial trusty"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
@@ -189,8 +189,8 @@ _wait_ssh () {
 
 add_custom_pkg_repo () {
     # install package to manage repository properly
-    ssh $lxc_ip "sudo apt-get install -y python-software-properties"
-
+    ssh $lxc_ip "sudo apt-get install -y python-software-properties software-properties-common"
+    return
     # add custom packages
     if ! ssh $lxc_ip ls repo/custom_pkgs >/dev/null ; then
         ssh $lxc_ip mkdir "repo"
@@ -242,6 +242,7 @@ add_local_pkg_repo () {
             #       so we try to get the correct commit package and if it isn't yet built
             #       it fallback to the latest builded
             from_dir="$(ls -drt "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}"* | tail -n 1)"
+            ssh $lxc_ip "mkdir -p repo"
             scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"
             break
         fi
@@ -338,6 +339,7 @@ _pkgtest_innervm_run () {
     scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
         build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
+    ssh $lxc_ip "sudo apt-get install -y python-software-properties software-properties-common"
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
 
     if [ -f _jenkins_deps_info ]; then
@@ -768,11 +770,9 @@ while [ $# -gt 0 ]; do
             ;;
         -s|--serie)
             BUILD_UBUVER="$2"
-            # if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
-            # for this package we must compile just for xenial
-            if [ "$BUILD_UBUVER" != "xenial" -a "$BUILD_UBUVER" != "stable" ]; then
+            if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
                 echo
-                echo "ERROR: oq-libs can be compiled just with 'xenial' serie"
+                echo "ERROR: oq-libs can be compiled just for one of $SUPPORTED_SERIES series"
                 echo
                 exit 1
             fi
@@ -896,7 +896,7 @@ if [ $BUILD_DEVEL -eq 1 ]; then
     fi
 
     (
-      echo "$pkg_name (${pkg_maj}.${pkg_min}.${pkg_bfx}${pkg_deb}~dev${dt}+${commit}) stable; urgency=low"
+      echo "$pkg_name (${pkg_maj}.${pkg_min}.${pkg_bfx}${pkg_deb}~${BUILD_UBUVER}01~dev${dt}+${commit}) ${BUILD_UBUVER}; urgency=low"
       echo
       echo "  [Automatic Script]"
       echo "  * Development version from $commit commit"
