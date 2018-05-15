@@ -190,10 +190,10 @@ _wait_ssh () {
 add_custom_pkg_repo () {
     # install package to manage repository properly
     ssh $lxc_ip "sudo apt-get install -y python-software-properties software-properties-common"
-    return
+
     # add custom packages
     if ! ssh $lxc_ip ls repo/custom_pkgs >/dev/null ; then
-        ssh $lxc_ip mkdir "repo"
+        ssh $lxc_ip mkdir -p "repo"
         scp -r ${GEM_DEB_REPO}/custom_pkgs $lxc_ip:repo/custom_pkgs
     fi
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/custom_pkgs ${BUILD_UBUVER} main\""
@@ -226,6 +226,7 @@ add_local_pkg_repo () {
     from_dir="${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}.${!var_commit:0:7}"
     time_start="$(date +%s)"
     while true; do
+        ssh "$lxc_ip" mkdir -p "repo"
         if scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"; then
             break
         fi
@@ -242,7 +243,7 @@ add_local_pkg_repo () {
             #       so we try to get the correct commit package and if it isn't yet built
             #       it fallback to the latest builded
             from_dir="$(ls -drt "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}"* | tail -n 1)"
-            ssh $lxc_ip "mkdir -p repo"
+            ssh $lxc_ip mkdir -p "repo"
             scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"
             break
         fi
@@ -335,7 +336,7 @@ _pkgtest_innervm_run () {
     ssh $lxc_ip "sudo apt-get install -y python-software-properties"
 
     # create a remote "local repo" where place $GEM_DEB_PACKAGE package
-    ssh $lxc_ip mkdir -p repo/${GEM_DEB_PACKAGE}
+    ssh $lxc_ip mkdir -p "repo/${GEM_DEB_PACKAGE}"
     scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
         build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
