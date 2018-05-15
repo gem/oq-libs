@@ -639,7 +639,7 @@ pkgtest_run () {
 Origin: openquake-${BUILD_UBUVER}
 Label: OpenQuake Local Ubuntu Repository
 Codename: $BUILD_UBUVER
-Date: $(date -R)
+Date: $(date -R -u)
 Architectures: amd64
 Components: main
 Description: OpenQuake Local Ubuntu Repository
