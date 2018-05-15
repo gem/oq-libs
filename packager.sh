@@ -48,6 +48,10 @@ fi
 if [ -z "$GEM_DEB_MONOTONE" ]; then
     GEM_DEB_MONOTONE="$HOME/monotone"
 fi
+if [ -z "$GEM_MASTER_BRANCH" ]; then
+    export GEM_MASTER_BRANCH="master"
+fi
+
 # FIXME this is currently unused, but left as reference
 if [ "$GEM_EPHEM_USER" = "" ]; then
     GEM_EPHEM_USER="ubuntu"
@@ -218,7 +222,7 @@ add_local_pkg_repo () {
         dep_branch="master"
     fi
 
-    if [ "$dep_repo" = "$GEM_GIT_REPO" -a "$dep_branch" = "master" ]; then
+    if [ "$dep_repo" = "$GEM_GIT_REPO" -a "$dep_branch" = "$GEM_MASTER_BRANCH" ]; then
         GEM_DEB_SERIE="master"
     else
         GEM_DEB_SERIE="devel/$(echo "$dep_repo" | sed 's@^.*://@@g;s@/@__@g;s/\./-/g')__${dep_branch}"
@@ -683,7 +687,7 @@ EOF
             fi
             if [ "$branch_id" != "" ]; then
                 repo_id="$(repo_id_get)"
-                if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "master" ]; then
+                if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "$GEM_MASTER_BRANCH" ]; then
                     CUSTOM_SERIE="devel/$(echo "$repo_id" | sed "s@/@__@g;s/\./-/g")__${branch_id}"
                     if [ "$CUSTOM_SERIE" != "" ]; then
                         GEM_DEB_SERIE="$CUSTOM_SERIE"
@@ -695,7 +699,7 @@ EOF
 
             # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
             if [ -d "${GEM_DEB_MONOTONE}/${ubu_serie}/binary" ]; then
-                if [ "git://$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "master" ]; then
+                if [ "git://$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "$GEM_MASTER_BRANCH" ]; then
                     cp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
                        build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
                        "${GEM_DEB_MONOTONE}/${ubu_serie}/binary"
