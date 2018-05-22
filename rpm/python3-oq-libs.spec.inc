@@ -104,9 +104,6 @@ install -p -m 755 -d %{buildroot}%{_bindir}
 helpers/whlsetup.sh -3 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py35 -s py35-extra
 install -p -m 755 -d %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake/libs
 install -p -m 644 openquake/libs/__init__.py %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake/libs
-# These aren't required anymore, but leaving them in case of PYTHONPATH is used
-install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake
-install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib64/python3.5/site-packages/mpl_toolkits
 
 %clean
 rm -rf %{buildroot}
