@@ -64,7 +64,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
-SUPPORTED_SERIES="xenial trusty stable"
+SUPPORTED_SERIES="bionic xenial trusty stable"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
@@ -189,7 +189,7 @@ _wait_ssh () {
 
 add_custom_pkg_repo () {
     # install package to manage repository properly
-    ssh $lxc_ip "sudo apt-get install -y python-software-properties"
+    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
 
     # add custom packages
     if ! ssh $lxc_ip ls repo/custom_pkgs >/dev/null ; then
@@ -331,7 +331,7 @@ _pkgtest_innervm_run () {
     ssh $lxc_ip "sudo apt-get -y upgrade"
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
     # install package to manage repository properly
-    ssh $lxc_ip "sudo apt-get install -y python-software-properties"
+    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
 
     # create a remote "local repo" where place $GEM_DEB_PACKAGE package
     ssh $lxc_ip mkdir -p repo/${GEM_DEB_PACKAGE}
@@ -768,11 +768,9 @@ while [ $# -gt 0 ]; do
             ;;
         -s|--serie)
             BUILD_UBUVER="$2"
-            # if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
-            # for this package we must compile just for xenial
-            if [ "$BUILD_UBUVER" != "xenial" -a "$BUILD_UBUVER" != "stable" ]; then
+            if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
                 echo
-                echo "ERROR: oq-libs can be compiled just with 'xenial' serie"
+                echo "ERROR: oq-libs can be compiled with $SUPPORTED_SERIES only"
                 echo
                 exit 1
             fi
