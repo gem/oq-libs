@@ -768,12 +768,9 @@ while [ $# -gt 0 ]; do
             ;;
         -s|--serie)
             BUILD_UBUVER="$2"
-            # revert to original multiserie build
             if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
-            # for this package we must compile just for xenial
-            # if [ "$BUILD_UBUVER" != "bionic" -a "$BUILD_UBUVER" != "stable" ]; then
                 echo
-                echo "ERROR: oq-libs can be compiled just with 'bionic' serie"
+                echo "ERROR: oq-libs can be compiled with $SUPPORTED_SERIES only"
                 echo
                 exit 1
             fi
