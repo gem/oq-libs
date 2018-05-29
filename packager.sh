@@ -344,7 +344,6 @@ _pkgtest_innervm_run () {
     scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
         build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
-    ssh $lxc_ip "sudo apt-get install -y python-software-properties software-properties-common"
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
 
     if [ -f _jenkins_deps_info ]; then
@@ -421,7 +420,7 @@ _builddoc_innervm_run () {
 
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
     # install package to manage repository properly
-    # ssh $lxc_ip "sudo apt-get install -y python-software-properties"
+    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
 
     pkgs_list="$(deps_list all debian)"
     ssh $lxc_ip "sudo apt-get install -y ${pkgs_list}"
