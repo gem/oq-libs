@@ -48,6 +48,10 @@ fi
 if [ -z "$GEM_DEB_MONOTONE" ]; then
     GEM_DEB_MONOTONE="$HOME/monotone"
 fi
+if [ -z "$GEM_MASTER_BRANCH" ]; then
+    export GEM_MASTER_BRANCH="master"
+fi
+
 # FIXME this is currently unused, but left as reference
 if [ "$GEM_EPHEM_USER" = "" ]; then
     GEM_EPHEM_USER="ubuntu"
@@ -64,7 +68,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
-SUPPORTED_SERIES="bionic xenial trusty stable"
+SUPPORTED_SERIES="bionic xenial trusty"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
@@ -193,7 +197,7 @@ add_custom_pkg_repo () {
 
     # add custom packages
     if ! ssh $lxc_ip ls repo/custom_pkgs >/dev/null ; then
-        ssh $lxc_ip mkdir "repo"
+        ssh $lxc_ip mkdir -p "repo"
         scp -r ${GEM_DEB_REPO}/custom_pkgs $lxc_ip:repo/custom_pkgs
     fi
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/custom_pkgs ${BUILD_UBUVER} main\""
@@ -218,7 +222,7 @@ add_local_pkg_repo () {
         dep_branch="master"
     fi
 
-    if [ "$dep_repo" = "$GEM_GIT_REPO" -a "$dep_branch" = "master" ]; then
+    if [ "$dep_repo" = "$GEM_GIT_REPO" -a "$dep_branch" = "$GEM_MASTER_BRANCH" ]; then
         GEM_DEB_SERIE="master"
     else
         GEM_DEB_SERIE="devel/$(echo "$dep_repo" | sed 's@^.*://@@g;s@/@__@g;s/\./-/g')__${dep_branch}"
@@ -226,6 +230,7 @@ add_local_pkg_repo () {
     from_dir="${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}.${!var_commit:0:7}"
     time_start="$(date +%s)"
     while true; do
+        ssh "$lxc_ip" mkdir -p "repo"
         if scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"; then
             break
         fi
@@ -242,6 +247,7 @@ add_local_pkg_repo () {
             #       so we try to get the correct commit package and if it isn't yet built
             #       it fallback to the latest builded
             from_dir="$(ls -drt "${GEM_DEB_REPO}/${BUILD_UBUVER}/${GEM_DEB_SERIE}/${dep_pkg}"* | tail -n 1)"
+            ssh $lxc_ip mkdir -p "repo"
             scp -r "$from_dir" "$lxc_ip:repo/${dep_pkg}"
             break
         fi
@@ -334,7 +340,7 @@ _pkgtest_innervm_run () {
     ssh $lxc_ip "sudo apt-get install -y software-properties-common"
 
     # create a remote "local repo" where place $GEM_DEB_PACKAGE package
-    ssh $lxc_ip mkdir -p repo/${GEM_DEB_PACKAGE}
+    ssh $lxc_ip mkdir -p "repo/${GEM_DEB_PACKAGE}"
     scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
         build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
@@ -414,7 +420,7 @@ _builddoc_innervm_run () {
 
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
     # install package to manage repository properly
-    # ssh $lxc_ip "sudo apt-get install -y python-software-properties"
+    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
 
     pkgs_list="$(deps_list all debian)"
     ssh $lxc_ip "sudo apt-get install -y ${pkgs_list}"
@@ -636,7 +642,7 @@ pkgtest_run () {
 Origin: openquake-${BUILD_UBUVER}
 Label: OpenQuake Local Ubuntu Repository
 Codename: $BUILD_UBUVER
-Date: $(date -R)
+Date: $(date -R -u)
 Architectures: amd64
 Components: main
 Description: OpenQuake Local Ubuntu Repository
@@ -650,7 +656,7 @@ EOF
         $(wc --bytes Sources | cut --delimiter=' ' --fields=1) >> Release
     printf ' '$(sha256sum Sources.gz | cut --delimiter=' ' --fields=1)' %16d Sources.gz\n' \
         $(wc --bytes Sources.gz | cut --delimiter=' ' --fields=1) >> Release
-    gpg --armor --detach-sign --output Release.gpg Release
+    gpg --armor --detach-sign --output Release.gpg --local-user "$DEBFULLNAME" Release
     cd -
 
     sudo echo
@@ -680,7 +686,7 @@ EOF
             fi
             if [ "$branch_id" != "" ]; then
                 repo_id="$(repo_id_get)"
-                if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "master" ]; then
+                if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "$GEM_MASTER_BRANCH" ]; then
                     CUSTOM_SERIE="devel/$(echo "$repo_id" | sed "s@/@__@g;s/\./-/g")__${branch_id}"
                     if [ "$CUSTOM_SERIE" != "" ]; then
                         GEM_DEB_SERIE="$CUSTOM_SERIE"
@@ -692,7 +698,7 @@ EOF
 
             # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
             if [ -d "${GEM_DEB_MONOTONE}/${ubu_serie}/binary" ]; then
-                if [ "git://$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "master" ]; then
+                if [ "git://$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "$GEM_MASTER_BRANCH" ]; then
                     cp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
                        build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
                        "${GEM_DEB_MONOTONE}/${ubu_serie}/binary"
@@ -770,7 +776,7 @@ while [ $# -gt 0 ]; do
             BUILD_UBUVER="$2"
             if ! echo "$SUPPORTED_SERIES" | grep -q "$BUILD_UBUVER" ; then
                 echo
-                echo "ERROR: oq-libs can be compiled with $SUPPORTED_SERIES only"
+                echo "ERROR: oq-libs can be compiled just for one of $SUPPORTED_SERIES series"
                 echo
                 exit 1
             fi
@@ -894,7 +900,7 @@ if [ $BUILD_DEVEL -eq 1 ]; then
     fi
 
     (
-      echo "$pkg_name (${pkg_maj}.${pkg_min}.${pkg_bfx}${pkg_deb}~dev${dt}+${commit}) stable; urgency=low"
+      echo "$pkg_name (${pkg_maj}.${pkg_min}.${pkg_bfx}${pkg_deb}~${BUILD_UBUVER}01~dev${dt}+${commit}) ${BUILD_UBUVER}; urgency=low"
       echo
       echo "  [Automatic Script]"
       echo "  * Development version from $commit commit"
