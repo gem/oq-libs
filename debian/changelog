@@ -1,4 +1,11 @@
-python3-oq-libs (2.0.0-1) xenial; urgency=low
+python3-oq-libs (2.0.0-2) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Different sources for each Ubuntu serie
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Fri, 01 Jun 2018 07:46:57 +0000
+
+ppython3-oq-libs (2.0.0-1) xenial; urgency=low
 
   [Matteo Nastasi]
   * Update packaging system to support python3.5 building on CI
