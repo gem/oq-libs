@@ -344,6 +344,7 @@ _pkgtest_innervm_run () {
     scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
         build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
+    scp build-deb/${GEM_DEB_PACKAGE}*.buildinfo $lxc_ip:repo/${GEM_DEB_PACKAGE} || true
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
 
     if [ -f _jenkins_deps_info ]; then
@@ -702,12 +703,15 @@ EOF
                     cp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
                        build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
                        "${GEM_DEB_MONOTONE}/${ubu_serie}/binary"
+                    cp build-deb/${GEM_DEB_PACKAGE}*.buildinfo \
+                       "${GEM_DEB_MONOTONE}/${ubu_serie}/binary" || true
                 fi
             fi
 
             cp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
                build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
                build-deb/Packages* build-deb/Sources* build-deb/Release* "${repo_tmpdir}"
+            cp build-deb/${GEM_DEB_PACKAGE}*.buildinfo "${repo_tmpdir}" || true
             if [ "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}" ]; then
                 rm -rf "${GEM_DEB_REPO}/${ubu_serie}/${GEM_DEB_SERIE}/${GEM_DEB_PACKAGE}.${commit}"
             fi
@@ -958,6 +962,8 @@ if [ -d "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/source" -a $BUILD_SOURCES_COPY -eq 
     cp build-deb/${GEM_DEB_PACKAGE}_*.changes \
         build-deb/${GEM_DEB_PACKAGE}_*.dsc build-deb/${GEM_DEB_PACKAGE}_*.tar.*z \
         "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/source"
+    cp build-deb/${GEM_DEB_PACKAGE}_*.buildinfo \
+       "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/source" || true
 fi
 
 if [ $BUILD_DEVEL -ne 1 ]; then

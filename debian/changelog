@@ -1,3 +1,10 @@
+python3-oq-libs (2.0.0-4~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * missing .buildinfo file copy to host added
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Sun, 03 Jun 2018 13:17:58 +0000
+
 python3-oq-libs (2.0.0-3~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
