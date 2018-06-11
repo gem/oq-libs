@@ -4,7 +4,7 @@ celery-4.1.0-py2.py3-none-any.whl
 certifi-2018.1.18-py2.py3-none-any.whl
 chardet-3.0.4-py2.py3-none-any.whl
 cycler-0.10.0-py2.py3-none-any.whl
-decorator-4.2.1-py2.py3-none-any.whl
+decorator-4.3.0-py2.py3-none-any.whl
 Django-2.0.4-py3-none-any.whl
 django_pam-1.2.0-py3-none-any.whl
 docutils-0.14-py3-none-any.whl
