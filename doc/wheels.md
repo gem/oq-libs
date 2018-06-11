@@ -3,7 +3,7 @@
 - billiard==3.5.0.3
 - certifi==2018.1.18
 - chardet==3.0.4
-- decorator==4.2.1
+- decorator==4.3.0
 - Django==2.0.4
 - docutils==0.14
 - h5py==2.8.0rc1
