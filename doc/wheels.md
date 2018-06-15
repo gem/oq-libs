@@ -6,7 +6,7 @@
 - decorator==4.3.0
 - Django==2.0.4
 - docutils==0.14
-- h5py==2.8.0rc1
+- h5py==2.8.0
 - idna==2.6
 - mock==2.0.0
 - nose==1.3.7
