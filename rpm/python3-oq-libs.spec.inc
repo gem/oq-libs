@@ -20,7 +20,7 @@
 %define _prefix /opt/openquake
 
 # Make sure that the proper installation of python is used by macros
-%define __python3 %{_bindir}/python3.5
+%define __python3 %{_bindir}/python3.6
 %define __python %{__python3}
 
 # Because of gunicorn:
@@ -60,8 +60,8 @@ Prefix: %{_prefix}
 Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
 
-Requires: oq-python35
-BuildRequires: oq-python35 sed
+Requires: oq-python36
+BuildRequires: oq-python36 sed
 
 Provides: python-oq-libs
 Obsoletes: python-oq-libs python2-oq-libs
@@ -101,12 +101,12 @@ Copyright (C) 2010-2018 GEM Foundation
 %install
 install -p -m 755 -d %{buildroot}%{_prefix}
 install -p -m 755 -d %{buildroot}%{_bindir}
-helpers/whlsetup.sh -3 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py35 -s py35-extra
-install -p -m 755 -d %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake/libs
-install -p -m 644 openquake/libs/__init__.py %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake/libs
+helpers/whlsetup.sh -3 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py36 -s py36-extra
+install -p -m 755 -d %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake/libs
+install -p -m 644 openquake/libs/__init__.py %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake/libs
 # These aren't required anymore, but leaving them in case of PYTHONPATH is used
-install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib/python3.5/site-packages/openquake
-install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib64/python3.5/site-packages/mpl_toolkits
+install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake
+install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib64/python3.6/site-packages/mpl_toolkits
 
 %clean
 rm -rf %{buildroot}
@@ -123,12 +123,12 @@ end
 %files
 %defattr(-,root,root)
 %{_prefix}
-%exclude %{_libdir}/python3.5/site-packages/basemap*
-%exclude %{_libdir}/python3.5/site-packages/mpl_toolkits/basemap
+%exclude %{_libdir}/python3.6/site-packages/basemap*
+%exclude %{_libdir}/python3.6/site-packages/mpl_toolkits/basemap
 
 %files extra
-%{_libdir}/python3.5/site-packages/basemap*
-%{_libdir}/python3.5/site-packages/mpl_toolkits/basemap
+%{_libdir}/python3.6/site-packages/basemap*
+%{_libdir}/python3.6/site-packages/mpl_toolkits/basemap
 
 
 %changelog
