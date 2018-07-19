@@ -62,14 +62,14 @@ fi
 declare -a SRC
 
 PATH="/opt/openquake/bin:$PATH"
-python="python3.5"
+python="python3.6"
 virtualenv="venv"
 
 while [ $# -gt 0 ]; do
     case "$1" in
         -3)
             PATH="/opt/openquake/bin:$PATH"
-            python="python3.5"
+            python="python3.6"
             virtualenv="venv"
             shift
             ;;

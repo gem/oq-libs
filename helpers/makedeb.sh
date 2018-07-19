@@ -19,4 +19,4 @@ fi
 # mkdir build-deb
 # git archive --prefix ${GEM_GIT_PACKAGE}/ HEAD | (cd build-deb ; tar xv)
 # cd build-deb/${GEM_GIT_PACKAGE}
-./helpers/whldownload.sh -w py -w py35 -w py35-extra
+./helpers/whldownload.sh -w py -w py36 -w py36-extra

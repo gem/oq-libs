@@ -67,7 +67,7 @@ cd $BASE
 mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
 
 # Download any missing wheel dependency
-./helpers/whldownload.sh -w py -w py35 -w py35-extra
+./helpers/whldownload.sh -w py -w py36 -w py36-extra
 
 LIB=$(cut -d "-" -f 2 <<< $REPO)
 SHA=$(git rev-parse --short $BRANCH)
@@ -87,7 +87,7 @@ else
     OUT=python3-${REPO}-${VER}-${TIME}_git${SHA}.src.rpm
 fi
 
-tar --exclude-vcs -czf  build-rpm/SOURCES/${REPO}-whl-${VER}.tar.gz py py35 py35-extra
+tar --exclude-vcs -czf  build-rpm/SOURCES/${REPO}-whl-${VER}.tar.gz py py36 py36-extra
 
 mock -r openquake --buildsrpm --spec build-rpm/SPECS/python3-${REPO}.spec --source build-rpm/SOURCES --resultdir=build-rpm/SRPMS/
 if [ "$BUILD" == "1" ]; then
