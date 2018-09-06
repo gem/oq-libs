@@ -1,3 +1,12 @@
+python3-oq-libs (2.2.0-1~xenial01) xenial; urgency=low
+
+  [Daniele Viganò]
+  * Support for python 3.6
+  * Update 'h5py' wheel from 2.8.0rc1 to 2.8.0
+  * Update 'decorator' wheel from 4.2.1 to 4.3.0
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 06 Sep 2018 07:46:09 +0000
+
 python3-oq-libs (2.0.0-4~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
