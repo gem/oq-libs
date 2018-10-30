@@ -1,3 +1,7 @@
+  [Daniele Viganò]
+  * Update 'requests' wheel from 2.18.4 to 2.20.0
+    because of CVE-2018-18074
+
 python3-oq-libs (2.2.0-1~xenial01) xenial; urgency=low
 
   [Daniele Viganò]
