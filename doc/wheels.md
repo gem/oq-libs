@@ -18,7 +18,7 @@
 - pytz==2018.3
 - PyYAML==3.12
 - pyzmq==16.0.4
-- requests==2.18.4
+- requests==2.20.0
 - Rtree==0.8.2
 - scipy==1.0.1
 - setproctitle==1.1.10

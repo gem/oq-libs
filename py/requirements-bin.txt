@@ -19,7 +19,7 @@ pyshp-1.2.3-py3-none-any.whl
 python_dateutil-2.7.2-py2.py3-none-any.whl
 python_pam-1.8.3-py2.py3-none-any.whl
 pytz-2018.3-py2.py3-none-any.whl
-requests-2.18.4-py2.py3-none-any.whl
+requests-2.20.0-py2.py3-none-any.whl
 six-1.11.0-py2.py3-none-any.whl
 urllib3-1.22-py2.py3-none-any.whl
 vine-1.1.4-py2.py3-none-any.whl
