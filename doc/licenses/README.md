@@ -44,5 +44,6 @@ This table includes the license of each package included in the `python-oq-libs`
 | setuptools      | MIT                                     | https://github.com/pypa/setuptools/blob/master/LICENSE                          |
 | Shapely         | BSD 3-clause                            | https://github.com/Toblerity/Shapely/blob/master/LICENSE.txt                    |
 | six             | MIT                                     | https://github.com/benjaminp/six/blob/master/LICENSE                            |
-| urllib3	  | MIT                                     | https://github.com/urllib3/urllib3/blob/master/LICENSE.txt                      |
+| toml            | MIT                                     | https://github.com/uiri/toml/blob/master/LICENSE                                |
+| urllib3         | MIT                                     | https://github.com/urllib3/urllib3/blob/master/LICENSE.txt                      |
 | vine            | BSD 3-clause                            | https://github.com/celery/vine/blob/master/LICENSE                              |
