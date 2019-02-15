@@ -24,7 +24,7 @@
 - setproctitle==1.1.10
 - Shapely==1.6.4.post1
 - six==1.11.0
-- toml=0.10-0
+- toml==0.10-0
 - urllib3==1.22
 
 ### Celery support
