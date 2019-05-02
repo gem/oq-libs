@@ -38,7 +38,6 @@ This table includes the license of each package included in the `python-oq-libs`
 | PyYAML          | MIT                                     | http://pyyaml.org/browser/pyyaml/trunk/LICENSE                                  |
 | pyzmq           | Modified BSD+LGPL 3                     | https://github.com/zeromq/pyzmq/blob/master/COPYING.BSD<br>https://github.com/zeromq/pyzmq/blob/master/COPYING.LESSER |
 | requests        | Apache License 2.0                      | https://github.com/kennethreitz/requests/blob/master/LICENSE                    |
-| Rtree           | LGPLv2.1, MIT                           | https://github.com/Toblerity/rtree/blob/master/LICENSE.txt<br>https://github.com/libspatialindex/libspatialindex/blob/master/COPYING |
 | scipy           | BSD 3-clause                            | https://github.com/scipy/scipy/blob/master/LICENSE.txt                          |
 | setproctitle    | BSD 3-clause                            | https://github.com/dvarrazzo/py-setproctitle/blob/master/COPYRIGHT              |
 | setuptools      | MIT                                     | https://github.com/pypa/setuptools/blob/master/LICENSE                          |
