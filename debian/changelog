@@ -1,3 +1,6 @@
+  [Daniele Viganò]
+  * Add GDAL to 'oq-libs-extra'
+
 python3-oq-libs (2.2.2-1~xenial01) xenial; urgency=low
 
   [Daniele Viganò]
