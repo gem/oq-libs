@@ -23,6 +23,9 @@
 %define __python3 %{_bindir}/python3.6
 %define __python %{__python3}
 
+# Disable shebang checks
+%define __brp_mangle_shebangs /bin/true
+
 # Because of gunicorn:
 # https://lists.fedoraproject.org/pipermail/devel/2010-April/135366.html
 # http://stackoverflow.com/questions/25611140/syntax-error-installing-gunicorn
