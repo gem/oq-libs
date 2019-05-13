@@ -34,12 +34,18 @@
 - kombu==4.1.0
 - celery==4.1.0
 
+### Plotting
+
 - python-dateutil==2.7.2
 - pyparsing==2.2.0
 - cycler==0.10.0
 - matplotlib==2.1.2
 - pyproj==1.9.5.1
 - basemap==1.1.0
+
+### Extra features
+
+- GDAL==2.4.1
 
 ### WebUI
 

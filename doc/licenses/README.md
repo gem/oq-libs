@@ -17,6 +17,7 @@ This table includes the license of each package included in the `python-oq-libs`
 | docutils        | Public Domain, PSF, BSD 2-clause, GPLv3 | https://sourceforge.net/p/docutils/code/HEAD/tree/trunk/docutils/COPYING.txt    |
 | funcsigs        | Apache License 2.0                      | https://github.com/aliles/funcsigs/blob/master/LICENSE                          |
 | futures         | PSFv2                                   | https://github.com/agronholm/pythonfutures/blob/master/LICENSE                  |
+| gdal            | MIT                                     | https://github.com/OSGeo/gdal/blob/master/gdal/LICENSE.TXT                      |
 | gunicorn        | MIT                                     | https://github.com/benoitc/gunicorn/blob/master/LICENSE                         |
 | h5py            | BSD                                     | https://github.com/h5py/h5py/blob/master/licenses/                              |
 | idna            | Custom                                  | https://github.com/kjd/idna/blob/master/LICENSE.rst                             |
