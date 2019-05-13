@@ -1,5 +1,9 @@
+python3-oq-libs (2.3.0-1~xenial01) xenial; urgency=low
+
   [Daniele Viganò]
   * Add GDAL to 'oq-libs-extra'
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Mon, 13 May 2019 08:17:11 +0000
 
 python3-oq-libs (2.2.2-1~xenial01) xenial; urgency=low
 
