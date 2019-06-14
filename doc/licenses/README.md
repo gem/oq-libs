@@ -23,7 +23,6 @@ This table includes the license of each package included in the `python-oq-libs`
 | idna            | Custom                                  | https://github.com/kjd/idna/blob/master/LICENSE.rst                             |
 | kombu           | BSD 3-clause                            | https://github.com/celery/kombu/blob/master/LICENSE                             |
 | matplotlib      | BSD                                     | https://github.com/matplotlib/matplotlib/blob/master/LICENSE                    |
-| mock            | BSD 2-clause                            | https://github.com/testing-cabal/mock/blob/master/LICENSE.txt                   |
 | nose            | LGPLv2.1                                | https://github.com/nose-devs/nose/blob/master/lgpl.txt                          |
 | numpy           | BSD 3-clause                            | https://github.com/numpy/numpy/blob/master/LICENSE.txt                          |
 | pbr             | Apache License 2.0                      | https://github.com/openstack-dev/pbr/blob/master/LICENSE                        |
