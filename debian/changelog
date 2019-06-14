@@ -1,3 +1,7 @@
+  [Daniele Viganò]
+  * Remove mock: https://github.com/gem/oq-engine/pull/4812
+  * Update h5py to release 2.9.0
+
 python3-oq-libs (2.3.0-1~xenial01) xenial; urgency=low
 
   [Daniele Viganò]

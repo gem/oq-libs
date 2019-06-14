@@ -8,7 +8,6 @@
 - docutils==0.14
 - h5py==2.8.0
 - idna==2.6
-- mock==2.0.0
 - nose==1.3.7
 - numpy==1.14.2
 - pbr==4.0.0
