@@ -1,6 +1,10 @@
+python3-oq-libs (2.4.0-1~xenial01) xenial; urgency=low
+
   [Daniele Viganò]
   * Remove mock: https://github.com/gem/oq-engine/pull/4812
   * Update h5py to release 2.9.0
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Tue, 16 Jul 2019 08:00:28 +0000
 
 python3-oq-libs (2.3.0-1~xenial01) xenial; urgency=low
 
