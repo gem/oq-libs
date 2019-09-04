@@ -9,7 +9,7 @@
 - h5py==2.9.0
 - idna==2.6
 - nose==1.3.7
-- numpy==1.14.2
+- numpy==1.16.5
 - pbr==4.0.0
 - psutil==5.4.3
 - pyshp==1.2.3
@@ -19,7 +19,7 @@
 - pyzmq==16.0.4
 - requests==2.20.0
 - Rtree==0.8.2
-- scipy==1.0.1
+- scipy==1.3.1
 - setproctitle==1.1.10
 - Shapely==1.6.4.post1
 - six==1.11.0
