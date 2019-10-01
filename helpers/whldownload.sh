@@ -26,12 +26,13 @@ help() {
     cat <<HSD
 USAGE:
 
-$0 [-m <mirror-url>] -w <dir1> [-w <dir2> []]
+$0 [-m <mirror-url>] -w <dir1> [-w <dir2> []] -k
 $0 -h
 
 The command line arguments are as follows:
     -w, --wheelhouse     Destination target where Python code wil be installed
     -m, --mirror         Mirror to use
+    -k, --keep           Keep existing wheels
     -h, --help           This help
 HSD
 }
@@ -73,6 +74,10 @@ while [ $# -gt 0 ]; do
             MIRROR="$2"
             shift 2
             ;;
+        -k|--keep)
+            KEEP=1
+            shift
+            ;;
         *)
             help
             exit 1
@@ -84,6 +89,9 @@ checkcmd curl
 
 for d in "${WH[@]}"; do
     cd $d
+    if [ -z $KEEP ]; then
+        rm -f *.whl
+    fi
     cat requirements-bin.txt | while read l; do
         if [ ${l:0:1} == "#" ]; then
             continue
