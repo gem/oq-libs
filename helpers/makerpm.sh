@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# makerpm.sh  Copyright (C) 2015-2018 GEM Foundation
+# makerpm.sh  Copyright (C) 2015-2019 GEM Foundation
 #
 # OpenQuake is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Affero General Public License as published
@@ -15,8 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with OpenQuake.  If not, see <http://www.gnu.org/licenses/>
 
-# Work in progress
-
+if [ $GEM_SET_DEBUG ]; then
+    set -x
+fi
 set -e
 
 CUR=$(pwd)
