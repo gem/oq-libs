@@ -4,7 +4,8 @@
 - certifi==2018.1.18
 - chardet==3.0.4
 - decorator==4.3.0
-- Django==2.0.4
+- Django==2.2.7
+- sqlparse==0.3.0
 - docutils==0.14
 - h5py==2.9.0
 - idna==2.6
