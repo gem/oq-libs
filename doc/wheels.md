@@ -11,6 +11,7 @@
 - idna==2.6
 - nose==1.3.7
 - numpy==1.16.5
+- pandas==0.25.3
 - pbr==4.0.0
 - psutil==5.4.3
 - pyshp==1.2.3
