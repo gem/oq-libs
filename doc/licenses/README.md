@@ -26,6 +26,7 @@ This table includes the license of each package included in the `python-oq-libs`
 | nose            | LGPLv2.1                                | https://github.com/nose-devs/nose/blob/master/lgpl.txt                          |
 | numpy           | BSD 3-clause                            | https://github.com/numpy/numpy/blob/master/LICENSE.txt                          |
 | pbr             | Apache License 2.0                      | https://github.com/openstack-dev/pbr/blob/master/LICENSE                        |
+| pandas          | BSD 3-clause                            | https://github.com/pandas-dev/pandas/blob/master/LICENSE                        |
 | pkgconfig       | MIT                                     | https://github.com/matze/pkgconfig/blob/master/LICENSE                          |
 | psutil          | BSD 3-clause                            | https://github.com/giampaolo/psutil/blob/master/LICENSE                         |
 | pyparsing       | MIT                                     | https://svn.code.sf.net/p/pyparsing/code/trunk/src/LICENSE                      |
