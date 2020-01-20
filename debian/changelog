@@ -1,7 +1,11 @@
+python3-oq-libs (2.5.3-1~xenial01) xenial; urgency=low
+
   [Daniele Viganò]
   * Add Pandas 0.25.3
   * Update GDAL to release 2.4.1.post1
   * Update Django to release 2.2.7
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Mon, 20 Jan 2020 09:37:02 +0000
 
 python3-oq-libs (2.5.0-1~xenial01) xenial; urgency=low
 
