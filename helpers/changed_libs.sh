@@ -4,15 +4,19 @@
 #      do name="$(echo "$i" | sed 's/-.*//g')" ; echo $name ; done | sort | uniq > lista_whl
 # where req_*.txt are complete list of deps for spec version of engine
 for i in $(cat lista_whl); do
-    r39="$(grep "${i}-" req_3.9.txt)"
-    r310="$(grep "${i}-" req_3.10.txt)"
+    r39="$(grep "^${i}-" req_3.9.txt)"
+    r310="$(grep "^${i}-" req_3.10.txt)"
+    r39ver="$(echo -n "$r39" |   sed 's/^[^-]\+-//g;s/-.*//g' | tr -d '\n')"
+    r310ver="$(echo -n "$r310" | sed 's/^[^-]\+-//g;s/-.*//g' | tr -d '\n')"
+    if [ "$r39ver" == "$r310ver" ]; then
+        continue
+    fi
     if [ "$r39" != "" -a "$r310" == "" ]; then
-        echo "  * removed $r39"
+        echo "  * Remove $i"
     elif [ "$r39" == "" -a "$r310" != "" ]; then
-        echo "  * added $r310"
+        echo "  * Add $i release $r310ver"
     else
-        vv="$(echo "$r310" | sed 's/^[^-]\+-//g')"
-        echo "  * update $i to version $vv"
+        echo "  * Update $i from $r39ver to release $r310ver"
     fi
     # ; echo "$i" ; echo "3.9  =>$r39" ; echo "3.10 =>$r310" ; 
 done
