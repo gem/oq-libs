@@ -1,3 +1,10 @@
+python3-oq-libs (3.0.0-1~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Alignment of libraries with oq-engine 3.10 dependencies
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Thu, 24 Sep 2020 13:55:55 +0000
+
 python3-oq-libs (2.5.3-1~xenial01) xenial; urgency=low
 
   [Daniele Viganò]
