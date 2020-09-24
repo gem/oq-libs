@@ -5,20 +5,20 @@
 # We also provide pre-compiled manylinux1 wheels for
 # h5py, Shapely, psutil
 
-https://wheelhouse.openquake.org/v3/linux/py38/h5py-2.10.0-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/numpy-1.18.2-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/scipy-1.4.1-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/pandas-1.0.3-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/pyzmq-19.0.0-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/psutil-5.6.7-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/Shapely-1.7.0-cp38-cp38-manylinux1_x86_64.whl
+py38/h5py-2.10.0-cp38-cp38-manylinux1_x86_64.whl
+py38/numpy-1.18.2-cp38-cp38-manylinux1_x86_64.whl
+py38/scipy-1.4.1-cp38-cp38-manylinux1_x86_64.whl
+py38/pandas-1.0.3-cp38-cp38-manylinux1_x86_64.whl
+py38/pyzmq-19.0.0-cp38-cp38-manylinux1_x86_64.whl
+py38/psutil-5.6.7-cp38-cp38-manylinux1_x86_64.whl
+py38/Shapely-1.7.0-cp38-cp38-manylinux1_x86_64.whl
 
 ### Plotting ###
 # comment the following lines to skip installation
 # of the plotting libraries (optional feature)
-https://wheelhouse.openquake.org/v3/linux/py38/kiwisolver-1.1.0-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/matplotlib-3.1.2-cp38-cp38-manylinux1_x86_64.whl
-https://wheelhouse.openquake.org/v3/linux/py38/pyproj-2.5.0-cp38-cp38-manylinux1_x86_64.whl
+py38/kiwisolver-1.1.0-cp38-cp38-manylinux1_x86_64.whl
+py38/matplotlib-3.1.2-cp38-cp38-manylinux1_x86_64.whl
+py38/pyproj-2.5.0-cp38-cp38-manylinux1_x86_64.whl
 
 ### GDAL ###
-https://wheelhouse.openquake.org/v3/linux/py38/GDAL-3.1.2-cp38-cp38-manylinux2014_x86_64.whl
+py38/GDAL-3.1.2-cp38-cp38-manylinux2014_x86_64.whl

@@ -60,7 +60,7 @@ elif [ $# -lt 2 ]; then
     exit 1
 fi
 
-MIRROR='https://wheelhouse.openquake.org/v2/linux'
+MIRROR='https://wheelhouse.openquake.org/v3/linux'
 declare -a WH
 
 while [ $# -gt 0 ]; do
