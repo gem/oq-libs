@@ -93,7 +93,7 @@ for d in "${WH[@]}"; do
         rm -f *.whl
     fi
     cat requirements-bin.txt | while read l; do
-        if [ ${l:0:1} == "#" ]; then
+        if [ ${l:0:1} == "#" -o "$l" == "" ]; then
             continue
         fi
         url=${MIRROR}/${d%-*}/${l}
