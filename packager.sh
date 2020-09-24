@@ -318,7 +318,7 @@ _pkgbuild_innervm_run () {
 
     #    ssh $lxc_ip "cd build-deb && dpkg-buildpackage $DPBP_FLAG"
     ssh $lxc_ip "cd build-deb && helpers/makedeb.sh"
-    ssh $lxc_ip "cd build-deb && dpkg-buildpackage $DPBP_FLAG"
+    ssh $lxc_ip "cd build-deb && dpkg-buildpackage -p'gpg --no-tty --passphrase-file secret-key-gpg.txt' $DPBP_FLAG"
     ssh $lxc_ip "ls -f"
     scp $lxc_ip:*.{tar.?z,changes,dsc} ../
     scp $lxc_ip:*.buildinfo ../ || true
