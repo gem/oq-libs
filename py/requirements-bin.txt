@@ -3,34 +3,34 @@
 # GEM Mirror
 # We also provide pre-compiled manylinux1 wheels for
 # h5py, Shapely, psutil
-py/pytz-2019.1-py2.py3-none-any.whl
-py/setuptools-41.0.1-py2.py3-none-any.whl
-py/docutils-0.14-py3-none-any.whl
-py/decorator-4.4.2-py2.py3-none-any.whl
-py/pbr-5.2.0-py2.py3-none-any.whl
-py/six-1.12.0-py2.py3-none-any.whl
-py/Django-2.2.7-py3-none-any.whl
-py/sqlparse-0.3.0-py2.py3-none-any.whl
-py/certifi-2019.3.9-py2.py3-none-any.whl
-py/chardet-3.0.4-py2.py3-none-any.whl
-py/idna-2.8-py2.py3-none-any.whl
-py/urllib3-1.25.3-py2.py3-none-any.whl
-py/requests-2.22.0-py2.py3-none-any.whl
-py/pyshp-1.2.3-py3-none-any.whl
-py/toml-0.10.0-py2.py3-none-any.whl
+pytz-2019.1-py2.py3-none-any.whl
+setuptools-41.0.1-py2.py3-none-any.whl
+docutils-0.14-py3-none-any.whl
+decorator-4.4.2-py2.py3-none-any.whl
+pbr-5.2.0-py2.py3-none-any.whl
+six-1.12.0-py2.py3-none-any.whl
+Django-2.2.7-py3-none-any.whl
+sqlparse-0.3.0-py2.py3-none-any.whl
+certifi-2019.3.9-py2.py3-none-any.whl
+chardet-3.0.4-py2.py3-none-any.whl
+idna-2.8-py2.py3-none-any.whl
+urllib3-1.25.3-py2.py3-none-any.whl
+requests-2.22.0-py2.py3-none-any.whl
+pyshp-1.2.3-py3-none-any.whl
+toml-0.10.0-py2.py3-none-any.whl
 
 ### Celery ###
 # comment the following lines to skip installation
 # of celery (optional feature)
-py/vine-1.3.0-py2.py3-none-any.whl
-py/amqp-2.4.2-py2.py3-none-any.whl
-py/kombu-4.5.0-py2.py3-none-any.whl
-py/billiard-3.6.0.0-py3-none-any.whl
-py/celery-4.3.0-py2.py3-none-any.whl
+vine-1.3.0-py2.py3-none-any.whl
+amqp-2.4.2-py2.py3-none-any.whl
+kombu-4.5.0-py2.py3-none-any.whl
+billiard-3.6.0.0-py3-none-any.whl
+celery-4.3.0-py2.py3-none-any.whl
 
 ### Plotting ###
 # comment the following lines to skip installation
 # of the plotting libraries (optional feature)
-py/python_dateutil-2.8.0-py2.py3-none-any.whl
-py/pyparsing-2.4.0-py2.py3-none-any.whl
-py/cycler-0.10.0-py2.py3-none-any.whl
+python_dateutil-2.8.0-py2.py3-none-any.whl
+pyparsing-2.4.0-py2.py3-none-any.whl
+cycler-0.10.0-py2.py3-none-any.whl
