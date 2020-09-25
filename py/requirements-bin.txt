@@ -4,7 +4,7 @@
 # We also provide pre-compiled manylinux1 wheels for
 # h5py, Shapely, psutil
 pytz-2019.1-py2.py3-none-any.whl
-setuptools-41.0.1-py2.py3-none-any.whl
+# setuptools-41.0.1-py2.py3-none-any.whl
 docutils-0.14-py3-none-any.whl
 decorator-4.4.2-py2.py3-none-any.whl
 pbr-5.2.0-py2.py3-none-any.whl
