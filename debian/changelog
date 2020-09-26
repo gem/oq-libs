@@ -1,4 +1,4 @@
-python3-oq-libs (3.0.0-1~xenial01) xenial; urgency=low
+python3-oq-libs (3.0.0-2~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
   * Alignment of libraries with oq-engine 3.10 dependencies
