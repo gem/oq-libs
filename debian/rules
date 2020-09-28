@@ -27,8 +27,9 @@ override_dh_install:
 	export GEM_DEBIAN_INSTALL_LAYOUT=deb ; \
 	helpers/whlsetup.sh -3 -b /opt/openquake/bin/python3.8 \
 		-n -d $(CURDIR)/debian/python3-oq-libs-extra/opt/openquake -s py38-extra
-	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python3-oq-libs-extra/opt/openquake/lib/python3/dist-packages/mpl_toolkits
+	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python3-oq-libs-extra/opt/openquake/lib/python3/dist-packages/mpl_toolkits/ || true
 	/opt/openquake/bin/python3 -m compileall $(CURDIR)/debian/python3-oq-libs-extra/opt/openquake || true
+	
 
 override_dh_shlibdeps:
 	echo "skip dh_shlibdeps"
