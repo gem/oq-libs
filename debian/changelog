@@ -1,6 +1,7 @@
-python3-oq-libs (3.0.0-3~xenial01) xenial; urgency=low
+python3-oq-libs (3.0.0-4~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
+  * Add control.in management for serie-based build-deps
   * Fix packaging bugs for xenial and bionic series
   * Alignment of libraries with oq-engine 3.10 dependencies
   * Update amqp from 2.2.2 to release 2.4.2

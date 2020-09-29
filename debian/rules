@@ -5,6 +5,24 @@
 export DH_VERBOSE=1
 export DH_ALWAYS_EXCLUDE=CVS:.git
 
+ifeq ($(shell grep -q UBUNTU_CODENAME=xenial /etc/os-release && echo yes),yes)
+    BUILD_DEPENDS=, oq-python3.8-distutils
+else
+    BUILD_DEPENDS=
+endif
+
+control-file:
+	sed -e "s/@BUILD_DEPENDS@/$(BUILD_DEPENDS)/g" \
+	        debian/control.in \
+	      > debian/control.tmp
+	[ -e debian/control ] \
+	  && cmp -s debian/control debian/control.tmp \
+	  && rm -f debian/control.tmp && exit 0; \
+	  mv debian/control.tmp debian/control
+
+override_dh_clean: control-file
+	dh_clean
+
 override_dh_testdir:
 	helpers/makedeb.sh check_versions
 	dh_testdir
@@ -29,7 +47,7 @@ override_dh_install:
 		-n -d $(CURDIR)/debian/python3-oq-libs-extra/opt/openquake -s py38-extra
 	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python3-oq-libs-extra/opt/openquake/lib/python3/dist-packages/mpl_toolkits/ || true
 	/opt/openquake/bin/python3 -m compileall $(CURDIR)/debian/python3-oq-libs-extra/opt/openquake || true
-	
+
 
 override_dh_shlibdeps:
 	echo "skip dh_shlibdeps"

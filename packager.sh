@@ -314,7 +314,7 @@ _pkgbuild_innervm_run () {
     _depends_resolver build "../../"
 
     ssh $lxc_ip sudo apt-get -y install build-essential dpatch fakeroot devscripts equivs lintian quilt
-    ssh -t $lxc_ip "sudo mk-build-deps --install --tool 'apt-get -y' build-deb/debian/control"
+    ssh -t $lxc_ip "sudo mk-build-deps --install --tool 'apt-get -y' build-deb/debian/control || true"
 
     #    ssh $lxc_ip "cd build-deb && dpkg-buildpackage $DPBP_FLAG"
     ssh $lxc_ip "cd build-deb && helpers/makedeb.sh"

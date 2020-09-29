@@ -1,0 +1,43 @@
+Source: python3-oq-libs
+Section: python
+Priority: extra
+Maintainer: Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>
+Build-Depends: debhelper (>= 7.0.50~), lsb-release, curl, oq-python3.8@BUILD_DEPENDS@
+Standards-Version: 3.9.3
+Homepage: http://www.globalquakemodel.org/openquake/
+
+Package: python3-oq-libs
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, oq-python3.8
+Replaces: python-oq-libs (<< ${binary:Version})
+Breaks: python-oq-libs (<< ${binary:Version})
+Recommends: ${dist:Recommends}
+Description: computes seismic hazard and physical risk
+ based on the hazard and risk libraries developed by the GEM foundation
+ (http://www.globalquakemodel.org/)
+
+Package: python3-oq-libs-extra
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python3-oq-libs, oq-python3.8
+Replaces: python-oq-libs-extra (<< ${binary:Version})
+Breaks: python-oq-libs-extra (<< ${binary:Version})
+Recommends: ${dist:Recommends}
+Description: computes seismic hazard and physical risk
+ based on the hazard and risk libraries developed by the GEM foundation
+ (http://www.globalquakemodel.org/)
+
+Package: python-oq-libs
+Depends: python3-oq-libs, ${misc:Depends}
+Architecture: all
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
+Package: python-oq-libs-extra
+Depends: python3-oq-libs-extra, ${misc:Depends}
+Architecture: all
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.
