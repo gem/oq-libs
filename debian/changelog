@@ -1,3 +1,10 @@
+python3-oq-libs (2.5.4-1~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Update h5py to 2.10.0 version
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 11 Nov 2020 08:30:24 +0000
+
 python3-oq-libs (2.5.3-1~xenial01) xenial; urgency=low
 
   [Daniele Viganò]
