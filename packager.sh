@@ -518,6 +518,7 @@ EOF
 _pkgbuild_innervm_run () {
     local lxc_ip="$1"
     local DPBP_FLAG="$2"
+    local branch_id="$branch"
 
     trap 'local LASTERR="$?" ; trap ERR ; (exit $LASTERR) ; return' ERR
 
@@ -526,7 +527,6 @@ _pkgbuild_innervm_run () {
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
 
     build_dependencies_file
-
     add_custom_pkg_repo
 
     ssh $lxc_ip sudo apt-get -y upgrade
@@ -841,7 +841,7 @@ pkgtest_run () {
 
     commit="$(git log --pretty='format:%h' -1)"
 
-    build_dependcies_file
+    build_dependencies_file
     
     #
     #  run build of package
