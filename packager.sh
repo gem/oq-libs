@@ -526,7 +526,7 @@ _pkgbuild_innervm_run () {
     scp -r * $lxc_ip:build-deb
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
 
-    build_dependencies_file
+    build_dependencies_file "../../"
     add_custom_pkg_repo
 
     ssh $lxc_ip sudo apt-get -y upgrade
@@ -762,8 +762,9 @@ _lxc_name_and_ip_get()
 }
 
 build_dependencies_file () {
-    if [ ! -d _jenkins_deps ]; then
-        mkdir _jenkins_deps
+    local je_deps_base="$1"
+    if [ ! -d ${je_deps_base}_jenkins_deps ]; then
+        mkdir ${je_deps_base}_jenkins_deps
     fi
 
     #
@@ -805,7 +806,7 @@ build_dependencies_file () {
             branch_cur="master"
             deps_check_or_clone "$dep" "$repo/${dep}.git" "$branch_cur"
         fi
-        pushd "_jenkins_deps/$dep"
+        pushd "${je_deps_base}_jenkins_deps/$dep"
         dep_commit="$(git log -1 | grep '^commit' | sed 's/^commit //g')"
         popd
         echo "dependency: $dep"
@@ -814,14 +815,14 @@ build_dependencies_file () {
         echo "commit:     $dep_commit"
         echo
         var_pfx="$(dep2var "$dep")"
-        if [ ! -f _jenkins_deps_info ]; then
-            touch _jenkins_deps_info
+        if [ ! -f ${je_deps_base}_jenkins_deps_info ]; then
+            touch ${je_deps_base}_jenkins_deps_info
         fi
-        if grep -q "^${var_pfx}_COMMIT=" _jenkins_deps_info; then
-            if ! grep -q "^${var_pfx}_COMMIT=$dep_commit" _jenkins_deps_info; then
+        if grep -q "^${var_pfx}_COMMIT=" ${je_deps_base}_jenkins_deps_info; then
+            if ! grep -q "^${var_pfx}_COMMIT=$dep_commit" ${je_deps_base}_jenkins_deps_info; then
                 echo "ERROR: $repo -> $branch_cur changed during test:"
                 echo "before:"
-                grep "^${var_pfx}_COMMIT=" _jenkins_deps_info
+                grep "^${var_pfx}_COMMIT=" ${je_deps_base}_jenkins_deps_info
                 echo "after:"
                 echo "${var_pfx}_COMMIT=$dep_commit"
                 exit 1
@@ -830,7 +831,7 @@ build_dependencies_file () {
             ( echo "${var_pfx}_COMMIT=$dep_commit"
               echo "${var_pfx}_REPO=$repo"
               echo "${var_pfx}_BRANCH=$branch_cur"
-              echo "${var_pfx}_TYPE=$dep_type" ) >> _jenkins_deps_info
+              echo "${var_pfx}_TYPE=$dep_type" ) >> ${je_deps_base}_jenkins_deps_info
         fi
     done
     IFS="$old_ifs"
@@ -841,7 +842,7 @@ pkgtest_run () {
 
     commit="$(git log --pretty='format:%h' -1)"
 
-    build_dependencies_file
+    build_dependencies_file "../"
     
     #
     #  run build of package
