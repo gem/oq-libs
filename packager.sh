@@ -40,7 +40,7 @@ set -e
 GEM_GIT_REPO="git://github.com/gem"
 GEM_GIT_PACKAGE="oq-libs"
 GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
-GEM_DEPENDS="oq-python-deb|oq-python3.8|src"
+GEM_DEPENDS="oq-python-deb|oq-python3.8|deb"
 GEM_DEB_SERIE="master"
 if [ -z "$GEM_DEB_REPO" ]; then
     GEM_DEB_REPO="$HOME/gem_ubuntu_repo"
@@ -525,6 +525,8 @@ _pkgbuild_innervm_run () {
     scp -r * $lxc_ip:build-deb
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
 
+    build_dependencies_file
+
     add_custom_pkg_repo
 
     ssh $lxc_ip sudo apt-get -y upgrade
@@ -759,11 +761,7 @@ _lxc_name_and_ip_get()
     return 0
 }
 
-pkgtest_run () {
-    local i e branch_id="$1" commit
-
-    commit="$(git log --pretty='format:%h' -1)"
-
+build_dependencies_file () {
     if [ ! -d _jenkins_deps ]; then
         mkdir _jenkins_deps
     fi
@@ -836,9 +834,14 @@ pkgtest_run () {
         fi
     done
     IFS="$old_ifs"
+}
 
+pkgtest_run () {
+    local i e branch_id="$1" commit
 
+    commit="$(git log --pretty='format:%h' -1)"
 
+    build_dependcies_file
     
     #
     #  run build of package
