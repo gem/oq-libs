@@ -40,7 +40,7 @@ set -e
 GEM_GIT_REPO="git://github.com/gem"
 GEM_GIT_PACKAGE="oq-libs"
 GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
-GEM_DEPENDS="oq-python-deb|oq-python3.8|deb"
+GEM_DEPENDS="oq-python-deb|oq-python3.8|src"
 GEM_DEB_SERIE="master"
 if [ -z "$GEM_DEB_REPO" ]; then
     GEM_DEB_REPO="$HOME/gem_ubuntu_repo"
