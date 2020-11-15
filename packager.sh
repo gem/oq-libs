@@ -631,6 +631,7 @@ deps_check_or_clone () {
     else
         if [ ! -d "${je_deps_base}_jenkins_deps" ]; then
             mkdir -p "${je_deps_base}_jenkins_deps"
+        fi
         git clone --depth=1 -b "$branch" "$repo" "${je_deps_base}_jenkins_deps/$dep"
     fi
 }
