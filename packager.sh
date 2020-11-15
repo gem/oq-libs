@@ -611,11 +611,11 @@ _pkgtest_innervm_run () {
 }
 
 deps_check_or_clone () {
-    local dep="$1" repo="$2" branch="$3"
+    local dep="$1" repo="$2" branch="$3" je_deps_base="$4"
     local local_repo local_branch
 
-    if [ -d "_jenkins_deps/$dep" ]; then
-        pushd "_jenkins_deps/$dep"
+    if [ -d "${je_deps_base}_jenkins_deps/$dep" ]; then
+        pushd "${je_deps_base}_jenkins_deps/$dep"
         local_repo="$(git remote -v | head -n 1 | sed 's/origin[ 	]\+//;s/ .*//g')"
         if [ "$local_repo" != "$repo" ]; then
             echo "Dependency $dep: cached repository version differs from required ('$local_repo' != '$repo')."
@@ -629,7 +629,9 @@ deps_check_or_clone () {
         git clean -dfx
         popd
     else
-        git clone --depth=1 -b "$branch" "$repo" "_jenkins_deps/$dep"
+        if [ ! -d "${je_deps_base}_jenkins_deps" ]; then
+            mkdir -p "${je_deps_base}_jenkins_deps"
+        git clone --depth=1 -b "$branch" "$repo" "${je_deps_base}_jenkins_deps/$dep"
     fi
 }
 
@@ -796,7 +798,7 @@ build_dependencies_file () {
         for repo in $repos; do
             # search of same branch in same repo or in GEM_GIT_REPO repo
             if git ls-remote --heads "$repo/${dep}.git" | grep -q "refs/heads/$branch_cur" ; then
-                deps_check_or_clone "$dep" "$repo/${dep}.git" "$branch_cur"
+                deps_check_or_clone "$dep" "$repo/${dep}.git" "$branch_cur" "$je_deps_base"
                 found=1
                 break
             fi
@@ -804,7 +806,7 @@ build_dependencies_file () {
         # if not found it fallback in master branch of GEM_GIT_REPO repo
         if [ $found -eq 0 ]; then
             branch_cur="master"
-            deps_check_or_clone "$dep" "$repo/${dep}.git" "$branch_cur"
+            deps_check_or_clone "$dep" "$repo/${dep}.git" "$branch_cur" "$je_deps_base"
         fi
         pushd "${je_deps_base}_jenkins_deps/$dep"
         dep_commit="$(git log -1 | grep '^commit' | sed 's/^commit //g')"
