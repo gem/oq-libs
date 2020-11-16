@@ -360,6 +360,7 @@ _buildfromsrc_innervm_run () {
         export UNSIGN_ARGS=\"$UNSIGN_ARGS\"
         export BUILD_DEVEL=\"$BUILD_DEVEL\"
         export PKG_DSC=\"$pkg_dsc\"
+        export PKG_DIR=\"\$(basename \$(echo \"\$PKG_DSC\") | sed 's/\(^[^_]\+\)_\([^-]\+\)-.*/\1-\2/g')\"
 
         sudo apt-get -y --force-yes install git curl build-essential dpatch fakeroot devscripts equivs lintian quilt lsb-release
         sudo apt-get install dpkg-dev
