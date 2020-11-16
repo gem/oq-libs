@@ -331,16 +331,14 @@ _buildfromsrc_innervm_run () {
         pkg_base="$(echo "$pkg_dsc" | sed 's/.dsc$//g')"
         pkg_changes="${pkg_base}_source.changes"
         pkg_debarch="${pkg_base}.debian.tar.xz"
-        pkg_orig="${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/source"
-        pkg_orig="${pkg_orig}/$(basename "$pkg_dsc" | sed "s/\(${GEM_DEB_PACKAGE}[^\-]\+\)-.*/\1/g").orig.tar.gz"
-        if [ ! -e "$pkg_dsc" -o ! -e "$pkg_changes" -o ! -e "$pkg_debarch" -o ! -e "$pkg_orig" ]; then
+        if [ ! -e "$pkg_dsc" -o ! -e "$pkg_changes" -o ! -e "$pkg_debarch" ]; then
             exit 3
         fi
     else
         echo "FOR PRODUCTION"
     fi
 
-    scp "$pkg_dsc" "$pkg_changes" "$pkg_debarch" "$pkg_orig" "${lxc_ip}:"
+    scp "$pkg_dsc" "$pkg_changes" "$pkg_debarch" "${lxc_ip}:"
 
     # configure the machine to run tests
     if [ -z "$GEM_DEVTEST_SKIP_TESTS" ]; then
