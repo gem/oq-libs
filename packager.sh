@@ -1080,7 +1080,7 @@ else
     echo "$dt" > gem_date_file
 fi
 
-cd "$GEM_BUILD_SRC"
+pushd "$GEM_BUILD_SRC"
 
 # version info from openquake/libs/__init__.py
 ini_vers="$(cat openquake/libs/__init__.py | sed -n "s/^__version__[  ]*=[    ]*['\"]\([^'\"]\+\)['\"].*/\1/gp")"
@@ -1181,7 +1181,7 @@ else
     fi
     dpkg-buildpackage $DPBP_FLAG
 fi
-cd -
+popd
 
 # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
 if [ -d "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/source" -a $BUILD_SOURCES_COPY -eq 1 ]; then
