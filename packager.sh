@@ -370,7 +370,8 @@ _buildfromsrc_innervm_run () {
         cd \"\$GEM_GIT_PACKAGE\"
         dpkg-source -x ../\$(basename \"\$PKG_DSC\")
         cd \"\$PKG_DIR\"
-        echo | mk-build-deps debian/control --install --root-cmd sudo --remove
+        mk-build-deps --install --root-cmd sudo --remove --tool \"apt-get -y\" debian/control || true
+        sleep 20000 || true
         debuild -i -b
         # here the code
 
