@@ -372,7 +372,6 @@ _buildfromsrc_innervm_run () {
         dpkg-source -x ../\$(basename \"\$PKG_DSC\")
         cd \"\$PKG_DIR\"
         mk-build-deps --install --root-cmd sudo --remove --tool \"apt-get -y\" debian/control || true
-        sleep 20000 || true
         debuild -i -b
         # here the code
 
