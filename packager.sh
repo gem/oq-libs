@@ -324,6 +324,7 @@ _buildfromsrc_innervm_run () {
 
     dt="$(cat gem_date_file)"
 
+    _depends_resolver build "../../"
 
     if [ $BUILD_DEVEL -eq 1 ]; then
         PKG_COMMIT="$(git rev-parse HEAD | cut -c 1-7)"
@@ -369,7 +370,6 @@ _buildfromsrc_innervm_run () {
         cd \"\$GEM_GIT_PACKAGE\"
         dpkg-source -x ../\$(basename \"\$PKG_DSC\")
         cd \"\$PKG_DIR\"
-        sleep 20000 || true
         echo | mk-build-deps debian/control --install --root-cmd sudo --remove
         debuild -i -b
         # here the code
