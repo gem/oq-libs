@@ -610,6 +610,66 @@ _pkgtest_innervm_run () {
     return
 }
 
+_pkgtest_innervm_run_old () {
+    local lxc_ip="$1" old_ifs dep_item dep dep_pkg dep_type
+
+    trap 'local LASTERR="$?" ; trap ERR ; (exit $LASTERR) ; return' ERR
+
+    ssh $lxc_ip "sudo apt-get update"
+    ssh $lxc_ip "sudo apt-get -y upgrade"
+    gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
+    # install package to manage repository properly
+    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
+
+    # create a remote "local repo" where place $GEM_DEB_PACKAGE package
+    ssh $lxc_ip mkdir -p "repo/${GEM_DEB_PACKAGE}"
+    scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
+        build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
+        build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
+    scp build-deb/${GEM_DEB_PACKAGE}*.buildinfo $lxc_ip:repo/${GEM_DEB_PACKAGE} || true
+    ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
+
+    if [ -f _jenkins_deps_info ]; then
+        source _jenkins_deps_info
+    fi
+
+    ssh "$lxc_ip" mkdir -p "repo"
+
+    old_ifs="$IFS"
+    IFS=" $NL"
+    for dep_item in $GEM_DEPENDS; do
+        dep="$(echo "$dep_item" | cut -d '|' -f 1)"
+        dep_pkg="$(echo "$dep_item" | cut -d '|' -f 2)"
+        dep_type="$(echo "$dep_item" | cut -d '|' -f 3)"
+        # if the deb is a subpackage we skip source check
+        if [ "$dep_type" == "cust" -o "$dep_type" == "sub" ]; then
+            continue
+        else
+            add_local_pkg_repo "$dep" "$dep_pkg"
+        fi
+    done
+    IFS="$old_ifs"
+    
+    # # add custom packages
+    add_custom_pkg_repo
+
+    ssh $lxc_ip "sudo apt-get update"
+    ssh $lxc_ip "sudo apt-get upgrade -y"
+    
+    # packaging related tests (install, remove, purge, install, reinstall)
+    ssh $lxc_ip "sudo apt-get install -y ${GEM_DEB_PACKAGE}"
+    ssh $lxc_ip "sudo apt-get remove -y ${GEM_DEB_PACKAGE}"
+    ssh $lxc_ip "sudo apt-get install -y ${GEM_DEB_PACKAGE}"
+    ssh $lxc_ip "sudo apt-get install --reinstall -y ${GEM_DEB_PACKAGE}"
+
+    scp -r "$lxc_ip://usr/share/doc/${GEM_DEB_PACKAGE}/changelog*" .
+    # scp -r "$lxc_ip://usr/share/doc/${GEM_DEB_PACKAGE}/README*" .
+
+    trap ERR
+
+    return
+}
+
 deps_check_or_clone () {
     local dep="$1" repo="$2" branch="$3" je_deps_base="$4"
     local local_repo local_branch
@@ -766,6 +826,11 @@ _lxc_name_and_ip_get()
 
 build_dependencies_file () {
     local je_deps_base="$1"
+
+    if [ -e ${je_deps_base}_jenkins_deps_info ]; then
+        return
+    fi
+    
     if [ ! -d ${je_deps_base}_jenkins_deps ]; then
         mkdir ${je_deps_base}_jenkins_deps
     fi
@@ -845,6 +910,36 @@ pkgtest_run () {
 
     commit="$(git log --pretty='format:%h' -1)"
 
+    _depends_resolver "install" "../"
+
+    sudo echo
+    sudo ${GEM_EPHEM_EXE} 2>&1 | tee /tmp/packager.eph.$$.log &
+    _lxc_name_and_ip_get /tmp/packager.eph.$$.log
+
+    _wait_ssh $lxc_ip
+
+    set +e
+    _pkgtest_innervm_run $lxc_ip
+    inner_ret=$?
+    sudo $LXC_TERM -n $lxc_name
+    set -e
+
+    if [ -f /tmp/packager.eph.$$.log ]; then
+        rm /tmp/packager.eph.$$.log
+    fi
+
+    if [ $inner_ret -ne 0 ]; then
+        return $inner_ret
+    fi
+
+    return
+}
+
+pkgtest_run_old () {
+    local i e branch_id="$1" commit
+
+    commit="$(git log --pretty='format:%h' -1)"
+
     build_dependencies_file "../"
     
     #
@@ -894,7 +989,7 @@ EOF
     _wait_ssh $lxc_ip
 
     set +e
-    _pkgtest_innervm_run $lxc_ip
+    _pkgtest_innervm_run_old $lxc_ip
     inner_ret=$?
     sudo $LXC_TERM -n $lxc_name
     set -e
