@@ -910,13 +910,13 @@ pkgtest_run () {
 
     commit="$(git log --pretty='format:%h' -1)"
 
-    _depends_resolver "install" "../"
-
     sudo echo
     sudo ${GEM_EPHEM_EXE} 2>&1 | tee /tmp/packager.eph.$$.log &
     _lxc_name_and_ip_get /tmp/packager.eph.$$.log
 
     _wait_ssh $lxc_ip
+
+    _depends_resolver "install" "../"
 
     set +e
     _pkgtest_innervm_run $lxc_ip
