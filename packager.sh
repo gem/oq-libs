@@ -563,8 +563,9 @@ _pkgtest_innervm_run () {
 
     # create a remote "local repo" where place $GEM_DEB_PACKAGE package
     ssh $lxc_ip mkdir -p "repo/${GEM_DEB_PACKAGE}"
-    scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
-        build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
+#    scp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
+#        build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
+    scp build-deb/${GEM_DEB_PACKAGE}*.deb \
         build-deb/Packages* build-deb/Sources*  build-deb/Release* $lxc_ip:repo/${GEM_DEB_PACKAGE}
     scp build-deb/${GEM_DEB_PACKAGE}*.buildinfo $lxc_ip:repo/${GEM_DEB_PACKAGE} || true
     ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/${GEM_DEB_PACKAGE} ./\""
