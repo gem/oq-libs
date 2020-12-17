@@ -1,3 +1,11 @@
+python3-oq-libs (2.6.0-1~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Update GDAL to release 3.1.2
+  * Update numpy to release 1.18.2
+  * Update Shapely to release 1.7.1
+  * Removed PyYAML and Rtree libraries
+
 python3-oq-libs (2.5.4-1~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
