@@ -324,7 +324,9 @@ _buildfromsrc_innervm_run () {
 
     dt="$(cat gem_date_file)"
 
-    _depends_resolver build "../../"
+    echo "PLUTOMINNIE"
+    pwd
+    _depends_resolver build ""
 
     if [ $BUILD_DEVEL -eq 1 ]; then
         PKG_COMMIT="$(git rev-parse HEAD | cut -c 1-7)"
@@ -528,12 +530,14 @@ _pkgbuild_innervm_run () {
 
     echo "PIPPOPLUTO"
     pwd
-    build_dependencies_file "../../"
+    build_dependencies_file ""
     add_custom_pkg_repo
 
     ssh $lxc_ip sudo apt-get -y upgrade
 
-    _depends_resolver build "../../"
+    echo "PIPPOPLUTO2"
+    pwd
+    _depends_resolver build ""
 
     ssh $lxc_ip sudo apt-get -y "$APT_FORCE_YES" install build-essential dpatch fakeroot devscripts equivs lintian quilt
     ssh $lxc_ip "cd build-deb ; ./debian/rules clean"
@@ -919,7 +923,9 @@ pkgtest_run () {
 
     _wait_ssh $lxc_ip
 
-    _depends_resolver "install" "../../"
+    echo "PIPPOTOPOL"
+    pwd
+    _depends_resolver "install" ""
 
     set +e
     _pkgtest_innervm_run $lxc_ip
