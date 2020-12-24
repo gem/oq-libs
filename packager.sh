@@ -298,7 +298,7 @@ _depends_resolver () {
 }
 
 #
-#  _build_innervm_run <lxc_ip> <branch>
+#  _buildfromsrc_innervm_run <lxc_ip> <branch>
 #
 #      <lxc_ip>   the IP address of lxc instance
 #      <branch>   name of the tested branch
@@ -362,10 +362,10 @@ _buildfromsrc_innervm_run () {
         export PKG_DSC=\"$pkg_dsc\"
         export PKG_DIR=\"\$(basename \$(echo \"\$PKG_DSC\") | sed 's/\(^[^_]\+\)_\([^-]\+\)-.*/\1-\2/g')\"
 
-        sudo apt-get -y --force-yes install git curl build-essential dpatch fakeroot devscripts equivs lintian quilt lsb-release
-        sudo apt-get install dpkg-dev
-        sudo apt-get install equivs
-        sudo apt-get install build-essential pbuilder
+        sudo apt-get -y "$APT_FORCE_YES" install git curl build-essential dpatch fakeroot devscripts equivs lintian quilt lsb-release
+        sudo apt-get -y "$APT_FORCE_YES" install dpkg-dev
+        sudo apt-get -y "$APT_FORCE_YES" install equivs
+        sudo apt-get -y "$APT_FORCE_YES" install build-essential pbuilder
 
         mkdir \"\$GEM_GIT_PACKAGE\"
         cd \"\$GEM_GIT_PACKAGE\"
@@ -533,7 +533,7 @@ _pkgbuild_innervm_run () {
 
     _depends_resolver build "../../"
 
-    ssh $lxc_ip sudo apt-get -y install build-essential dpatch fakeroot devscripts equivs lintian quilt
+    ssh $lxc_ip sudo apt-get -y "$APT_FORCE_YES" install build-essential dpatch fakeroot devscripts equivs lintian quilt
     ssh $lxc_ip "cd build-deb ; ./debian/rules clean"
     ssh -t $lxc_ip "sudo mk-build-deps --install --tool 'apt-get -y' build-deb/debian/control || true"
 
@@ -559,7 +559,7 @@ _pkgtest_innervm_run () {
     ssh $lxc_ip "sudo apt-get -y upgrade"
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
     # install package to manage repository properly
-    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
+    ssh $lxc_ip "sudo apt-get install -y \"$APT_FORCE_YES\" software-properties-common"
 
     # create a remote "local repo" where place $GEM_DEB_PACKAGE package
     ssh $lxc_ip mkdir -p "repo/${GEM_DEB_PACKAGE}"
@@ -620,7 +620,7 @@ _pkgtest_innervm_run_old () {
     ssh $lxc_ip "sudo apt-get -y upgrade"
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
     # install package to manage repository properly
-    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
+    ssh $lxc_ip "sudo apt-get install -y \"$APT_FORCE_YES\" software-properties-common"
 
     # create a remote "local repo" where place $GEM_DEB_PACKAGE package
     ssh $lxc_ip mkdir -p "repo/${GEM_DEB_PACKAGE}"
@@ -707,15 +707,15 @@ _builddoc_innervm_run () {
 
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
     # install package to manage repository properly
-    ssh $lxc_ip "sudo apt-get install -y software-properties-common"
+    ssh $lxc_ip "sudo apt-get install -y \"$APT_FORCE_YES\" software-properties-common"
 
     pkgs_list="$(deps_list all debian)"
-    ssh $lxc_ip "sudo apt-get install -y ${pkgs_list}"
+    ssh $lxc_ip "sudo apt-get install -y \"$APT_FORCE_YES\" ${pkgs_list}"
 
     # TODO: version check
     git archive --prefix ${GEM_GIT_PACKAGE}/ HEAD | ssh $lxc_ip "tar xv"
 
-    ssh $lxc_ip "sudo apt-get -y install python-pip"
+    ssh $lxc_ip "sudo apt-get -y \"$APT_FORCE_YES\" install python-pip"
     ssh $lxc_ip "sudo pip install sphinx==1.3.4"
 
     ssh $lxc_ip "cd ${GEM_GIT_PACKAGE} ; export PYTHONPATH=\$PWD ; cd doc/sphinx ; make html"
