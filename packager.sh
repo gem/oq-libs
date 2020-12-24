@@ -530,14 +530,14 @@ _pkgbuild_innervm_run () {
 
     echo "PIPPOPLUTO"
     pwd
-    build_dependencies_file ""
+    build_dependencies_file "../../"
     add_custom_pkg_repo
 
     ssh $lxc_ip sudo apt-get -y upgrade
 
     echo "PIPPOPLUTO2"
     pwd
-    _depends_resolver build ""
+    _depends_resolver build "../../"
 
     ssh $lxc_ip sudo apt-get -y "$APT_FORCE_YES" install build-essential dpatch fakeroot devscripts equivs lintian quilt
     ssh $lxc_ip "cd build-deb ; ./debian/rules clean"
