@@ -526,6 +526,8 @@ _pkgbuild_innervm_run () {
     scp -r * $lxc_ip:build-deb
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
 
+    echo "PIPPOPLUTO"
+    pwd
     build_dependencies_file "../../"
     add_custom_pkg_repo
 
