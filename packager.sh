@@ -41,7 +41,6 @@ GEM_GIT_REPO="git://github.com/gem"
 GEM_GIT_PACKAGE="oq-libs"
 GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
 GEM_DEPENDS="oq-python-deb|oq-python3.8|deb"
-GEM_DEB_SERIE="master"
 if [ -z "$GEM_DEB_REPO" ]; then
     GEM_DEB_REPO="$HOME/gem_ubuntu_repo"
 fi
@@ -50,6 +49,9 @@ if [ -z "$GEM_DEB_MONOTONE" ]; then
 fi
 if [ -z "$GEM_MASTER_BRANCH" ]; then
     export GEM_MASTER_BRANCH="master"
+    GEM_DEB_SERIE="master"
+else
+    GEM_DEB_SERIE="$GEM_MASTER_BRANCH"
 fi
 
 # FIXME this is currently unused, but left as reference
@@ -223,7 +225,7 @@ add_local_pkg_repo () {
     fi
 
     if [ "$dep_repo" = "$GEM_GIT_REPO" -a "$dep_branch" = "$GEM_MASTER_BRANCH" ]; then
-        GEM_DEB_SERIE="master"
+        GEM_DEB_SERIE="$GEM_MASTER_BRANCH"
     else
         GEM_DEB_SERIE="devel/$(echo "$dep_repo" | sed 's@^.*://@@g;s@/@__@g;s/\./-/g')__${dep_branch}"
     fi
