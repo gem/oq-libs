@@ -1,2 +1,2 @@
-basemap-1.1.0-cp36-cp36m-manylinux1_x86_64.whl
-GDAL-3.1.2-cp36-cp36m-manylinux1_x86_64.whl
+### GDAL ###
+GDAL-3.1.2-cp38-cp38-manylinux2014_x86_64.whl
