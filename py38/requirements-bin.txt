@@ -11,7 +11,7 @@ scipy-1.4.1-cp38-cp38-manylinux1_x86_64.whl
 pandas-1.0.3-cp38-cp38-manylinux1_x86_64.whl
 pyzmq-19.0.0-cp38-cp38-manylinux1_x86_64.whl
 psutil-5.6.7-cp38-cp38-manylinux1_x86_64.whl
-Shapely-1.7.0-cp38-cp38-manylinux1_x86_64.whl
+Shapely-1.7.1-cp38-cp38-manylinux1_x86_64.whl
 
 ### Plotting ###
 # comment the following lines to skip installation
