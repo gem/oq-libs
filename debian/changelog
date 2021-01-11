@@ -1,4 +1,4 @@
-python3-oq-libs (3.0.0-4~xenial01) xenial; urgency=low
+python3-oq-libs (3.0.0-5~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
   * Add control.in management for serie-based build-deps
@@ -11,7 +11,6 @@ python3-oq-libs (3.0.0-4~xenial01) xenial; urgency=low
   * Update certifi from 2018.1.18 to release 2019.3.9
   * Update decorator from 4.3.0 to release 4.4.2
   * Remove django_pam
-  * Update GDAL from 2.4.1.post1 to release 3.1.2
   * Remove gunicorn
   * Update h5py from 2.9.0 to release 2.10.0
   * Update idna from 2.6 to release 2.8
@@ -19,7 +18,6 @@ python3-oq-libs (3.0.0-4~xenial01) xenial; urgency=low
   * Update kombu from 4.1.0 to release 4.5.0
   * Update matplotlib from 2.1.2 to release 3.1.2
   * Remove nose
-  * Update numpy from 1.16.5 to release 1.18.2
   * Update pandas from 0.25.3 to release 1.0.3
   * Update pbr from 4.0.0 to release 5.2.0
   * Update psutil from 5.4.3 to release 5.6.7
@@ -29,19 +27,35 @@ python3-oq-libs (3.0.0-4~xenial01) xenial; urgency=low
   * Remove python_pam
   * Remove python_prctl
   * Update pytz from 2018.3 to release 2019.1
-  * Remove PyYAML
   * Update pyzmq from 17.0.0 to release 19.0.0
   * Update requests from 2.20.0 to release 2.22.0
   * Remove Rtree
   * Update scipy from 1.3.1 to release 1.4.1
   * Remove setproctitle
   * Add setuptools release 41.0.1
-  * Update Shapely from 1.6.4.post1 to release 1.7.0
   * Update six from 1.11.0 to release 1.12.0
   * Update urllib3 from 1.22 to release 1.25.3
   * Update vine from 1.1.4 to release 1.3.0
 
- -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Mon, 28 Sep 2020 19:14:18 +0000
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Mon, 11 Jan 2021 10:28:05 +0000
+
+python3-oq-libs (2.6.0-1~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Update GDAL to release 3.1.2
+  * Update numpy to release 1.18.2
+  * Update Shapely to release 1.7.1
+  * Removed PyYAML and Rtree libraries
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Fri, 18 Dec 2020 08:51:19 +0000
+
+python3-oq-libs (2.5.4-1~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Update h5py to 2.10.0 version
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 11 Nov 2020 08:30:24 +0000
+>>>>>>> origin/master
 
 python3-oq-libs (2.5.3-1~xenial01) xenial; urgency=low
 
