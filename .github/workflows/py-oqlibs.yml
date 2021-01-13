@@ -21,5 +21,5 @@ jobs:
         PY_VER=`echo py${{ env.python_version }} | tr -d .`
         helpers/whldownload.sh -w py -w $PY_VER -w $PY_VER-extra 
         mkdir -p /tmp/openquake
-        helpers/whlsetup.sh -${{env.python_version}} -c -s py -s $PY_VER -s $PY_VER-extra -d /tmp/opt/openquake
+        helpers/whlsetup.sh -3 -c -s py -s $PY_VER -s $PY_VER-extra -d /tmp/openquake
         python${{env.python_version}} -c 'from openquake.libs import __version__; print(__version__)'
