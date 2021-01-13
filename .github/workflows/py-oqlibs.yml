@@ -1,0 +1,25 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Test oq libs with python
+on:
+  push:
+jobs:
+  oq-libs:
+    runs-on: ubuntu-18.04
+    env:
+      python_version: 3.8
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{env.python_version}}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{env.python_version}}
+    - name: Install dependencies
+      run: |
+        set -x
+        PY_VER=`echo py${{ env.python_version }} | tr -d .`
+        helpers/whldownload.sh -w py -w $PY_VER -w $PY_VER-extra 
+        mkdir -p /tmp/openquake
+        helpers/whlsetup.sh -${{env.python_version}} -c -s py -s $PY_VER -s $PY_VER-extra -d /tmp/opt/openquake
+        python${{env.python_version}} -c 'from openquake.libs import __version__; print(__version__)'
