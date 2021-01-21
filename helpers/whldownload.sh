@@ -60,7 +60,7 @@ elif [ $# -lt 2 ]; then
     exit 1
 fi
 
-MIRROR='https://wheelhouse.openquake.org/v2/linux'
+MIRROR='https://wheelhouse.openquake.org/v3/linux'
 declare -a WH
 
 while [ $# -gt 0 ]; do
@@ -93,7 +93,7 @@ for d in "${WH[@]}"; do
         rm -f *.whl
     fi
     cat requirements-bin.txt | while read l; do
-        if [ ${l:0:1} == "#" ]; then
+        if [ "${l:0:1}" == "#" -o "$l" == "" ]; then
             continue
         fi
         url=${MIRROR}/${d%-*}/${l}
