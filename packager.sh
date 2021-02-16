@@ -197,12 +197,15 @@ add_custom_pkg_repo () {
     # install package to manage repository properly
     ssh $lxc_ip "sudo apt-get install -y software-properties-common"
 
+    if [ "$REPO_BIN" ]; then
+         ssh $lxc_ip "sudo apt-add-repository -y \"$REPO_BIN\""
+    fi
     # add custom packages
     if ! ssh $lxc_ip ls repo/custom_pkgs >/dev/null ; then
         ssh $lxc_ip mkdir -p "repo"
         scp -r ${GEM_DEB_REPO}/custom_pkgs $lxc_ip:repo/custom_pkgs
     fi
-    ssh $lxc_ip "sudo apt-add-repository \"deb file:/home/ubuntu/repo/custom_pkgs ${BUILD_UBUVER} main\""
+    ssh $lxc_ip "sudo apt-add-repository -y \"deb file:/home/ubuntu/repo/custom_pkgs ${BUILD_UBUVER} main\""
     ssh $lxc_ip "sudo apt-get update"
 }
 
@@ -530,8 +533,6 @@ _pkgbuild_innervm_run () {
     scp -r * $lxc_ip:build-deb
     gpg -a --export | ssh $lxc_ip "sudo apt-key add -"
 
-    echo "PIPPOPLUTO"
-    pwd
     build_dependencies_file "../../"
     add_custom_pkg_repo
 
@@ -836,6 +837,9 @@ _lxc_name_and_ip_get()
 build_dependencies_file () {
     local je_deps_base="$1"
 
+    if [ "$REPO_BIN" ]; then
+        return
+    fi
     if [ -e ${je_deps_base}_jenkins_deps_info ]; then
         return
     fi
@@ -1123,6 +1127,10 @@ while [ $# -gt 0 ]; do
             ;;
         -R|--repository)
             BUILD_REPOSITORY=1
+            ;;
+        -r|--repo-bin)
+            REPO_BIN="$2"
+            shift
             ;;
         -U|--unsigned)
             BUILD_UNSIGN=1
