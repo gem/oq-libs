@@ -67,6 +67,12 @@ virtualenv="venv"
 
 while [ $# -gt 0 ]; do
     case "$1" in
+        -36)
+            PATH="/opt/openquake/bin:$PATH"
+            python="python3.6"
+            virtualenv="venv"
+            shift
+            ;;
         -3)
             PATH="/opt/openquake/bin:$PATH"
             python="python3.8"
