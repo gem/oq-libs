@@ -104,7 +104,7 @@ Copyright (C) 2010-2019 GEM Foundation
 %install
 install -p -m 755 -d %{buildroot}%{_prefix}
 install -p -m 755 -d %{buildroot}%{_bindir}
-helpers/whlsetup.sh -36 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py36 -s py36-extra
+GEM_SET_DEBUG=1 helpers/whlsetup.sh -36 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py36 -s py36-extra
 install -p -m 755 -d %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake/libs
 install -p -m 644 openquake/libs/__init__.py %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake/libs
 # These aren't required anymore, but leaving them in case of PYTHONPATH is used
