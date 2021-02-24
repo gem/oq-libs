@@ -126,12 +126,8 @@ end
 %files
 %defattr(-,root,root)
 %{_prefix}
-%exclude %{_libdir}/python3.6/site-packages/basemap*
-%exclude %{_libdir}/python3.6/site-packages/mpl_toolkits/basemap
 
 %files extra
-%{_libdir}/python3.6/site-packages/basemap*
-%{_libdir}/python3.6/site-packages/mpl_toolkits/basemap
 
 
 %changelog
