@@ -70,7 +70,7 @@ fi
 if [ "$GEM_EPHEM_NAME" = "" ]; then
     GEM_EPHEM_NAME="ubuntu16-lxc-eph"
 fi
-SUPPORTED_SERIES="bionic xenial trusty"
+SUPPORTED_SERIES="focal bionic xenial"
 
 LXC_VER=$(lxc-ls --version | cut -d '.' -f 1)
 
