@@ -2,6 +2,7 @@ python3-oq-libs (3.1.0-5~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
   * Update Django to version 3.2.6
+  * Add asgiref-3.4.1-py3-none-any.whl (deps from Django)
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Tue, 31 Aug 2021 13:29:35 +0000
 
