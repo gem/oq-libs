@@ -353,6 +353,10 @@ _buildfromsrc_innervm_run () {
 
     ssh -t "$lxc_ip" "
         set -e
+        if [ -n \"$GEM_SET_DEBUG\" -a \"$GEM_SET_DEBUG\" != \"false\" ]; then
+            export PS4='+\${BASH_SOURCE}:\${LINENO}:\${FUNCNAME[0]}: '
+            set -x
+        fi
         export GEM_GIT_PACKAGE=\"$GEM_GIT_PACKAGE\"
         export GEM_DEB_PACKAGE=\"$GEM_DEB_PACKAGE\"
         export BUILD_UBUVER=\"$BUILD_UBUVER\"
