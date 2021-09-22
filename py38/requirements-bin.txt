@@ -5,7 +5,7 @@
 # We also provide pre-compiled manylinux1 wheels for
 # h5py, Shapely, psutil
 
-h5py-2.10.0-cp38-cp38-manylinux1_x86_64.whl
+h5py-3.1.0-cp38-cp38-manylinux1_x86_64.whl
 numpy-1.18.2-cp38-cp38-manylinux1_x86_64.whl
 scipy-1.4.1-cp38-cp38-manylinux1_x86_64.whl
 pandas-1.0.3-cp38-cp38-manylinux1_x86_64.whl
