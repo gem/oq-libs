@@ -33,7 +33,7 @@ override_dh_install:
 	install -p -m 755 -d $(CURDIR)/debian/python3-oq-libs/opt/openquake/bin
 
 	export GEM_DEBIAN_INSTALL_LAYOUT=deb ; \
-	helpers/whlsetup.sh -3 -b /opt/openquake/bin/python3.8 \
+	export GEM_SET_DEBUG=$(GEM_SET_DEBUG) ; helpers/whlsetup.sh -3 -b /opt/openquake/bin/python3.8 \
 		-d $(CURDIR)/debian/python3-oq-libs/opt/openquake -s py -s py38
 	install -p -m 755 -d $(CURDIR)/debian/python3-oq-libs/opt/openquake/lib/python3/dist-packages/openquake
 	install -p -m 644 openquake/__init__.py $(CURDIR)/debian/python3-oq-libs/opt/openquake/lib/python3/dist-packages/openquake
