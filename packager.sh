@@ -355,6 +355,7 @@ _buildfromsrc_innervm_run () {
         set -e
         if [ -n \"$GEM_SET_DEBUG\" -a \"$GEM_SET_DEBUG\" != \"false\" ]; then
             export PS4='+\${BASH_SOURCE}:\${LINENO}:\${FUNCNAME[0]}: '
+            export GEM_SET_DEBUG=\"true\"
             set -x
         fi
         export GEM_GIT_PACKAGE=\"$GEM_GIT_PACKAGE\"
