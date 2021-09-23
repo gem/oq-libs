@@ -382,7 +382,7 @@ _buildfromsrc_innervm_run () {
         dpkg-source -x ../\$(basename \"\$PKG_DSC\")
         cd \"\$PKG_DIR\"
         mk-build-deps --install --root-cmd sudo --remove --tool \"apt-get -y\" debian/control || true
-        debuild -i -b
+        debuild -i -b --preserve-envvar GEM_SET_DEBUG
         # here the code
 
         exit 0"
