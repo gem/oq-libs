@@ -129,7 +129,7 @@ if [ "$USE_PIP" == "true" ]; then
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
     checkcmd $python find
-    pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    pip3 install --no-cache-dir ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
