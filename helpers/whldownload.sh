@@ -106,7 +106,7 @@ done ) | grep -v '^#' | grep -v '^ *$' | while read l; do
         url=${MIRROR}/${d%-*}/${l}
         echo "Downloading $url"
         curl -LOs -D header.http $url
-        if grep -q '^HTTP.*200$' header.http; then
+        if grep -q '^HTTP.*200[^0-9]*$' header.http; then
             rm header.http
             cd ..
             found="true"
