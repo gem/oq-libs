@@ -131,7 +131,7 @@ if [ "$USE_PIP" == "true" ]; then
     checkcmd $python find
     md5sum ${SRC[@]}
     which pip3
-    pip3 install --no-cache-dir ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
