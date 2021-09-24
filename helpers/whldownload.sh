@@ -95,29 +95,28 @@ for d in "${WH[@]}"; do
     cd ..
 done
 
-( for d in "${WH[@]}"; do
-    if [ -f ${d}/requirements-bin.txt ]; then
-        cat ${d}/requirements-bin.txt
-    fi
-done ) | grep -v '^#' | grep -v '^ *$' | while read l; do
-    found=""
-    for d in "${WH[@]}"; do
+for d in "${WH[@]}"; do
+    ( if [ -f ${d}/requirements-bin.txt ]; then
+          cat ${d}/requirements-bin.txt
+      fi ) | grep -v '^#' | grep -v '^ *$' | while read l; do
         cd $d
-        url=${MIRROR}/${d%-*}/${l}
-        echo "Downloading $url"
-        curl -LOs -D header.http $url
-        if grep -q '^HTTP.*200[^0-9]*$' header.http; then
+        found=""
+        for remd in "${WH[@]}"; do
+            url=${MIRROR}/${remd%-*}/${l}
+            echo "Downloading $url"
+            curl -LOs -D header.http $url
+            if grep -q '^HTTP.*200[^0-9]*$' header.http; then
+                rm header.http
+                found="true"
+                break
+            fi
+            rm $(echo "$url" | sed 's@^.*/@@g')
             rm header.http
-            cd ..
-            found="true"
-            break
-        fi
-        rm $(echo "$url" | sed 's@^.*/@@g')
-        rm header.http
+        done
         cd ..
+        if [ -z "$found" ]; then
+            echo >&2 "Download of $url failed"
+            exit 1
+        fi
     done
-    if [ -z "$found" ]; then
-        echo >&2 "Download of $url failed"
-        exit 1
-    fi
 done
