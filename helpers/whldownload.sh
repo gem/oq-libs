@@ -95,7 +95,11 @@ for d in "${WH[@]}"; do
     cd ..
 done
 
-grep -v '^#' requirements-bin.txt | grep -v '^ *$' | while read l; do
+( for d in "${WH[@]}"; do
+    if [ -f ${d}/requirements-bin.txt ]; then
+        cat ${d}/requirements-bin.txt
+    fi
+done ) | grep -v '^#' | grep -v '^ *$' | while read l; do
     found=""
     for d in "${WH[@]}"; do
         cd $d
