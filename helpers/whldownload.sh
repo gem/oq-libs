@@ -112,6 +112,7 @@ done ) | grep -v '^#' | grep -v '^ *$' | while read l; do
             found="true"
             break
         fi
+        rm $(echo "$url" | sed 's@^.*/@@g')
         rm header.http
         cd ..
     done
