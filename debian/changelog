@@ -1,6 +1,7 @@
 python3-oq-libs (3.2.0-5~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
+  * Decoupled oq-engine dependencies with ubuntu libs packages
   * Update h5py from 2.10.0 to release 3.1.0
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Wed, 22 Sep 2021 09:48:44 +0000
