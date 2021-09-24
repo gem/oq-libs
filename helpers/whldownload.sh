@@ -92,7 +92,6 @@ for d in "${WH[@]}"; do
     if [ -z $KEEP ]; then
         rm -f *.whl
     fi
-    done
     cd ..
 done
 
