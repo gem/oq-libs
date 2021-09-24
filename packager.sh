@@ -548,7 +548,13 @@ _pkgbuild_innervm_run () {
     ssh -t $lxc_ip "sudo mk-build-deps --install --tool 'apt-get -y' build-deb/debian/control || true"
 
     #    ssh $lxc_ip "cd build-deb && dpkg-buildpackage $DPBP_FLAG"
-    ssh $lxc_ip "cd build-deb && helpers/makedeb.sh"
+    ssh $lxc_ip "
+        if [ -n \"$GEM_SET_DEBUG\" -a \"$GEM_SET_DEBUG\" != \"false\" ]; then
+            export PS4='+\${BASH_SOURCE}:\${LINENO}:\${FUNCNAME[0]}: '
+            export GEM_SET_DEBUG=\"true\"
+            set -x
+        fi
+        cd build-deb && helpers/makedeb.sh"
     ssh -t $lxc_ip "cd build-deb && dpkg-buildpackage $DPBP_FLAG"
     ssh $lxc_ip "ls -f"
     scp $lxc_ip:*.{tar.?z,changes,dsc} ../
