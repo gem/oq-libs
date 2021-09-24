@@ -129,6 +129,8 @@ if [ "$USE_PIP" == "true" ]; then
     # See: https://pip.pypa.io/en/stable/user_guide/#installation-bundles
 
     checkcmd $python find
+    md5sum ${SRC[@]}
+    which pip3
     pip3 install --no-cache-dir ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
