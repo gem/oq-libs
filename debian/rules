@@ -24,7 +24,7 @@ override_dh_clean: control-file
 	dh_clean
 
 override_dh_testdir:
-	helpers/makedeb.sh check_versions
+	export GEM_SET_DEBUG=$(GEM_SET_DEBUG) ; helpers/makedeb.sh check_versions
 	dh_testdir
 
 override_dh_install:

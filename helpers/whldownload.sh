@@ -92,13 +92,28 @@ for d in "${WH[@]}"; do
     if [ -z $KEEP ]; then
         rm -f *.whl
     fi
-    cat requirements-bin.txt | while read l; do
-        if [ "${l:0:1}" == "#" -o "$l" == "" ]; then
-            continue
-        fi
-        url=${MIRROR}/${d%-*}/${l}
-        echo "Downloading $url"
-        curl -LOsz $l $url || { echo >&2 "Download of $url failed" ; exit 1; }
     done
     cd ..
+done
+
+grep -v '^#' requirements-bin.txt | grep -v '^ *$' | while read l; do
+    found=""
+    for d in "${WH[@]}"; do
+        cd $d
+        url=${MIRROR}/${d%-*}/${l}
+        echo "Downloading $url"
+        curl -LOs -D header.http $url
+        if grep -q '^HTTP.*200$' header.http; then
+            rm header.http
+            cd ..
+            found="true"
+            break
+        fi
+        rm header.http
+        cd ..
+    done
+    if [ -z "$found" ]; then
+        echo >&2 "Download of $url failed"
+        exit 1
+    fi
 done
