@@ -8,7 +8,7 @@
 pytz-2019.1-py2.py3-none-any.whl
 h5py-3.1.0-cp38-cp38-manylinux1_x86_64.whl
 setproctitle-1.2.2-cp38-cp38-manylinux1_x86_64.whl
-numpy-1.18.2-cp38-cp38-manylinux1_x86_64.whl
+numpy-1.20.0-cp38-cp38-manylinux1_x86_64.whl
 scipy-1.4.1-cp38-cp38-manylinux1_x86_64.whl
 pandas-1.1.5-cp38-cp38-manylinux1_x86_64.whl
 pyzmq-19.0.0-cp38-cp38-manylinux1_x86_64.whl
