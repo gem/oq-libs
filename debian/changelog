@@ -1,6 +1,9 @@
-python3-oq-libs (3.3.0-1~xenial01) xenial; urgency=low
+python3-oq-libs (3.4.0~xenial01) xenial; urgency=low
 
-  * Update scipt from 1.4.1 to release 1.7.3
+  [Antonio Ettorre]
+  * Update scipy from 1.4.1 to release 1.7.3
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Mon, 14 Feb 2022 08:34:01 +0000
 
 python3-oq-libs (3.3.0-1~xenial01) xenial; urgency=low
 
