@@ -3,14 +3,12 @@
 # GEM Mirror
 # We also provide pre-compiled manylinux1 wheels for
 # h5py, Shapely, psutil
+setuptools-56.0.0-py3-none-any.whl
 pytz-2019.1-py2.py3-none-any.whl
-# setuptools-41.0.1-py2.py3-none-any.whl
 docutils-0.14-py3-none-any.whl
 decorator-4.4.2-py2.py3-none-any.whl
 pbr-5.2.0-py2.py3-none-any.whl
 six-1.12.0-py2.py3-none-any.whl
-Django-3.2.6-py3-none-any.whl
-asgiref-3.4.1-py3-none-any.whl
 sqlparse-0.3.0-py2.py3-none-any.whl
 certifi-2019.3.9-py2.py3-none-any.whl
 chardet-3.0.4-py2.py3-none-any.whl
@@ -19,6 +17,10 @@ urllib3-1.25.3-py2.py3-none-any.whl
 requests-2.22.0-py2.py3-none-any.whl
 pyshp-1.2.3-py3-none-any.whl
 toml-0.10.0-py2.py3-none-any.whl
+Django-3.2.6-py3-none-any.whl
+asgiref-3.4.1-py3-none-any.whl
+django_pam-2.0.1-py2.py3-none-any.whl
+python_pam-1.8.4-py2.py3-none-any.whl
 
 ### Celery ###
 # comment the following lines to skip installation

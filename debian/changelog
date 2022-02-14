@@ -1,5 +1,9 @@
 python3-oq-libs (3.3.0-1~xenial01) xenial; urgency=low
 
+  * Update scipt from 1.4.1 to release 1.7.3
+
+python3-oq-libs (3.3.0-1~xenial01) xenial; urgency=low
+
   * Update numpy from 1.18.4 to release 1.20.0
 
  -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Tue, 16 Nov 2021 13:59:09 +0000

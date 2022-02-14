@@ -1,42 +1,15 @@
 # Suggested versions for development
 # !! must update pip first! so wheels will be used !!
-
 # GEM Mirror
-# We also provide pre-compiled manylinux1 wheels for
-# h5py, Shapely, psutil
-### setuptools-56.0.0-py3-none-any.whl
 pytz-2019.1-py2.py3-none-any.whl
 h5py-3.1.0-cp38-cp38-manylinux1_x86_64.whl
 setproctitle-1.2.2-cp38-cp38-manylinux1_x86_64.whl
 numpy-1.20.0-cp38-cp38-manylinux1_x86_64.whl
-scipy-1.4.1-cp38-cp38-manylinux1_x86_64.whl
+scipy-1.7.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 pandas-1.1.5-cp38-cp38-manylinux1_x86_64.whl
 pyzmq-19.0.0-cp38-cp38-manylinux1_x86_64.whl
 psutil-5.6.7-cp38-cp38-manylinux1_x86_64.whl
 Shapely-1.7.1-cp38-cp38-manylinux1_x86_64.whl
-docutils-0.14-py3-none-any.whl
-decorator-4.4.2-py2.py3-none-any.whl
-pbr-5.2.0-py2.py3-none-any.whl
-six-1.12.0-py2.py3-none-any.whl
-sqlparse-0.3.0-py2.py3-none-any.whl
-certifi-2019.3.9-py2.py3-none-any.whl
-chardet-3.0.4-py2.py3-none-any.whl
-idna-2.8-py2.py3-none-any.whl
-urllib3-1.25.3-py2.py3-none-any.whl
-requests-2.22.0-py2.py3-none-any.whl
-pyshp-1.2.3-py3-none-any.whl
-toml-0.10.0-py2.py3-none-any.whl
-Django-3.2.6-py3-none-any.whl
-asgiref-3.4.1-py3-none-any.whl
-python_pam-1.8.4-py2.py3-none-any.whl
-django_pam-2.0.1-py2.py3-none-any.whl
-
-### Plotting ###
-# comment the following lines to skip installation
-# of the plotting libraries (optional feature)
-python_dateutil-2.8.0-py2.py3-none-any.whl
-pyparsing-2.4.0-py2.py3-none-any.whl
-cycler-0.10.0-py2.py3-none-any.whl
 kiwisolver-1.1.0-cp38-cp38-manylinux1_x86_64.whl
 matplotlib-3.1.2-cp38-cp38-manylinux1_x86_64.whl
 pyproj-2.5.0-cp38-cp38-manylinux1_x86_64.whl

@@ -16,4 +16,4 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with OpenQuake. If not, see <http://www.gnu.org/licenses/>.
 
-__version__ = '3.3.0'
+__version__ = '3.4.0'
