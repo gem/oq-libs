@@ -1,4 +1,4 @@
-python3-oq-libs (3.4.0~xenial01) xenial; urgency=low
+python3-oq-libs (3.4.0-1~xenial01) xenial; urgency=low
 
   [Antonio Ettorre]
   * Update scipy from 1.4.1 to release 1.7.3
