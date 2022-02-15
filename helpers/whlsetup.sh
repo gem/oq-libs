@@ -133,7 +133,7 @@ if [ "$USE_PIP" == "true" ]; then
     which pip3
     whoami
     
-    pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    /opt/openquake/bin/python3 -m pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
