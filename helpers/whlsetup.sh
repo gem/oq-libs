@@ -131,6 +131,8 @@ if [ "$USE_PIP" == "true" ]; then
     checkcmd $python find
     md5sum ${SRC[@]}
     which pip3
+    whoami
+    
     pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
