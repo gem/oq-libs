@@ -132,11 +132,15 @@ if [ "$USE_PIP" == "true" ]; then
     md5sum ${SRC[@]}
     which pip3
  
-    pip3 install ${nodeps} --system --no-index --prefix ${DEST} ${SRC[@]}
+    echo pip3 install ${nodeps} --system --no-index --prefix ${DEST} ${SRC[@]}
+   
+    sleep 20000 || true
 
     # Cleanup
     # find ${DEST} -name '*.pyc' -o -name '__pycache__' -exec rm -Rf {} \;
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
+
+    sleep 20000 || true
 
     if [ ! -z $compile ]; then
         # Python 2.7 is a bit fussy, compileall returns error even
