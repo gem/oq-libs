@@ -133,7 +133,7 @@ if [ "$USE_PIP" == "true" ]; then
     which pip3
   
     # required by some new wheel
-    sudo /opt/openquake/bin/pip3 install ./py/setuptools-56.0.0-py3-none-any.whl
+    sudo -H /opt/openquake/bin/pip3 install ./py/setuptools-56.0.0-py3-none-any.whl
 
     pip3 install ${nodeps} --system --no-index --prefix ${DEST} ${SRC[@]}
    
