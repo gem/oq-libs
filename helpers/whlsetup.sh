@@ -131,16 +131,15 @@ if [ "$USE_PIP" == "true" ]; then
     checkcmd $python find
     md5sum ${SRC[@]}
     which pip3
- 
-    echo pip3 install ${nodeps} --system --no-index --prefix ${DEST} ${SRC[@]}
-   
-    sleep 20000 || true
+  
+    # required by some new wheel
+    sudo /opt/openquake/bin/pip3 install ./py/setuptools-56.0.0-py3-none-any.whl
 
+    pip3 install ${nodeps} --system --no-index --prefix ${DEST} ${SRC[@]}
+   
     # Cleanup
     # find ${DEST} -name '*.pyc' -o -name '__pycache__' -exec rm -Rf {} \;
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
-
-    sleep 20000 || true
 
     if [ ! -z $compile ]; then
         # Python 2.7 is a bit fussy, compileall returns error even
