@@ -135,7 +135,7 @@ if [ "$USE_PIP" == "true" ]; then
     # required by some new wheel
     sudo -H /opt/openquake/bin/pip3 install ./py/setuptools-56.0.0-py3-none-any.whl
 
-    pip3 install ${nodeps} --system --no-index --prefix ${DEST} ${SRC[@]}
+    pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
    
     # Cleanup
     # find ${DEST} -name '*.pyc' -o -name '__pycache__' -exec rm -Rf {} \;
