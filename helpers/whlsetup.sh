@@ -131,9 +131,8 @@ if [ "$USE_PIP" == "true" ]; then
     checkcmd $python find
     md5sum ${SRC[@]}
     which pip3
-    whoami
     
-    /opt/openquake/bin/python3 -m pip install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    sudo -H pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
     find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | xargs -0 rm -Rf
