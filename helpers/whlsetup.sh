@@ -135,7 +135,7 @@ if [ "$USE_PIP" == "true" ]; then
     sudo -H /opt/openquake/bin/pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
 
     # Cleanup
-    find ${DEST} -name '*.pyc' -o -name '__pycache__' -print0 | sudo -H xargs -0 rm -Rf
+    find ${DEST} -name '*.pyc' -o -name '__pycache__' -exec rm -Rf {} \;
 
     if [ ! -z $compile ]; then
         # Python 2.7 is a bit fussy, compileall returns error even
