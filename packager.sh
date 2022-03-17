@@ -863,9 +863,11 @@ build_dependencies_file () {
     # the same repository and the same branch OR the gem repository
     # and the same branch OR the gem repository and the "master" branch
     #
-    repo_id="$(repo_id_get)"
+	repo_id="$(repo_id_get)"
+	echo "repo_id: $repo_id"
+	echo "repos= git@github.com:${repo_id} ${GEM_GIT_REPO}"
     if [ "$repo_id" != "$GEM_GIT_REPO" ]; then
-        repos="git://${repo_id} ${GEM_GIT_REPO}"
+        repos="git@github.com:${repo_id} ${GEM_GIT_REPO}"
     else
         repos="${GEM_GIT_REPO}"
     fi
