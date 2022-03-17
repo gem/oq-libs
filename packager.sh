@@ -37,7 +37,8 @@ if [ -n "$GEM_SET_DEBUG" -a "$GEM_SET_DEBUG" != "false" ]; then
     set -x
 fi
 set -e
-GEM_GIT_REPO="git://github.com/gem"
+#GEM_GIT_REPO="git://github.com/gem"
+GEM_GIT_REPO="git@github.com:gem/"
 GEM_GIT_PACKAGE="oq-libs"
 GEM_DEB_PACKAGE="python3-${GEM_GIT_PACKAGE}"
 GEM_DEPENDS="oq-python-deb|oq-python3.8|deb"
@@ -480,7 +481,7 @@ EOF
     if [ "$BUILD_REPOSITORY" -eq 1 -a -d "${GEM_DEB_REPO}" ]; then
         if [ "$branch" != "" ]; then
             repo_id="$(repo_id_get)"
-            if [ "git://$repo_id" != "$GEM_GIT_REPO" -o "$branch" != "$GEM_MASTER_BRANCH" ]; then
+            if [ "git@$repo_id" != "$GEM_GIT_REPO" -o "$branch" != "$GEM_MASTER_BRANCH" ]; then
                 CUSTOM_SERIE="devel/$(echo "$repo_id" | sed "s@/@__@g;s/\./-/g")__${branch}"
                 if [ "$CUSTOM_SERIE" != "" ]; then
                     GEM_DEB_SERIE="$CUSTOM_SERIE"
@@ -866,8 +867,11 @@ build_dependencies_file () {
 	repo_id="$(repo_id_get)"
 	echo "repo_id: $repo_id"
 	echo "repos= git@github.com:${repo_id} ${GEM_GIT_REPO}"
+	sleep 1
+        echo "repos= git@${repo_id} != ${GEM_GIT_REPO}"
+	sleep 1
     if [ "$repo_id" != "$GEM_GIT_REPO" ]; then
-        repos="git@github.com:${repo_id} ${GEM_GIT_REPO}"
+        repos="git@${repo_id} ${GEM_GIT_REPO}"
     else
         repos="${GEM_GIT_REPO}"
     fi
