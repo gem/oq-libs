@@ -8,7 +8,7 @@ scipy-1.7.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 pandas-1.1.5-cp38-cp38-manylinux1_x86_64.whl
 pyzmq-19.0.0-cp38-cp38-manylinux1_x86_64.whl
 psutil-5.6.7-cp38-cp38-manylinux1_x86_64.whl
-Shapely-1.7.1-cp38-cp38-manylinux1_x86_64.whl
+Shapely-1.8.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
 kiwisolver-1.1.0-cp38-cp38-manylinux1_x86_64.whl
 matplotlib-3.1.2-cp38-cp38-manylinux1_x86_64.whl
 pyproj-2.5.0-cp38-cp38-manylinux1_x86_64.whl
