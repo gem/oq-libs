@@ -607,13 +607,13 @@ _pkgtest_innervm_run () {
         fi
     done
     IFS="$old_ifs"
-    
+
     # # add custom packages
     add_custom_pkg_repo
 
     ssh $lxc_ip "sudo apt-get update"
     ssh $lxc_ip "sudo apt-get upgrade -y"
-    
+
     # packaging related tests (install, remove, purge, install, reinstall)
     ssh $lxc_ip "sudo apt-get install -y ${GEM_DEB_PACKAGE}"
     ssh $lxc_ip "sudo apt-get remove -y ${GEM_DEB_PACKAGE}"
@@ -667,13 +667,13 @@ _pkgtest_innervm_run_old () {
         fi
     done
     IFS="$old_ifs"
-    
+
     # # add custom packages
     add_custom_pkg_repo
 
     ssh $lxc_ip "sudo apt-get update"
     ssh $lxc_ip "sudo apt-get upgrade -y"
-    
+
     # packaging related tests (install, remove, purge, install, reinstall)
     ssh $lxc_ip "sudo apt-get install -y ${GEM_DEB_PACKAGE}"
     ssh $lxc_ip "sudo apt-get remove -y ${GEM_DEB_PACKAGE}"
@@ -851,7 +851,7 @@ build_dependencies_file () {
     if [ -e ${je_deps_base}_jenkins_deps_info ]; then
         return
     fi
-    
+
     if [ ! -d ${je_deps_base}_jenkins_deps ]; then
         mkdir ${je_deps_base}_jenkins_deps
     fi
@@ -962,7 +962,7 @@ pkgtest_run_old () {
     commit="$(git log --pretty='format:%h' -1)"
 
     build_dependencies_file "../"
-    
+
     #
     #  run build of package
     if [ -d build-deb ]; then
