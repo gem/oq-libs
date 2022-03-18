@@ -117,12 +117,11 @@ dep2var () {
 
 #
 #  repo_id_get - retry git repo from local git remote command
-# 15/03/2022: https://github.blog/2021-09-01-improving-git-protocol-security-github/
 repo_id_get () {
     local repo_name repo_line
 
     if ! repo_name="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)"; then
-        repo_line="$(git remote -vv | grep "^origin" | grep '(fetch)$')"
+        repo_line="$(git remote -vv | grep "^origin[ ${TB}]" | grep '(fetch)$')"
         if [ -z "$repo_line" ]; then
             echo "no remote repository associated with the current branch, exit 1"
             exit 1
@@ -130,11 +129,11 @@ repo_id_get () {
     else
         repo_name="$(echo "$repo_name" | sed 's@/.*@@g')"
 
-        repo_line="$(git remote -vv | grep "^${repo_name}.*(fetch)\$")"
+        repo_line="$(git remote -vv | grep "^${repo_name}[ ${TB}].*(fetch)\$")"
     fi
 
     if echo "$repo_line" | grep -q '[0-9a-z_\.-]\+@[a-z0-9_\.-]\+:'; then
-        repo_id="$(echo "$repo_line" | sed "s/^[^ ${TB}]\+[ ${TB}]\+[^ ${TB}@]\+@//g;s/.git[ ${TB}]\+(fetch)$/.git/g;s@/${GEM_GIT_PACKAGE}.git@@g;s@:@/@g")"
+		repo_id="$(echo "$repo_line" | sed "s/^[^ ${TB}]\+[ ${TB}]\+//g;s/.git[ ${TB}]\+(fetch)$/.git/g;s@/${GEM_GIT_PACKAGE}.git@@g")"
     else
         repo_id="$(echo "$repo_line" | sed "s/^[^ ${TB}]\+[ ${TB}]\+git:\/\///g;s/.git[ ${TB}]\+(fetch)$/.git/g;s@/${GEM_GIT_PACKAGE}.git@@g")"
     fi
