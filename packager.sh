@@ -117,6 +117,7 @@ dep2var () {
 
 #
 #  repo_id_get - retry git repo from local git remote command
+# 15/03/2022: https://github.blog/2021-09-01-improving-git-protocol-security-github/
 repo_id_get () {
     local repo_name repo_line
 
