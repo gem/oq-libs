@@ -480,7 +480,7 @@ EOF
     if [ "$BUILD_REPOSITORY" -eq 1 -a -d "${GEM_DEB_REPO}" ]; then
         if [ "$branch" != "" ]; then
             repo_id="$(repo_id_get)"
-            if [ "git@$repo_id" != "$GEM_GIT_REPO" -o "$branch" != "$GEM_MASTER_BRANCH" ]; then
+            if [ "$repo_id" != "$GEM_GIT_REPO" -o "$branch" != "$GEM_MASTER_BRANCH" ]; then
                 CUSTOM_SERIE="devel/$(echo "$repo_id" | sed "s@/@__@g;s/\./-/g")__${branch}"
                 if [ "$CUSTOM_SERIE" != "" ]; then
                     GEM_DEB_SERIE="$CUSTOM_SERIE"
@@ -492,7 +492,7 @@ EOF
 
         # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
         if [ -d "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/binary" ]; then
-            if [ "git@$repo_id" == "$GEM_GIT_REPO" -a "$branch" == "$GEM_MASTER_BRANCH" ]; then
+            if [ "$repo_id" == "$GEM_GIT_REPO" -a "$branch" == "$GEM_MASTER_BRANCH" ]; then
                 cp ${GEM_BUILD_ROOT}/${GEM_DEB_PACKAGE}_*.deb ${GEM_BUILD_ROOT}/${GEM_DEB_PACKAGE}-extra_*.deb \
                     "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/binary"
 #                   ${GEM_BUILD_ROOT}/${GEM_DEB_PACKAGE}_*.changes \
@@ -865,7 +865,7 @@ build_dependencies_file () {
     #
     repo_id="$(repo_id_get)"
     if [ "$repo_id" != "$GEM_GIT_REPO" ]; then
-        repos="git@${repo_id} ${GEM_GIT_REPO}"
+        repos="${repo_id} ${GEM_GIT_REPO}"
     else
         repos="${GEM_GIT_REPO}"
     fi
@@ -1025,7 +1025,7 @@ EOF
     if [ $BUILD_REPOSITORY -eq 1 -a -d "${GEM_DEB_REPO}" ]; then
         if [ "$branch_id" != "" ]; then
             repo_id="$(repo_id_get)"
-            if [ "git@$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "$GEM_MASTER_BRANCH" ]; then
+            if [ "$repo_id" != "$GEM_GIT_REPO" -o "$branch_id" != "$GEM_MASTER_BRANCH" ]; then
                 CUSTOM_SERIE="devel/$(echo "$repo_id" | sed "s@/@__@g;s/\./-/g")__${branch_id}"
                 if [ "$CUSTOM_SERIE" != "" ]; then
                     GEM_DEB_SERIE="$CUSTOM_SERIE"
@@ -1037,7 +1037,7 @@ EOF
 
         # if the monotone directory exists and is the "gem" repo and is the "master" branch then ...
         if [ -d "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/binary" ]; then
-            if [ "git@$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "$GEM_MASTER_BRANCH" ]; then
+            if [ "$repo_id" == "$GEM_GIT_REPO" -a "$branch_id" == "$GEM_MASTER_BRANCH" ]; then
                 cp build-deb/${GEM_DEB_PACKAGE}*.deb build-deb/${GEM_DEB_PACKAGE}*.changes \
                    build-deb/${GEM_DEB_PACKAGE}*.dsc build-deb/${GEM_DEB_PACKAGE}*.tar.*z \
                    "${GEM_DEB_MONOTONE}/${BUILD_UBUVER}/binary"
