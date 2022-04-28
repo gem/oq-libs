@@ -36,7 +36,7 @@ jobs:
       run: |
         pynum=`echo ${{ matrix.python-version }} | tr -d .`
         dnf update -y
-        dnf install sudo
+        dnf install -y rpmdevtools rpmlint sudo
         dnf install -y python${pynum} 
         #check version of python
         echo "check version of python ${pynum}"
