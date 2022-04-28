@@ -61,8 +61,7 @@ fi
 
 declare -a SRC
 
-PATH="/opt/openquake/bin:$PATH"
-python="python3.8"
+python="/usr/bin/python3.9"
 virtualenv="venv"
 
 while [ $# -gt 0 ]; do
@@ -73,9 +72,15 @@ while [ $# -gt 0 ]; do
             virtualenv="venv"
             shift
             ;;
-        -3)
+        -38)
             PATH="/opt/openquake/bin:$PATH"
             python="python3.8"
+            virtualenv="venv"
+            shift
+            ;;
+        -39)
+            #PATH="/opt/openquake/bin:$PATH"
+            python="/usr/bin/python3.9"
             virtualenv="venv"
             shift
             ;;
@@ -130,12 +135,14 @@ if [ "$USE_PIP" == "true" ]; then
 
     checkcmd $python find
     md5sum ${SRC[@]}
-    which pip3
-  
+    which pip3.9
+	#created venv for openquake
+	sudo -H python -m venv /opt/openquake/venv
+     
     # required by some new wheel
-    sudo -H /opt/openquake/bin/pip3 install ./py/setuptools-56.0.0-py3-none-any.whl
-
-    pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
+    sudo -H /opt/openquake/venv/bin/pip3 install ./py/setuptools-56.0.0-py3-none-any.whl
+    
+    sudo -H /opt/openquake/venv/bin/pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
    
     # Cleanup
     # find ${DEST} -name '*.pyc' -o -name '__pycache__' -exec rm -Rf {} \;
