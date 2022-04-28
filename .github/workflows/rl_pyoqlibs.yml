@@ -52,4 +52,4 @@ jobs:
         echo "version of pyver $pyver"
         GEM_SET_DEBUG=1  helpers/whldownload.sh -w py -w ${pyver}
         mkdir -p /tmp/openquake
-        GEM_SET_DEBUG=1  helpers/whlsetup.sh -${pynum} -c -s py -s ${pyver}  -d /tmp/openquake
+        GEM_SET_DEBUG=1  helpers/whlsetup.sh -${pynum} -c -s py -s ${pyver}  -d /opt/openquake/venv
