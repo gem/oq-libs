@@ -46,7 +46,6 @@ jobs:
     - name: Install dependencies
       run: |
         set -x
-        python${{matrix.python_version}} -c 'from openquake.libs import __version__; print(__version__)'
         pyver=`echo py${{ matrix.python-version }} | tr -d .`
         pynum=`echo ${{ matrix.python-version }} | tr -d .`
         echo "version of pynum $pynum"
