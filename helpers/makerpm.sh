@@ -66,8 +66,7 @@ if [ "$CLEAN" == "1" ]; then
 fi
 
 cd $BASE
-#mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
-rpmdev-setuptree
+mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
 
 # Download any missing wheel dependency
 ./helpers/whldownload.sh -w py -w py39
