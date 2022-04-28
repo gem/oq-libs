@@ -96,7 +96,7 @@ while [ $# -gt 0 ]; do
             shift 2
             ;;
         -d|--dest)
-            checkpath $2
+            #checkpath $2
             DEST=$2
             shift 2
             ;;
