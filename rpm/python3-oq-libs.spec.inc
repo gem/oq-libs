@@ -20,7 +20,7 @@
 %define _prefix /opt/openquake
 
 # Make sure that the proper installation of python is used by macros
-%define __python3 %{_bindir}/python3.6
+%define __python3 %{_bindir}/python3.9
 %define __python %{__python3}
 
 # Disable shebang checks
@@ -63,10 +63,10 @@ Prefix: %{_prefix}
 Vendor: The GEM OpenQuake team <devops@openquake.org>
 Url: http://github.com/gem/oq-libs
 
-Requires: oq-python36
-BuildRequires: oq-python36 sed
+Requires: python39
+BuildRequires: python39 sed
 
-Provides: python-oq-libs
+Provides: python3-oq-libs
 Obsoletes: python-oq-libs python2-oq-libs
 
 AutoReqProv: no
@@ -80,7 +80,7 @@ Libraries for OpenQuake
 OpenQuake is an open source application that allows users to
 compute seismic hazard and seismic risk of earthquakes on a global scale.
 
-Copyright (C) 2010-2019 GEM Foundation
+Copyright (C) 2010-2022 GEM Foundation
 
 
 %package extra
@@ -95,7 +95,7 @@ Extra libraries for OpenQuake
 OpenQuake is an open source application that allows users to
 compute seismic hazard and seismic risk of earthquakes on a global scale.
 
-Copyright (C) 2010-2019 GEM Foundation
+Copyright (C) 2010-2022 GEM Foundation
 
 %prep
 %setup -n %{oqformat}
@@ -104,12 +104,12 @@ Copyright (C) 2010-2019 GEM Foundation
 %install
 install -p -m 755 -d %{buildroot}%{_prefix}
 install -p -m 755 -d %{buildroot}%{_bindir}
-GEM_SET_DEBUG=1 helpers/whlsetup.sh -36 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py36 -s py36-extra
+GEM_SET_DEBUG=1 helpers/whlsetup.sh -39 -b %{__python3} -d %{buildroot}%{_prefix} -s py -s py39 
 install -p -m 755 -d %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake/libs
-install -p -m 644 openquake/libs/__init__.py %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake/libs
+install -p -m 644 openquake/libs/__init__.py %{buildroot}%{_prefix}/lib/python3.9/site-packages/openquake/libs
 # These aren't required anymore, but leaving them in case of PYTHONPATH is used
-install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib/python3.6/site-packages/openquake
-install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib64/python3.6/site-packages/mpl_toolkits
+install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib/python3.9/site-packages/openquake
+install -p -m 644 openquake/__init__.py %{buildroot}%{_prefix}/lib64/python3.9/site-packages/mpl_toolkits
 
 %clean
 rm -rf %{buildroot}
