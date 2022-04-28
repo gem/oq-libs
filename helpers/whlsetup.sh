@@ -137,7 +137,8 @@ if [ "$USE_PIP" == "true" ]; then
     md5sum ${SRC[@]}
     #which pip3.9
 	#created venv for openquake
-	sudo -H python -m venv /opt/openquake/venv
+	echo "created venv for openquake"
+	sudo -H $python -m venv /opt/openquake/venv
      
     # required by some new wheel
     sudo -H /opt/openquake/venv/bin/pip3 install ./py/setuptools-56.0.0-py3-none-any.whl
