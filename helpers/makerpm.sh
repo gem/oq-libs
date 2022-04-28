@@ -74,7 +74,7 @@ rpmdev-setuptree
 
 LIB=$(cut -d "-" -f 2 <<< $REPO)
 SHA=$(git rev-parse --short $BRANCH)
-VER=$(python3 -c 'from openquake.libs import __version__; print(__version__)')
+VER=$(python3.9 -c 'from openquake.libs import __version__; print(__version__)')
 TIME=$(date +"%s")
 echo "$LIB - $BRANCH - $SHA - $VER"
 
