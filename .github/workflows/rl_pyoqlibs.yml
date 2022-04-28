@@ -1,0 +1,56 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Test oq libs with python
+on:
+  push:
+jobs:
+  oq-libs:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PULL_REQUEST: ${{ github.event.number }}
+      GITHUB_DEF_BR:  ${{ github.event.repository.default_branch }}
+      GITHUB_REF:  ${{ github.ref }}
+      GITHUB_HD_REF:  ${{ github.head_ref }}
+      GITHUB_BS_REF:  ${{ github.base_ref }}
+        #more $GITHUB_EVENT_PATH
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
+        #container: ["rockylinux:8", "ubuntu:focal"]
+        container: ["rockylinux:8"]
+
+    container:
+      image: ${{ matrix.container }}
+  # This Checkout use git-ref keyword from dispatch
+    steps:
+    - name: Clone Repository (Master)
+      uses: actions/checkout@v2
+      if: github.event.inputs.git-ref == ''
+    - name: Clone Repository (Custom Ref)
+      uses: actions/checkout@v2
+      if: github.event.inputs.git-ref != ''
+      with:
+        ref: ${{ github.event.inputs.git-ref }}
+    - name: Set up Python  ${{ matrix.python-version }} 
+      run: |
+        pynum=`echo ${{ matrix.python-version }} | tr -d .`
+        dnf update -y
+        dnf install sudo
+        dnf install -y python${pynum} 
+        #check version of python
+        echo "check version of python ${pynum}"
+        pip3 -V
+        python3 -c "import sys; print(sys.version)"
+        #
+    - name: Install dependencies
+      run: |
+        set -x
+        pyver=`echo py${{ matrix.python-version }} | tr -d .`
+        pynum=`echo ${{ matrix.python-version }} | tr -d .`
+        echo "version of pynum $pynum"
+        echo "version of pyver $pyver"
+        helpers/whldownload.sh -w py -w ${pyver}
+        mkdir -p /tmp/openquake
+        helpers/whlsetup.sh -${pynum} -c -s py -s ${pyver}  -d /tmp/openquake
+        python${{matrix.python_version}} -c 'from openquake.libs import __version__; print(__version__)'
