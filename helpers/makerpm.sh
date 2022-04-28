@@ -65,10 +65,11 @@ if [ "$CLEAN" == "1" ]; then
 fi
 
 cd $BASE
-mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
+#mkdir -p build-rpm/{RPMS,SOURCES,SPECS,SRPMS}
+rpmdev-setuptree
 
 # Download any missing wheel dependency
-./helpers/whldownload.sh -m 'https://wheelhouse.openquake.org/v2/linux' -w py -w py36 -w py36-extra
+./helpers/whldownload.sh -m 'https://wheelhouse.openquake.org/v2/linux' -w py -w py39
 
 LIB=$(cut -d "-" -f 2 <<< $REPO)
 SHA=$(git rev-parse --short $BRANCH)
