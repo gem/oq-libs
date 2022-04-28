@@ -45,7 +45,7 @@ jobs:
     - name: Install dependencies
       run: |
         set -x
-        pyver=`echo py${{ matrix.python_version }} | tr -d .`
+        pyver=`echo py${{ matrix.python-version }} | tr -d .`
         pynum=`echo ${{ matrix.python-version }} | tr -d .`
         echo "version of pynum $pynum"
         echo "version of pyver $pyver"
