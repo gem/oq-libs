@@ -62,6 +62,7 @@ done
 if [ "$CLEAN" == "1" ]; then
     rm -Rf $BASE/build-rpm
     echo "$BASE/build-rpm cleaned"
+	exit 0
 fi
 
 cd $BASE
@@ -89,7 +90,7 @@ else
     OUT=python3-${REPO}-${VER}-${TIME}_git${SHA}.src.rpm
 fi
 
-tar --exclude-vcs -czf  build-rpm/SOURCES/${REPO}-whl-${VER}.tar.gz py py36 py36-extra
+tar --exclude-vcs -czf  build-rpm/SOURCES/${REPO}-whl-${VER}.tar.gz py py39
 
 mock -r openquake --buildsrpm --spec build-rpm/SPECS/python3-${REPO}.spec --source build-rpm/SOURCES --resultdir=build-rpm/SRPMS/
 if [ "$BUILD" == "1" ]; then
