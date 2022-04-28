@@ -34,11 +34,11 @@ jobs:
         ref: ${{ github.event.inputs.git-ref }}
     - name: Set up Python  ${{ matrix.python-version }} 
       run: |
-        pyver=`echo ${{ matrix.python-version }} | tr -d .`
+        pynum=`echo ${{ matrix.python-version }} | tr -d .`
         dnf update -y
-        dnf install -y python${pyver}
+        dnf install -y python${pynum}
         #check version of python
-        echo "check version of python"
+        echo "check version of python ${pynum}"
         pip3 -V
         python3 -c "import sys; print(sys.version)"
         #
@@ -46,7 +46,10 @@ jobs:
       run: |
         set -x
         pyver=`echo py${{ matrix.python_version }} | tr -d .`
-        helpers/whldownload.sh -w py -w $pyver
+        pynum=`echo ${{ matrix.python-version }} | tr -d .`
+        echo "version of pynum $pynum"
+        echo "version of pyver $pyver"
+        helpers/whldownload.sh -w py -w ${pyver}
         mkdir -p /tmp/openquake
-        helpers/whlsetup.sh -39 -c -s py -s $pyver -d /tmp/openquake
+        helpers/whlsetup.sh -${pynum} -c -s py -s ${pyver}  -d /tmp/openquake
         python${{matrix.python_version}} -c 'from openquake.libs import __version__; print(__version__)'
