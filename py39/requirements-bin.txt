@@ -2,6 +2,7 @@
 # !! must update pip first! so wheels will be used !!
 # GEM Mirror
 numba-0.55.1-1-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+llvmlite-0.38.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 h5py-3.1.0-cp39-cp39-manylinux1_x86_64.whl
 setproctitle-1.2.2-cp39-cp39-manylinux1_x86_64.whl
 numpy-1.20.0-cp39-cp39-manylinux2010_x86_64.whl
