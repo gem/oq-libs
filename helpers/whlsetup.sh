@@ -135,7 +135,7 @@ if [ "$USE_PIP" == "true" ]; then
 
     checkcmd $python find
     md5sum ${SRC[@]}
-    which pip3.9
+    #which pip3.9
 	#created venv for openquake
 	sudo -H python -m venv /opt/openquake/venv
      
