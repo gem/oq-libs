@@ -69,7 +69,7 @@ cd $BASE
 rpmdev-setuptree
 
 # Download any missing wheel dependency
-./helpers/whldownload.sh -m 'https://wheelhouse.openquake.org/v2/linux' -w py -w py39
+./helpers/whldownload.sh -w py -w py39
 
 LIB=$(cut -d "-" -f 2 <<< $REPO)
 SHA=$(git rev-parse --short $BRANCH)
