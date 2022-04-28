@@ -46,11 +46,11 @@ jobs:
     - name: Install dependencies
       run: |
         set -x
+        python${{matrix.python_version}} -c 'from openquake.libs import __version__; print(__version__)'
         pyver=`echo py${{ matrix.python-version }} | tr -d .`
         pynum=`echo ${{ matrix.python-version }} | tr -d .`
         echo "version of pynum $pynum"
         echo "version of pyver $pyver"
-        helpers/whldownload.sh -w py -w ${pyver}
+        GEM_SET_DEBUG=1  helpers/whldownload.sh -w py -w ${pyver}
         mkdir -p /tmp/openquake
-        helpers/whlsetup.sh -${pynum} -c -s py -s ${pyver}  -d /tmp/openquake
-        python${{matrix.python_version}} -c 'from openquake.libs import __version__; print(__version__)'
+        GEM_SET_DEBUG=1  helpers/whlsetup.sh -${pynum} -c -s py -s ${pyver}  -d /tmp/openquake

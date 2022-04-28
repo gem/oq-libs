@@ -73,8 +73,8 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         -38)
-            PATH="/opt/openquake/bin:$PATH"
-            python="python3.8"
+            #PATH="/opt/openquake/bin:$PATH"
+            python="/usr/bin/python3.8"
             virtualenv="venv"
             shift
             ;;
