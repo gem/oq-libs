@@ -16,11 +16,12 @@ idna-2.8-py2.py3-none-any.whl
 urllib3-1.25.3-py2.py3-none-any.whl
 requests-2.22.0-py2.py3-none-any.whl
 pyshp-1.2.3-py3-none-any.whl
-toml-0.10.0-py2.py3-none-any.whl
+toml-0.10.2-py2.py3-none-any.whl
 Django-3.2.6-py3-none-any.whl
 asgiref-3.4.1-py3-none-any.whl
 django_pam-2.0.1-py2.py3-none-any.whl
 python_pam-1.8.4-py2.py3-none-any.whl
+networkx-2.8.2-py3-none-any.whl
 
 ### Celery ###
 # comment the following lines to skip installation
