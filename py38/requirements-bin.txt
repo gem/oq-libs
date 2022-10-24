@@ -1,6 +1,4 @@
-# Suggested versions for development
-# !! must update pip first! so wheels will be used !!
-# GEM Mirror
+numba-0.55.1-1-cp38-cp38-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
 h5py-3.1.0-cp38-cp38-manylinux1_x86_64.whl
 setproctitle-1.2.2-cp38-cp38-manylinux1_x86_64.whl
 numpy-1.20.0-cp38-cp38-manylinux1_x86_64.whl
@@ -12,4 +10,3 @@ Shapely-1.8.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
 kiwisolver-1.1.0-cp38-cp38-manylinux1_x86_64.whl
 matplotlib-3.1.2-cp38-cp38-manylinux1_x86_64.whl
 pyproj-2.5.0-cp38-cp38-manylinux1_x86_64.whl
-#
