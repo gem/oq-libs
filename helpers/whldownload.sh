@@ -109,6 +109,15 @@ for d in "${WH[@]}"; do
                 rm header.http
                 found="true"
                 break
+            else
+                url="$(echo "$url" | sed 's@/linux@@g')"
+                echo "Downloading $url"
+                curl -LOs -D header.http $url
+                if grep -q '^HTTP.*200[^0-9]*$' header.http; then
+                    rm header.http
+                    found="true"
+                    break
+                fi
             fi
             rm $(echo "$url" | sed 's@^.*/@@g')
             rm header.http
