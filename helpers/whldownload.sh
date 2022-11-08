@@ -110,7 +110,7 @@ for d in "${WH[@]}"; do
                 found="true"
                 break
             else
-                url="$(echo "$url" | sed 's@/linux@@g')"
+                url="$(echo "$url" | sed 's@/linux/py38@/py@g')"
                 echo "Downloading $url"
                 curl -LOs -D header.http $url
                 if grep -q '^HTTP.*200[^0-9]*$' header.http; then
