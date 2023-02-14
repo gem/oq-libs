@@ -86,7 +86,7 @@ while [ $# -gt 0 ]; do
         -s|--source)
             checkpath $2
             if ls $2/*.whl >/dev/null 2>&1 ; then
-                SRC+=($(ls "$2/*.whl" | grep -v '^setuptools'))
+                SRC+=($(ls $2/*.whl | grep -v '^setuptools'))
             fi
             shift 2
             ;;
