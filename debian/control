@@ -2,13 +2,13 @@ Source: python3-oq-libs
 Section: python
 Priority: extra
 Maintainer: Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>
-Build-Depends: debhelper (>= 7.0.50~), lsb-release, curl, oq-python3.8
+Build-Depends: debhelper (>= 7.0.50~), lsb-release, curl, oq-python3.8 (>= 3.8.5-5)
 Standards-Version: 3.9.3
 Homepage: http://www.globalquakemodel.org/openquake/
 
 Package: python3-oq-libs
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, oq-python3.8
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, oq-python3.8 (>= 3.8.5-5)
 Replaces: python-oq-libs (<< ${binary:Version})
 Breaks: python-oq-libs (<< ${binary:Version})
 Recommends: ${dist:Recommends}
@@ -18,7 +18,7 @@ Description: computes seismic hazard and physical risk
 
 Package: python3-oq-libs-extra
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python3-oq-libs, oq-python3.8
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, python3-oq-libs, oq-python3.8 (>= 3.8.5-5)
 Replaces: python-oq-libs-extra (<< ${binary:Version})
 Breaks: python-oq-libs-extra (<< ${binary:Version})
 Recommends: ${dist:Recommends}

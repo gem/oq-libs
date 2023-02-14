@@ -1,3 +1,11 @@
+python3-oq-libs (3.8.0-29~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Update libraries to be aligned with post oq-engine 3.16 version excluding
+    proper setuptools version that is already integrated into oq-python3.8
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Tue, 14 Feb 2023 16:02:25 +0000
+
 python3-oq-libs (3.8.0-1~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]

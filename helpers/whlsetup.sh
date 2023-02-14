@@ -86,7 +86,7 @@ while [ $# -gt 0 ]; do
         -s|--source)
             checkpath $2
             if ls $2/*.whl >/dev/null 2>&1 ; then
-                SRC+=("$2/*.whl")
+                SRC+=($(ls "$2/*.whl" | grep -v '^setuptools'))
             fi
             shift 2
             ;;
@@ -132,9 +132,6 @@ if [ "$USE_PIP" == "true" ]; then
     md5sum ${SRC[@]}
     which pip3
   
-    # required by some new wheel
-    sudo -H /opt/openquake/bin/pip3 install ./py/setuptools-59.8.0-py3-none-any.whl
-
     pip3 install ${nodeps} --no-index --prefix ${DEST} ${SRC[@]}
    
     # Cleanup
