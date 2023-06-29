@@ -811,20 +811,23 @@ _lxc_name_and_ip_get()
 {
     local filename="$1" i e
 
-    i=-1
     e=-1
-    for i in $(seq 1 40); do
-        if grep -q " as clone of $GEM_EPHEM_NAME" $filename 2>&1 ; then
-            lxc_name="$(grep " as clone of $GEM_EPHEM_NAME" $filename | tail -n 1 | sed "s/Created \(.*\) as clone of ${GEM_EPHEM_NAME}/\1/g")"
-            break
-        else
-            sleep 2
+    if [ "$GEM_NO_EPHEM" ]; then
+        lxc_name="$GEM_EPHEM_NAME"
+    else
+        i=-1
+        for i in $(seq 1 40); do
+            if grep -q " as clone of $GEM_EPHEM_NAME" "$filename" 2>&1 ; then
+                lxc_name="$(grep " as clone of $GEM_EPHEM_NAME" "$filename" | tail -n 1 | sed "s/Created \(.*\) as clone of ${GEM_EPHEM_NAME}/\1/g")"
+                break
+            else
+                sleep 2
+            fi
+        done
+        if [ "$i" -eq 40 ]; then
+            return 1
         fi
-    done
-    if [ $i -eq 40 ]; then
-        return 1
     fi
-
     for e in $(seq 1 40); do
         sleep 2
         lxc_ip="$(sudo lxc-ls -f --filter "^${lxc_name}\$" | tail -n 1 | sed 's/ \+/ /g' | cut -d ' ' -f 5)"
@@ -833,7 +836,7 @@ _lxc_name_and_ip_get()
             break
         fi
     done
-    if [ $e -eq 40 ]; then
+    if [ "$e" -eq 40 ]; then
         return 1
     fi
     echo "SUCCESSFULLY STARTED: $lxc_name ($lxc_ip)"
