@@ -1,3 +1,10 @@
+python3-oq-libs (3.8.2-1~xenial01) xenial; urgency=low
+
+  [Matteo Nastasi]
+  * Update Django to version 3.2.20
+
+ -- Matteo Nastasi (GEM Foundation) <nastasi@openquake.org>  Tue, 11 Jul 2023 07:50:47 +0000
+
 python3-oq-libs (3.8.1-1~xenial01) xenial; urgency=low
 
   [Matteo Nastasi]
