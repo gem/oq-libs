@@ -28,3 +28,4 @@ fonttools-4.38.0-py3-none-any.whl
 importlib_metadata-5.0.0-py3-none-any.whl
 zipp-3.10.0-py3-none-any.whl
 Django-3.2.21-py3-none-any.whl
+tzdata-2023.3-py2.py3-none-any.whl
