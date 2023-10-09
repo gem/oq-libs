@@ -1,6 +1,6 @@
 #!/bin/bash
 # set -x
-for f in py38/requirements-bin.txt py38-extra/requirements-bin.txt; do
+for f in py38/requirements-bin.txt; do
     IFS='
 '
     for pkg in $(cat $f); do

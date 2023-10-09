@@ -39,4 +39,4 @@ fi
 # mkdir build-deb
 # git archive --prefix ${GEM_GIT_PACKAGE}/ HEAD | (cd build-deb ; tar xv)
 # cd build-deb/${GEM_GIT_PACKAGE}
-./helpers/whldownload.sh -w py -w py38 -w py38-extra
+./helpers/whldownload.sh -w py -w py38
