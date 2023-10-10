@@ -23,3 +23,19 @@ Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
+
+Package: python-oq-libs-extra
+Depends: python3-oq-libs, ${misc:Depends}
+Architecture: all
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
+Package: python3-oq-libs-extra
+Depends: python3-oq-libs, ${misc:Depends}
+Architecture: all
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.
